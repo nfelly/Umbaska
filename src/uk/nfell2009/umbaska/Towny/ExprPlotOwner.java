@@ -62,7 +62,9 @@ public class ExprPlotOwner extends SimpleExpression<String>{
 			e.printStackTrace();
 		}
 		
-		
+		if (s == null) {
+			return null;
+		}
 	
 		return new String[] { s };
 	}

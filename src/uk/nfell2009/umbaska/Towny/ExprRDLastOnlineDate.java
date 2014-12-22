@@ -61,7 +61,6 @@ public class ExprRDLastOnlineDate extends SimpleExpression<String>{
 		} catch (NotRegisteredException e) {
 			e.printStackTrace();
 		}
-		
 		String s = lastOnlineFormat.format(r.getLastOnline());
 		
 		return new String[] { s };

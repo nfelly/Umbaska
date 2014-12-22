@@ -8,8 +8,12 @@
 package uk.nfell2009.umbaska;
 
 import org.bukkit.Location;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import com.palmergames.bukkit.towny.object.Town;
+
 import ch.njol.skript.lang.ExpressionType;
 /*
  *  Importing local packages
@@ -21,9 +25,11 @@ import ch.njol.skript.Skript;
 import uk.nfell2009.umbaska.Misc.*;
 
 
-public class Main extends JavaPlugin {
+public class Main extends JavaPlugin implements Listener {
 	 @Override
 	    public void onEnable() {
+		 final PluginManager pluginManager = getServer().getPluginManager();
+		 pluginManager.registerEvents(this, this);
 		 
 		 /*
 		  *  PlotMe - Effects
@@ -102,6 +108,7 @@ public class Main extends JavaPlugin {
 		  */
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
+		 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
 		 
 		 
 	 }
