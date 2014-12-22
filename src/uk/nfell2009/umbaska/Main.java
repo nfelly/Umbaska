@@ -9,6 +9,7 @@ package uk.nfell2009.umbaska;
 
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +31,9 @@ public class Main extends JavaPlugin implements Listener {
 	    public void onEnable() {
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
+		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
+		 
+		 if (pl != null) {
 		 
 		 /*
 		  *  PlotMe - Effects
@@ -50,6 +54,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] {"plots of %player%"});
 		 Skript.registerExpression(ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(top|upper) corner of %string% in %world%"});
 		 Skript.registerExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(bottom|lower) corner of %string% in %world%"});
+		 } 
 		 
 		 /*
 		  *  Spawner - Effects
@@ -66,9 +71,15 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
 		 Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
 		 
+		 pl = getServer().getPluginManager().getPlugin("Towny");
+		 
+		 if (pl != null) {
+		 
 		 /*
 		  *  Towny - Effects
 		  */
+		 
+		 
 		 
 		 Skript.registerEffect(EffSetPlotOwner.class, new String[] { "set owner of plot at %location% to %player%" });
 		 Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %double%" });
@@ -101,7 +112,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerCondition(CondIsAlly.class, "%string% is ally with %string%", "%string% is(n't| not) ally with %string%");
 		 Skript.registerCondition(CondIsNeutral.class, "%string% is neutral", "%string% is(n't| not) neutral");
 		 Skript.registerCondition(CondIsEnemy.class, "%string% is enemy with %string%", "%string% is(n't| not) enemy with %string%");
-		 
+		 }
 		 
 		 /*
 		  *  Misc - Effects
