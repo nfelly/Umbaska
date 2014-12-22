@@ -109,6 +109,7 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
 		 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
+		 Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
 		 
 		 
 	 }
