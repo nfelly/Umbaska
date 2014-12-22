@@ -42,26 +42,6 @@ public class CondIsEnemy extends Condition {
 
     @Override
     public boolean check(Event e) {
-<<<<<<< HEAD
-    	String tw1 = twn1.getSingle(e);
-    	Town t1 = null;
-        try {
-		t1 = TownyUniverse.getDataSource().getTown(tw1);
-	} catch (NotRegisteredException e1) {
-		e1.printStackTrace();
-	}
-    	Nation n1 = null;
-	try {
-		n1 = t1.getNation();
-	} catch (NotRegisteredException e1) {
-		e1.printStackTrace();
-	}
-        Boolean out = false;
-        if (n1.isEnemy()) {
-        	out = true;
-        }
-        return (out);
-=======
 
 		String tw1 = twn1.getSingle(e);
 		String tw2 = twn2.getSingle(e);
@@ -97,7 +77,6 @@ public class CondIsEnemy extends Condition {
         	out = false;
         	return (out);
         }
->>>>>>> 4939665ab0339dab164d4d83719b0be6a6b9d38d
             
             
     }
