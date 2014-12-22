@@ -71,7 +71,7 @@ public class Main extends JavaPlugin implements Listener {
 		  */
 		 
 		 Skript.registerEffect(EffSetPlotOwner.class, new String[] { "set owner of plot at %location% to %player%" });
-		 Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %player%" });
+		 Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %double%" });
 		 
 		 /*
 		  *  Towny - Expressions
