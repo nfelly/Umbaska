@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/PlotMe.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/Skript.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/spigot-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/Towny.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
