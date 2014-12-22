@@ -23,14 +23,21 @@ import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import ch.njol.skript.Skript;
+import uk.nfell2009.umbaska.Bungee.*;
 import uk.nfell2009.umbaska.Misc.*;
 
 
 public class Main extends JavaPlugin implements Listener {
+
+	
 	 @Override
 	    public void onEnable() {
+		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
+		 
+		 loadConfiguration();
+		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
 		 
 		 if (pl != null) {
@@ -62,14 +69,17 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 Skript.registerEffect(EffSetSpawner.class, new String[] { "set spawner %location% to %string%" });
 		 Skript.registerEffect(EffSetDelay.class, new String[] { "set delay of %location% to %integer%" });
+		 Skript.registerEffect(EffMFG_Drop.class, new String[] { "drop spawner %entity% at %location%" });
 		 
 		 
 		 /*
-		  * Spawner - Expressions
+		  *  Spawner - Expressions
 		  */
 		 
 		 Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
 		 Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
+		 
+		 
 		 
 		 pl = getServer().getPluginManager().getPlugin("Towny");
 		 
@@ -122,6 +132,35 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
 		 Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
 		 
+		 /*
+		  *  Bungee - Effects
+		  */
+		 if (use_bungee == true) {
+			 new Messenger(this);
+			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
+		 }
+
 		 
+
+		 
+	 }
+	 
+	 public void loadConfiguration(){
+	 	String path = "use_bungee";
+	 	getConfig().addDefault(path, false);
+	 	getConfig().options().copyDefaults(true);
+	 	saveConfig();
+	 }
+	 	
+	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
+	 
+	 private static Main inst;
+	  
+	 public Main() {
+		 inst = this;
+	 }
+	  
+	 public static Main getInstance() {
+		 return inst;
 	 }
 }

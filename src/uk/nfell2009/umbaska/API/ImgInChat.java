@@ -21,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import uk.nfell2009.umbaska.ImageManager.ImageChar;
 import uk.nfell2009.umbaska.ImageManager.ImageMessage;
 
+
 public class ImgInChat extends JavaPlugin implements Listener {
 	
 	public static void ShowImg(Player player, String path, String line1, String line2, String line3) {

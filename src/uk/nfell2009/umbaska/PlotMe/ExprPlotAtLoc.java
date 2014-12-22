@@ -56,6 +56,10 @@ public class ExprPlotAtLoc extends SimpleExpression<String>{
 		}
 		String plot = PlotManager.getPlotId(location);
 		
+		if (plot == "") {
+			return null;
+		}
+		
 		return new String[] { plot };
 	}
 
