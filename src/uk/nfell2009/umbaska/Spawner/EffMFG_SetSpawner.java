@@ -1,5 +1,5 @@
 /*
- * EffMFG_Drop.class - Made by nfell2009
+ * EffMFG_SetSpawner.class - Made by nfell2009
  * nfell2009.uk (C) nfell2009 | 2014 - 2015
  * Submitted to: Umbaska
  * 
@@ -13,31 +13,27 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.event.Event;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.event.block.BlockPlaceEvent;
  
-public class EffMFG_Drop extends Effect {
+public class EffMFG_SetSpawner extends Effect {
  
   private Expression<Location> location;
-  private Expression<Location> basedon;
  
   @Override
   protected void execute(Event event){
 	  		Location l = location.getSingle(event);
-	  		Location bo = basedon.getSingle(event);
-  			CreatureSpawner cs = (CreatureSpawner) bo.getBlock().getState();
-  			String e = cs.getCreatureTypeName();
-  			ItemStack spawner = new ItemStack(Material.MOB_SPAWNER, 1);
-  			ItemMeta spawnerMeta = spawner.getItemMeta();
-  			spawnerMeta.setDisplayName(e + " Spawner");
-  			spawner.setItemMeta(spawnerMeta);
-	  		World w = l.getWorld();
-	  		w.dropItemNaturally(l, spawner);
-  }
+	  		String name = ((BlockPlaceEvent) event).getItemInHand().getItemMeta().getDisplayName().toString();
+	  		if (name == null) {
+	  			return;
+	  		}
+	  		String[] nameSplit = name.split(" Spawner");
+	  		name = nameSplit[0];
+	  		CreatureSpawner cs = (CreatureSpawner) l.getBlock().getState();
+	  		cs.setCreatureTypeByName(name);
+	  		cs.update();
+        }
   
  
   @Override
@@ -49,7 +45,6 @@ public class EffMFG_Drop extends Effect {
   @SuppressWarnings("unchecked")
   public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
 	  	location = (Expression<Location>) expressions[0];
-	  	basedon = (Expression<Location>) expressions[1];
         return true;
   }
 }
