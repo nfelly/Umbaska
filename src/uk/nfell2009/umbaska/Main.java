@@ -8,9 +8,7 @@
 package uk.nfell2009.umbaska;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Item;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,16 +16,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.palmergames.bukkit.towny.object.Town;
 
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.util.SimpleEvent;
-import ch.njol.skript.registrations.EventValues;
-import ch.njol.skript.util.Getter;
+import ch.njol.skript.Skript;
+
 /*
  *  Importing local packages
  */
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
-import ch.njol.skript.Skript;
+
 import uk.nfell2009.umbaska.Bungee.*;
 import uk.nfell2009.umbaska.Misc.*;
 
@@ -85,23 +82,7 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
 		 Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
-		 
-		 /*
-		  *  Spawner - Events and event related things
-		  */
-		 
-		 Skript.registerEvent("on umbaska spawner place", SimpleEvent.class, BlockPlaceEvent.class, "umbaska spawner place");
 		 Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
-		 
-		 EventValues.registerEventValue(BlockPlaceEvent.class,
-				 Item.class, new Getter<Item, BlockPlaceEvent>() {
-			                @Override
-			                @javax.annotation.Nullable
-			                public Item get(BlockPlaceEvent e) {
-			                        return (Item) e.getItemInHand();
-			                }
-		 }, 0);
-		 
 		 
 		 pl = getServer().getPluginManager().getPlugin("Towny");
 		 
