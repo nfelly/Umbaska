@@ -142,8 +142,16 @@ public class Main extends JavaPlugin implements Listener {
 			 new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
 		 }
-
 		 
+		 /*
+		  *  Vault - Effects
+		  */
+		 
+		 
+		 
+		 /*
+		  *  Vault - Expressions
+		  */
 
 		 
 	 }
