@@ -15,6 +15,7 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -23,13 +24,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class EffMFG_Drop extends Effect {
  
   private Expression<Location> location;
-  private Expression<Location> basedon;
+  private Expression<Block> basedon;
  
   @Override
   protected void execute(Event event){
 	  		Location l = location.getSingle(event);
-	  		Location bo = basedon.getSingle(event);
-  			CreatureSpawner cs = (CreatureSpawner) bo.getBlock().getState();
+	  		Block bo = basedon.getSingle(event);
+  			CreatureSpawner cs = (CreatureSpawner) bo.getState();
   			String e = cs.getCreatureTypeName();
   			ItemStack spawner = new ItemStack(Material.MOB_SPAWNER, 1);
   			ItemMeta spawnerMeta = spawner.getItemMeta();
@@ -49,7 +50,7 @@ public class EffMFG_Drop extends Effect {
   @SuppressWarnings("unchecked")
   public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
 	  	location = (Expression<Location>) expressions[0];
-	  	basedon = (Expression<Location>) expressions[1];
+	  	basedon = (Expression<Block>) expressions[1];
         return true;
   }
 }

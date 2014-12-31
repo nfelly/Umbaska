@@ -35,7 +35,7 @@ public class EffPlotTeleport extends Effect {
 	  		} else if (pl == null) {
 	  			return;
 	  		} else if (w == null) {
-	  			return;
+	  			w = p.getWorld();
 	  		}
 	  		if (PlotManager.isValidId(pl)) {
 	  			Location bottom = PlotManager.getPlotBottomLoc(w, pl);

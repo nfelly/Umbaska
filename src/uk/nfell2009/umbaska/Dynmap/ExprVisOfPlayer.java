@@ -1,12 +1,12 @@
 /*
- * ExprTownOfPlayer.class - Made by nfell2009
+ * ExprVisOfPlayer.class - Made by nfell2009
  * nfell2009.uk (C) nfell2009 | 2014 - 2015
  * Submitted to: Umbaska
  * 
 */
 
 
-package uk.nfell2009.umbaska.Towny;
+package uk.nfell2009.umbaska.Dynmap;
 
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -16,18 +16,15 @@ import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
-import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyUniverse;
+import uk.nfell2009.umbaska.Main;
 
-
-public class ExprTownOfPlayer extends SimpleExpression<Town>{
+public class ExprVisOfPlayer extends SimpleExpression<Boolean>{
 
 	private Expression<Player> player;
 	
-	public Class<? extends Town> getReturnType() {
+	public Class<? extends Boolean> getReturnType() {
 		
-		return Town.class;
+		return Boolean.class;
 	}
 
 	@Override
@@ -44,25 +41,16 @@ public class ExprTownOfPlayer extends SimpleExpression<Town>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return town of player";
+		return "return primary group of player";
 	}
 
 	@Override
 	@javax.annotation.Nullable
-	protected Town[] get(Event arg0) {
-		String p = this.player.getSingle(arg0).getName().toString();
-		Town r = null;
-		try {
-			r = TownyUniverse.getDataSource().getResident(p).getTown();
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
-		
-		if (r == null){
-			return null;
-		}
+	protected Boolean[] get(Event arg0) {
+		Player p = this.player.getSingle(arg0);
+		Boolean out = Main.api.getPlayerVisbility(p);
 
-		return new Town[] { r };
+		return new Boolean[] { out };
 	}
 
 }

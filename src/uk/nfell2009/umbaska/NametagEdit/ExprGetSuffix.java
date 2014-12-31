@@ -1,13 +1,13 @@
 /*
- * ExprTownOfPlayer.class - Made by nfell2009
+ * ExprGetSuffix.class - Made by nfell2009
  * nfell2009.uk (C) nfell2009 | 2014 - 2015
  * Submitted to: Umbaska
  * 
 */
 
+package uk.nfell2009.umbaska.NametagEdit;
 
-package uk.nfell2009.umbaska.Towny;
-
+import ca.wacos.nametagedit.NametagAPI;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -16,18 +16,13 @@ import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
-import com.palmergames.bukkit.towny.object.Town;
-import com.palmergames.bukkit.towny.object.TownyUniverse;
-
-
-public class ExprTownOfPlayer extends SimpleExpression<Town>{
+public class ExprGetSuffix extends SimpleExpression<String>{
 
 	private Expression<Player> player;
 	
-	public Class<? extends Town> getReturnType() {
+	public Class<? extends String> getReturnType() {
 		
-		return Town.class;
+		return String.class;
 	}
 
 	@Override
@@ -44,25 +39,21 @@ public class ExprTownOfPlayer extends SimpleExpression<Town>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return town of player";
+		return "return owner of plot";
 	}
 
 	@Override
 	@javax.annotation.Nullable
-	protected Town[] get(Event arg0) {
-		String p = this.player.getSingle(arg0).getName().toString();
-		Town r = null;
-		try {
-			r = TownyUniverse.getDataSource().getResident(p).getTown();
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
+	protected String[] get(Event arg0) {
+
+		String p = this.player.getSingle(arg0).toString();
 		
-		if (r == null){
+		if (p == null){
 			return null;
 		}
-
-		return new Town[] { r };
+		
+		
+		return new String[] { NametagAPI.getSuffix(p) };
 	}
 
 }

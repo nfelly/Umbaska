@@ -7,11 +7,15 @@
 
 package uk.nfell2009.umbaska;
 
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.dynmap.DynmapAPI;
 
 import com.palmergames.bukkit.towny.object.Town;
 
@@ -24,14 +28,17 @@ import ch.njol.skript.Skript;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
-
+import uk.nfell2009.umbaska.Vault.*;
 import uk.nfell2009.umbaska.Bungee.*;
+import uk.nfell2009.umbaska.Dynmap.*;
 import uk.nfell2009.umbaska.Misc.*;
+import uk.nfell2009.umbaska.NametagEdit.*;
 
 
 public class Main extends JavaPlugin implements Listener {
 
-	
+	public static Plugin dynmap;
+	public static DynmapAPI api;
 	 @Override
 	    public void onEnable() {
 		 
@@ -39,6 +46,7 @@ public class Main extends JavaPlugin implements Listener {
 		 pluginManager.registerEvents(this, this);
 		 
 		 loadConfiguration();
+		 
 		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
 		 
@@ -48,9 +56,11 @@ public class Main extends JavaPlugin implements Listener {
 		  *  PlotMe - Effects
 		  */
 		 
-		 Skript.registerEffect(EffPlotTeleport.class, new String[] { "teleport %player% to %string% in %world%" });
+		 Skript.registerEffect(EffPlotTeleport.class, new String[] { "teleport %player% to %string%[ in %world%]" });
 		 Skript.registerEffect(EffClearPlot.class, new String[] { "clear plot %string% in %world%" });
 		 Skript.registerEffect(EffMovePlot.class, new String[] { "move %string% to %string% in %world%" });
+		 Skript.registerEffect(EffDenyPlayer.class, new String[] { "deny %player% from %string%" });
+		 Skript.registerEffect(EffUnDeny.class, new String[] { "allow %player% to %string%" });
 		 
 		 
 		 /*
@@ -63,6 +73,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] {"plots of %player%"});
 		 Skript.registerExpression(ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(top|upper) corner of %string% in %world%"});
 		 Skript.registerExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(bottom|lower) corner of %string% in %world%"});
+		 System.out.println("[Umbaska] Hooked into PlotMe");
 		 } 
 		 
 		 /*
@@ -71,8 +82,8 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 Skript.registerEffect(EffSetSpawner.class, new String[] { "set spawner %location% to %string%" });
 		 Skript.registerEffect(EffSetDelay.class, new String[] { "set delay of %location% to %integer%" });
-		 Skript.registerEffect(EffMFG_Drop.class, new String[] { "drop a spawner at %location% based on %location%" });
-		 Skript.registerEffect(EffMFG_GiveSpawner.class, new String[] { "give a spawner to %player% based on %location%" });
+		 Skript.registerEffect(EffMFG_Drop.class, new String[] { "drop a spawner at %location% based on %block%" });
+		 Skript.registerEffect(EffMFG_GiveSpawner.class, new String[] { "give a spawner to %player% based on %block%" });
 		 Skript.registerEffect(EffMFG_SetSpawner.class, new String[] { "set spawner at %location% to its type" });
 		 
 		 
@@ -83,7 +94,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
 		 Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
 		 Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
-		 
+		 System.out.println("[Umbaska] Registered spawner hooks");
 		 pl = getServer().getPluginManager().getPlugin("Towny");
 		 
 		 if (pl != null) {
@@ -125,6 +136,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerCondition(CondIsAlly.class, "%string% is ally with %string%", "%string% is(n't| not) ally with %string%");
 		 Skript.registerCondition(CondIsNeutral.class, "%string% is neutral", "%string% is(n't| not) neutral");
 		 Skript.registerCondition(CondIsEnemy.class, "%string% is enemy with %string%", "%string% is(n't| not) enemy with %string%");
+		 System.out.println("[Umbaska] Hooked into Towny");
 		 }
 		 
 		 /*
@@ -141,29 +153,95 @@ public class Main extends JavaPlugin implements Listener {
 		 if (use_bungee == true) {
 			 new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
+			 System.out.println("[Umbaska] Hooked into BungeeCord");
 		 }
 		 
+		 pl = getServer().getPluginManager().getPlugin("NametagEdit");
+		 
+		 if (pl != null) {
+			 if (enable_tag_features == true) {
+		 
 		 /*
-		  *  Vault - Effects
+		  *  NametagEdit - Effects
 		  */
 		 
+		 Skript.registerEffect(EffSetPrefix.class, new String[] { "set prefix of %player% to %string%" });
+		 Skript.registerEffect(EffSetSuffix.class, new String[] { "set suffix of %player% to %string%" });
+		 Skript.registerEffect(EffSetNametag.class, new String[] { "set name tag of %player% to %string%, %string%, %string%" });
+		 
+		 /*
+		  *  NametagEdit - Expressions
+		  */
+		 
+		 Skript.registerExpression(ExprGetPrefix.class, String.class, ExpressionType.PROPERTY, new String[] {"prefix of %player%"});
+		 Skript.registerExpression(ExprGetSuffix.class, String.class, ExpressionType.PROPERTY, new String[] {"suffix of %player%"});
+		 Skript.registerExpression(ExprGetNametag.class, String.class, ExpressionType.PROPERTY, new String[] {"name tag of %player%"});
+		 System.out.println("[Umbaska] Hooked into NametagEdit");
+			 }
+		 }
+		 
+		 pl = getServer().getPluginManager().getPlugin("Dynmap");
+		 if (pl != null) {
+		 /*
+		  *  Dynmap - Other
+		  */
+	        PluginManager pm = getServer().getPluginManager();
+	        dynmap = pm.getPlugin("dynmap");
+	        api = (DynmapAPI)dynmap;
+	        if (api == null) {
+	        	System.out.println("[Umbaska] Failed to hook to Dynmap even though the plugin is present.");
+	        }
+		 
+		 /*
+		  *  Dynmap - Effects
+		  */
+		 
+			 Skript.registerEffect(EffSetVisOfPlayer.class, new String[] { "set dynmap visibility of %player% to %boolean%" });
+	        
+	     /*
+	      *  Dynmap - Expressions
+	      */
+	        
+	        Skript.registerExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"dynmap visibility of %player%"});
+	        System.out.println("[Umbaska] Hooked into Dynmap");
+		 }
+		 
+		 pl = getServer().getPluginManager().getPlugin("Vault");
+		 
+		 if (pl != null) {
 		 
 		 
 		 /*
 		  *  Vault - Expressions
 		  */
-
+			 setupPermissions();
+			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
+			 System.out.println("[Umbaska] Hooked into Vault");
+		 }
 		 
+	 }
+	 
+	 
+	 
+	 public static Permission perms = null;
+	 
+	 public boolean setupPermissions() {
+	 	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	     perms = rsp.getProvider();
+	     return perms != null;
 	 }
 	 
 	 public void loadConfiguration(){
 	 	String path = "use_bungee";
 	 	getConfig().addDefault(path, false);
+	 	path = "enable_tag_features";
+	 	getConfig().addDefault(path, true);
 	 	getConfig().options().copyDefaults(true);
 	 	saveConfig();
 	 }
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
+	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
 	 
 	 private static Main inst;
 	  
