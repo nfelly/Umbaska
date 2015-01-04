@@ -1,5 +1,5 @@
 name: Umbaska
 main: uk.nfell2009.umbaska.Main
-version: 1.4
+version: 1.4.1
 depend: [Skript]
 softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap]

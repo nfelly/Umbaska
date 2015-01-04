@@ -5,7 +5,6 @@
  * 
 */
 
-
 package uk.nfell2009.umbaska.Dynmap;
 
 import ch.njol.skript.lang.Expression;
@@ -41,15 +40,19 @@ public class ExprVisOfPlayer extends SimpleExpression<Boolean>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return primary group of player";
+		return "return dynmap vis of player";
 	}
 
 	@Override
 	@javax.annotation.Nullable
 	protected Boolean[] get(Event arg0) {
-		Player p = this.player.getSingle(arg0);
-		Boolean out = Main.api.getPlayerVisbility(p);
 
+		Player p = this.player.getSingle(arg0);
+		
+		if (p == null){
+			return null;
+		}
+		Boolean out = Main.api.getPlayerVisbility(p);
 		return new Boolean[] { out };
 	}
 

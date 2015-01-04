@@ -180,7 +180,7 @@ public class Main extends JavaPlugin implements Listener {
 			 }
 		 }
 		 
-		 pl = getServer().getPluginManager().getPlugin("Dynmap");
+		 pl = getServer().getPluginManager().getPlugin("dynmap");
 		 if (pl != null) {
 		 /*
 		  *  Dynmap - Other
@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener {
 	      *  Dynmap - Expressions
 	      */
 	        
-	        Skript.registerExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"dynmap visibility of %player%"});
+			 Skript.registerExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"dynmap visibility of %player%"});
 	        System.out.println("[Umbaska] Hooked into Dynmap");
 		 }
 		 
