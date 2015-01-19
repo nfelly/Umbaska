@@ -1,2 +1,5 @@
 general:
   build_dir: src/uk/nfell2009/umbaska
+machine:
+  java:
+    version: oraclejdk7
