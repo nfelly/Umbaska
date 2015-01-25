@@ -9,6 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -28,6 +30,8 @@ public class EffChangeServer extends Effect {
         out.writeUTF("Connect");
         out.writeUTF(s);
         out.close();
+        ProxiedPlayer pp = (ProxiedPlayer) p;
+        pp.getUniqueId();
         Messenger.sendTo(msg.toByteArray(), new Player[] { p });
       }
     }

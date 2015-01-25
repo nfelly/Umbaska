@@ -6,6 +6,8 @@
 */
 
 package uk.nfell2009.umbaska;
+import java.util.UUID;
+
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.ChatColor;
@@ -23,6 +25,7 @@ import com.palmergames.bukkit.towny.object.Town;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.Skript;
 
+import uk.nfell2009.umbaska.Sound.*;
 /*
  *  Importing local packages
  */
@@ -162,7 +165,16 @@ public class Main extends JavaPlugin implements Listener {
 		 if (use_bungee == true) {
 			 new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
+			 
+			 
+ 		 /*
+		  *  Bungee - Expressions
+		  */
+			 
+			 Skript.registerExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, new String[] {"bungee uuid of %player%"});
+			 
 			 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into BungeeCord");
+			 
 		 }
 		 
 		 pl = getServer().getPluginManager().getPlugin("NametagEdit");
@@ -188,6 +200,18 @@ public class Main extends JavaPlugin implements Listener {
 		 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into NametagEdit");
 			 }
 		 }
+		 
+		 pl = getServer().getPluginManager().getPlugin("NoteBlockAPI");
+		 if (pl != null) {
+		 
+		 /*
+		  *  Sound - Effects
+		  */
+		 
+		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play sound %string% to %player%" });
+		 
+		 }
+		 
 		 
 		 pl = getServer().getPluginManager().getPlugin("dynmap");
 		 if (pl != null) {
