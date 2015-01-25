@@ -1,3 +1,10 @@
+/*
+ * EffStepSound.class - Made by RickPlayingPL
+ * (C) RickPlayingPL | 2014 - 2015
+ * Submitted to: Umbaska
+ * 
+*/
+
 package uk.nfell2009.umbaska.Sound;
 
 import javax.annotation.Nullable;
