@@ -6,25 +6,32 @@
 */
 
 package uk.nfell2009.umbaska;
+import java.io.IOException;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.dynmap.DynmapAPI;
+import org.mcstats.Metrics;
 
 import com.palmergames.bukkit.towny.object.Town;
 
 import ch.njol.skript.lang.ExpressionType;
+import ch.njol.skript.lang.util.SimpleEvent;
+import ch.njol.skript.registrations.EventValues;
+import ch.njol.skript.util.Getter;
 import ch.njol.skript.Skript;
-
 import uk.nfell2009.umbaska.Sound.*;
 /*
  *  Importing local packages
@@ -32,6 +39,7 @@ import uk.nfell2009.umbaska.Sound.*;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
+import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.Vault.*;
 import uk.nfell2009.umbaska.Bungee.*;
 import uk.nfell2009.umbaska.Dynmap.*;
@@ -43,8 +51,18 @@ public class Main extends JavaPlugin implements Listener {
 
 	public static Plugin dynmap;
 	public static DynmapAPI api;
+	public final Logger logger = Logger.getLogger("Minecraft");
+	public static Main plugin;
 	 @Override
 	    public void onEnable() {
+		 
+		 try {
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		    getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
+		 } catch (IOException e) {
+		    getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
+		 }
 		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
@@ -77,7 +95,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] {"plots of %player%"});
 		 Skript.registerExpression(ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(top|upper) corner of %string% in %world%"});
 		 Skript.registerExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(bottom|lower) corner of %string% in %world%"});
-		 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into PlotMe");
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into PlotMe");
 		 } 
 		 
 		 /*
@@ -98,8 +116,15 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
 		 Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
 		 Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
-		 System.out.println(ChatColor.AQUA + "[Umbaska] Registered spawner hooks");
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Just loaded Spawner syntaxs...");
 		 pl = getServer().getPluginManager().getPlugin("Towny");
+		 
+		 /*
+		  *  UUID - Expressions
+		  */
+		 
+		 Skript.registerExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.SIMPLE, "names of %string%");
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Finished loading up UUID stuffs");
 		 
 		 if (pl != null) {
 		 
@@ -140,7 +165,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerCondition(CondIsAlly.class, "%string% is ally with %string%", "%string% is(n't| not) ally with %string%");
 		 Skript.registerCondition(CondIsNeutral.class, "%string% is neutral", "%string% is(n't| not) neutral");
 		 Skript.registerCondition(CondIsEnemy.class, "%string% is enemy with %string%", "%string% is(n't| not) enemy with %string%");
-		 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into Towny");
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Towny = hooked!");
 		 }
 		 
 		 /*
@@ -157,6 +182,22 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"armour points of %player%"});
 		 Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
+		 
+		 /*
+		  *  Events - Registeration
+		  */
+		 
+		 
+		 Skript.registerEvent("On Umbaska Rightclick", SimpleEvent.class, PlayerInteractEvent.class, "umbaska rightclick");
+		 EventValues.registerEventValue(PlayerInteractEvent.class,
+			        Player.class, new Getter<Player, PlayerInteractEvent>() {
+			                @Override
+			                @javax.annotation.Nullable
+			                public Player get(PlayerInteractEvent e) {
+			                        return (Player) e.getPlayer();
+			                }
+		 }, 0);
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Loaded up umbaska rightclick. You don't need to know about this...");
 
 		 
 		 /*
@@ -173,7 +214,7 @@ public class Main extends JavaPlugin implements Listener {
 			 
 			 Skript.registerExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, new String[] {"bungee uuid of %player%"});
 			 
-			 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into BungeeCord");
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] BungeeCord is a hooked! GO GO GO!");
 			 
 		 }
 		 
@@ -197,7 +238,7 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprGetPrefix.class, String.class, ExpressionType.PROPERTY, new String[] {"prefix of %player%"});
 		 Skript.registerExpression(ExprGetSuffix.class, String.class, ExpressionType.PROPERTY, new String[] {"suffix of %player%"});
 		 Skript.registerExpression(ExprGetNametag.class, String.class, ExpressionType.PROPERTY, new String[] {"name tag of %player%"});
-		 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into NametagEdit");
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Le hooked le NametagEdit");
 			 }
 		 }
 		 
@@ -209,6 +250,7 @@ public class Main extends JavaPlugin implements Listener {
 		  */
 		 
 		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play sound %string% to %player%" });
+		 getLogger().info(ChatColor.GREEN + "[Umbaska] Today I learnt that there were NoteBlockAPI hooks (01/03/15)");
 		 
 		 }
 		 
@@ -222,7 +264,7 @@ public class Main extends JavaPlugin implements Listener {
 	        dynmap = pm.getPlugin("dynmap");
 	        api = (DynmapAPI)dynmap;
 	        if (api == null) {
-	        	System.out.println(ChatColor.RED + "[Umbaska] Failed to hook to Dynmap even though the plugin is present.");
+	        	getLogger().info(ChatColor.RED + "[Umbaska] Damn son! There was a problem hooking into dynmap. Sorry dude.");
 	        }
 		 
 		 /*
@@ -236,7 +278,7 @@ public class Main extends JavaPlugin implements Listener {
 	      */
 	        
 			 Skript.registerExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"dynmap visibility of %player%"});
-	        System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into Dynmap");
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] Can I appear on the livemap? No? Well I hooked into Dynmap");
 		 }
 		 
 		 pl = getServer().getPluginManager().getPlugin("Vault");
@@ -249,8 +291,11 @@ public class Main extends JavaPlugin implements Listener {
 		  */
 			 setupPermissions();
 			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
-			 System.out.println(ChatColor.AQUA + "[Umbaska] Hooked into Vault");
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 
 		 }
+		 
+		 
 		 
 	 }
 	 

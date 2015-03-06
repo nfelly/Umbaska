@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/dynmap-2.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/Vault-1.4.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/NoteBlockAPI-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nicholas/Documents/Eclipse/Build with/LEDArray.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
