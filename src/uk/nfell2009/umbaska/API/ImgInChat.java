@@ -15,14 +15,12 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import uk.nfell2009.umbaska.ImageManager.ImageChar;
 import uk.nfell2009.umbaska.ImageManager.ImageMessage;
 
 
-public class ImgInChat extends JavaPlugin implements Listener {
+public class ImgInChat {
 	
 	public static void ShowImg(Player player, String path, String line1, String line2, String line3) {
   		BufferedImage imageToSend = null;
