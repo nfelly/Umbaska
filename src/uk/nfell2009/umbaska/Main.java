@@ -69,7 +69,6 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 loadConfiguration();
 		 
-		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
 		 
 		 if (pl != null) {
@@ -169,12 +168,16 @@ public class Main extends JavaPlugin implements Listener {
 		 }
 		 
 		 /*
-		  *  Misc - Effects
+		  *  UmbaskaAPI - Effects
 		  */
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
-		 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
-		 Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
+		 pl = getServer().getPluginManager().getPlugin("UmbaskaAPI");
+		 if (pl != null) {
+			 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
+			 Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into UmbaskaAPI");
+		 }
 		 
 		 /*
 		  *  Misc - Expressions
