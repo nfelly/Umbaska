@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
-import uk.nfell2009.umbaska.API.ImgInChat;
+import uk.nfell2009.umbaskaapi.ImageManager.ImgInChat;
 
  
 public class EffImgInChat extends Effect implements Listener {
@@ -40,7 +40,7 @@ public class EffImgInChat extends Effect implements Listener {
  
   @Override
   public String toString(Event event, boolean b){
-    return "Move a plot to another plot";
+    return "Show an image in chat";
   }
  
   @Override

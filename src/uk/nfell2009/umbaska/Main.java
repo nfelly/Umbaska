@@ -43,6 +43,7 @@ import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.Vault.*;
 import uk.nfell2009.umbaska.Bungee.*;
 import uk.nfell2009.umbaska.Dynmap.*;
+import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
 import uk.nfell2009.umbaska.Misc.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
 
@@ -167,16 +168,25 @@ public class Main extends JavaPlugin implements Listener {
 		 getLogger().info(ChatColor.GREEN + "[Umbaska] Towny = hooked!");
 		 }
 		 
-		 /*
-		  *  UmbaskaAPI - Effects
-		  */
+		 
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
 		 pl = getServer().getPluginManager().getPlugin("UmbaskaAPI");
 		 if (pl != null) {
+			 
+			 /*
+			  *  UmbaskaAPI - Effects
+			  */
+			 
 			 Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
 			 Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
 			 getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into UmbaskaAPI");
+			 
+			 /*
+			  *  UmbaskaAPI - Expressions
+			  */
+			 
+			 Skript.registerExpression(ExprFactionOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"faction of %player%"});
 		 }
 		 
 		 /*

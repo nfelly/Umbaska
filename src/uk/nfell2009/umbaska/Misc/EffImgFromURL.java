@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
-import uk.nfell2009.umbaska.API.ImgInChat;
+import uk.nfell2009.umbaskaapi.ImageManager.ImgInChat;
 
  
 public class EffImgFromURL extends Effect implements Listener {
