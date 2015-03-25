@@ -103,6 +103,13 @@
             <systemPath>${project.basedir}/lib/TownyChat.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>uk.nfell2009.umbaskapi.Main</groupId>
+            <artifactId>UmbaskaAPI</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/UmbaskaAPI.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>LATEST</version>
