@@ -16,7 +16,7 @@ import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import uk.nfell2009.umbaskaapi.FactionsUUID.Hooker;
+import uk.nfell2009.umbaskapi.FactionsUUID.*;
 
 
 public class ExprFactionOfPlayer extends SimpleExpression<String>{
