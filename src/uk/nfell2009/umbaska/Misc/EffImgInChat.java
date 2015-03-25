@@ -16,9 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
-import uk.nfell2009.umbaskaapi.ImageManager.ImgInChat;
-
- 
 public class EffImgInChat extends Effect implements Listener {
  
   private Expression<Player> eplayer;
