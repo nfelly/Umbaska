@@ -6,6 +6,7 @@
 */
 
 package uk.nfell2009.umbaska;
+
 import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -22,6 +24,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
 
@@ -44,6 +47,8 @@ import uk.nfell2009.umbaska.Vault.*;
 import uk.nfell2009.umbaska.Bungee.*;
 import uk.nfell2009.umbaska.Dynmap.*;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
+import uk.nfell2009.umbaska.GattSk.Effects.*;
+import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
 
@@ -305,6 +310,71 @@ public class Main extends JavaPlugin implements Listener {
 			 setupPermissions();
 			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
 			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 
+		/*
+		 *  GattSk stuff
+		 */
+			 
+				//General
+
+				Skript.registerEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
+
+				//Scoreboards
+
+				Skript.registerEffect(EffNewScoreboard.class, "create [a] new scoreboard [named] %string%");
+				Skript.registerEffect(EffSetPlayerScoreboard.class, "set scoreboard of %players% to %string%");
+				Skript.registerEffect(EffSetScore.class, "set value of score %string% (for|in) [score][board] %string% objective %string% to %number%");
+				Skript.registerEffect(EffResetScore.class, "reset [value] [of] score %string% (for|in) [score][board] %string%");
+				Skript.registerEffect(EffNewObjective.class, "create [a] [new] %string% objective for [score][board] %string% (called|named) %string%");
+				Skript.registerEffect(EffSetObjectiveDisplay.class, "set objective display slot for [objective] %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetObjectiveName.class, "set objective display name for [objective] %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
+
+				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
+				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+
+				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
+				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
+
+				Skript.registerExpression(ExprGetScore.class, Integer.class, ExpressionType.PROPERTY, new String[] {"value [of] %string% objective %string% for [score] %string%"});
+				//Skript.registerExpression(ExprGetPlayerScoreboard.class, Scoreboard.class, ExpressionType.PROPERTY, new String[] {"scoreboard of %player%"});
+				Skript.registerExpression(ExprGetObjectiveType.class, String.class, ExpressionType.PROPERTY, new String[] {"objective type of %string% (from|in) [score][board] %scoreboard%"});
+				Skript.registerExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, new String[] {"objective in [[display]slot] %displayslot% from [score][board] %string%"});
+				Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
+
+				//World Manager
+
+				Skript.registerEffect(EffCreateWorld.class, "create [a] new world [name[d]] %string%");
+				Skript.registerEffect(EffDeleteWorld.class, "delete world %string%");
+				Skript.registerEffect(EffUnloadWorld.class, "unload world %string%");
+				Skript.registerEffect(EffLoadWorld.class, "load world %string%");
+				Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
+
+				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+
+				//Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
+
+				//EnumClassInfo.create(ScoreboardTypes.class, "ScoreboardTypes").register();
+				//EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
+				//EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
+
+				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"cursor item"});
+				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.PROPERTY, new String[]{"clicked slot"});
+				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.PROPERTY, new String[]{"click type"});
+				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item name"});
+				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item lore"});
+
+				//Bukkit Server Properties
+				Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
+				
+				//Misc
+				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.PROPERTY, new String[]{"spawn reason (of|for) %entity%"});
+				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
+				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
+				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
+				
 			 
 		 }
 		 
