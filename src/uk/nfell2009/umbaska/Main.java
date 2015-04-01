@@ -7,12 +7,15 @@
 
 package uk.nfell2009.umbaska;
 
-import java.io.IOException;
-import java.util.UUID;
-import java.util.logging.Logger;
-
+import ch.njol.skript.Skript;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.skript.lang.ExpressionType;
+import ch.njol.skript.lang.util.SimpleEvent;
+import ch.njol.skript.registrations.EventValues;
+import ch.njol.skript.util.Getter;
+import com.palmergames.bukkit.towny.object.Town;
 import net.milkbowl.vault.permission.Permission;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -27,36 +30,39 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
-
-import com.palmergames.bukkit.towny.object.Town;
-
-import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.util.SimpleEvent;
-import ch.njol.skript.registrations.EventValues;
-import ch.njol.skript.util.Getter;
-import ch.njol.skript.Skript;
-import uk.nfell2009.umbaska.Sound.*;
-/*
- *  Importing local packages
- */
-import uk.nfell2009.umbaska.PlotMe.*;
-import uk.nfell2009.umbaska.Spawner.*;
-import uk.nfell2009.umbaska.Towny.*;
-import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
-import uk.nfell2009.umbaska.Vault.*;
-import uk.nfell2009.umbaska.Bungee.*;
-import uk.nfell2009.umbaska.Dynmap.*;
+import uk.nfell2009.umbaska.Bungee.EffChangeServer;
+import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
+import uk.nfell2009.umbaska.Bungee.Messenger;
+import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
+import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
+import uk.nfell2009.umbaska.PlotMe.*;
+import uk.nfell2009.umbaska.ProtocolLib.*;
+import uk.nfell2009.umbaska.Sound.EffPlayTrack;
+import uk.nfell2009.umbaska.Spawner.*;
+import uk.nfell2009.umbaska.Towny.*;
+import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
+import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
+import uk.nfell2009.umbaska.v1_8.ArmorStands.*;
+
+import java.io.IOException;
+import java.util.UUID;
+import java.util.logging.Logger;
+
+/*
+ *  Importing local packages
+ */
 
 
 public class Main extends JavaPlugin implements Listener {
 
 	public static Plugin dynmap;
 	public static DynmapAPI api;
+	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
 	 @Override
@@ -176,6 +182,22 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
+
+
+
+		 pl = getServer().getPluginManager().getPlugin("ProtocolLib");
+		 if (pl != null) {
+			 /*
+			  * Protocol Lib - Effects - Added by Funnygatt
+			  */
+			 enthider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
+			 Skript.registerEffect(EffHideEntity.class, new String[] {"hide %entity% from %player%"});
+			 Skript.registerEffect(EffShowEntity.class, new String[] {"show %entity% to %player%"});
+			 Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %player%"});
+			 Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
+			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
+		 }
+
 		 pl = getServer().getPluginManager().getPlugin("UmbaskaAPI");
 		 if (pl != null) {
 			 
@@ -331,9 +353,9 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
 
 				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
-				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+				Skript.registerEffect(EffTeamPlayer.class, "(0ï¿½remove|1ï¿½add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
 
-				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetTeamPrefix.class, "set (0ï¿½suffix|1ï¿½prefix) for team %string% in [score][board] %string% to %string%");
 				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
 				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
@@ -375,7 +397,16 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
 				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
 				
-			 
+			 /* 1.8 Things */
+
+			 if (Bukkit.getVersion().contains("1.8")){
+				 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+				 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
+				 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
+				 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
+				 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
+				 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+			 }
 		 }
 		 
 		 
