@@ -9,17 +9,12 @@ package uk.nfell2009.umbaska;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.util.SimpleEvent;
-import ch.njol.skript.registrations.EventValues;
-import ch.njol.skript.util.Getter;
 import com.palmergames.bukkit.towny.object.Town;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -34,6 +29,7 @@ import uk.nfell2009.umbaska.Bungee.Messenger;
 import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
 import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
+import uk.nfell2009.umbaska.Gatt.EffOpenDispenser;
 import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
@@ -204,21 +200,8 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
 		 
 		 /*
-		  *  Events - Registeration
+		  *  Events - Registration
 		  */
-		 
-		 
-		 Skript.registerEvent("On Umbaska Rightclick", SimpleEvent.class, PlayerInteractEvent.class, "umbaska rightclick");
-		 EventValues.registerEventValue(PlayerInteractEvent.class,
-			        Player.class, new Getter<Player, PlayerInteractEvent>() {
-			                @Override
-			                @javax.annotation.Nullable
-			                public Player get(PlayerInteractEvent e) {
-			                        return (Player) e.getPlayer();
-			                }
-		 }, 0);
-		 getLogger().info(ChatColor.GREEN + "[Umbaska] Loaded up umbaska rightclick. You don't need to know about this...");
-
 		 
 		 /*
 		  *  Bungee - Effects
