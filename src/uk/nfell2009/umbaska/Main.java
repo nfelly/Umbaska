@@ -36,6 +36,8 @@ import uk.nfell2009.umbaska.Bungee.Messenger;
 import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
 import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
+import uk.nfell2009.umbaska.Gatt.EffOpenDispenser;
+import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
@@ -396,8 +398,11 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
 				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
-				
+			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
+			 	Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
+			 	Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
 			 /* 1.8 Things */
+
 
 			 if (Bukkit.getVersion().contains("1.8")){
 				 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
