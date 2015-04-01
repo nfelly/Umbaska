@@ -12,10 +12,11 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.sun.istack.internal.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import uk.nfell2009.umbaskapi.FactionsUUID.Hooker;
+
+import uk.nfell2009.umbaskapi.FactionsUUID.*;
 
 
 public class ExprFactionOfPlayer extends SimpleExpression<String>{
@@ -40,12 +41,12 @@ public class ExprFactionOfPlayer extends SimpleExpression<String>{
 	}
 
 	@Override
-	public String toString(@Nullable Event arg0, boolean arg1) {
+	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
 		return "faction of player";
 	}
 
 	@Override
-	@Nullable
+	@javax.annotation.Nullable
 	protected String[] get(Event arg0) {
 		Player p = this.player.getSingle(arg0);
 		Hooker h = new Hooker();
