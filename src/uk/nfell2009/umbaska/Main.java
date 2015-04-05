@@ -20,9 +20,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -355,9 +358,9 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
 
 				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
-				Skript.registerEffect(EffTeamPlayer.class, "(0�remove|1�add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
 
-				Skript.registerEffect(EffSetTeamPrefix.class, "set (0�suffix|1�prefix) for team %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
 				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
 				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
@@ -417,8 +420,11 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 
 	 }
-	 
-	 
+
+	@EventHandler
+	public void onSpawn(CreatureSpawnEvent e){
+		e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(plugin, e.getSpawnReason()));
+	}
 	 
 	 public static Permission perms = null;
 	 
