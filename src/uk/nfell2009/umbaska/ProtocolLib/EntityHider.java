@@ -1,5 +1,7 @@
 package uk.nfell2009.umbaska.ProtocolLib;
 
+//Thanks to Kristian for releasing this Library <3
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
