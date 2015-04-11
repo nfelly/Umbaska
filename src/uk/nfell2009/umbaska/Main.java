@@ -13,7 +13,9 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
+
 import com.palmergames.bukkit.towny.object.Town;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -26,7 +28,9 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+
 import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -34,6 +38,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
+
 import uk.nfell2009.umbaska.Bungee.EffChangeServer;
 import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
 import uk.nfell2009.umbaska.Bungee.Messenger;
@@ -53,7 +58,9 @@ import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
+import uk.nfell2009.umbaska.WildSkript.system.WildSkriptTimer;
 import uk.nfell2009.umbaska.v1_8.ArmorStands.*;
+
 
 import java.io.IOException;
 import java.util.UUID;
@@ -71,6 +78,8 @@ public class Main extends JavaPlugin implements Listener {
 	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
+	private static WildSkriptTimer timer;
+	
 	 @Override
 	    public void onEnable() {
 		 
@@ -448,6 +457,10 @@ public class Main extends JavaPlugin implements Listener {
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
 	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
+	 
+	public static WildSkriptTimer getTimer(){
+		return timer;
+	}
 	 
 	 private static Main inst;
 	  
