@@ -84,7 +84,9 @@ public class ScoreboardManagers {
 	public static void setPlayerScoreboard(Player p, String boardname){
 		if (getBoard(boardname) != null) {
 			board = boardList.get(boardname);
-			p.setScoreboard(board);
+			if (p.getScoreboard() != board) {
+				p.setScoreboard(board);
+			}
 		}
 		else{
 			Skript.error(Skript.SKRIPT_PREFIX + "Tried to set a scoreboard for a player to a scoreboard that doesn't exist!");

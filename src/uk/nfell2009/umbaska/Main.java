@@ -14,7 +14,6 @@ import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 import com.palmergames.bukkit.towny.object.Town;
-import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,6 +26,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -40,6 +40,8 @@ import uk.nfell2009.umbaska.Bungee.Messenger;
 import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
 import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
+import uk.nfell2009.umbaska.Gatt.EffOpenDispenser;
+import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
@@ -357,9 +359,8 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
 
 				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
-				Skript.registerEffect(EffTeamPlayer.class, "(0�remove|1�add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
-
-				Skript.registerEffect(EffSetTeamPrefix.class, "set (0�suffix|1�prefix) for team %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
 				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
 				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
@@ -403,6 +404,12 @@ public class Main extends JavaPlugin implements Listener {
 				
 			 /* 1.8 Things */
 
+			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
+			 	Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
+			 	Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
+			 /* 1.8 Things */
+
+
 			 if (Bukkit.getVersion().contains("1.8")){
 				 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
 				 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
@@ -421,7 +428,6 @@ public class Main extends JavaPlugin implements Listener {
     public void onSpawn(CreatureSpawnEvent e){
         e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(this, e.getSpawnReason()));
     }
-	 
 	 
 	 public static Permission perms = null;
 	 

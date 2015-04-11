@@ -85,6 +85,13 @@
             <systemPath>${project.basedir}/lib/Questioner.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>com.comphenix.protocol.ProtocolLibrary</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>3.6.3-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ProtocolLib.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>ch.njol.skript</groupId>
             <artifactId>Skript</artifactId>
             <version>2.1.2</version>
