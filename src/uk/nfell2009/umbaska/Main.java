@@ -20,9 +20,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -289,7 +293,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Sound - Effects
 		  */
 		 
-		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play sound %string% to %player%" });
+		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
 		 getLogger().info(ChatColor.GREEN + "[Umbaska] Today I learnt that there were NoteBlockAPI hooks (01/03/15)");
 		 
 		 }
@@ -412,7 +416,11 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 
 	 }
-	 
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onSpawn(CreatureSpawnEvent e){
+        e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(this, e.getSpawnReason()));
+    }
 	 
 	 
 	 public static Permission perms = null;
