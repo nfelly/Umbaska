@@ -58,9 +58,8 @@ import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
-import uk.nfell2009.umbaska.WildSkript.system.WildSkriptTimer;
+import uk.nfell2009.umbaska.WildSkript.system.*;
 import uk.nfell2009.umbaska.v1_8.ArmorStands.*;
-
 
 import java.io.IOException;
 import java.util.UUID;
@@ -347,6 +346,16 @@ public class Main extends JavaPlugin implements Listener {
 			 setupPermissions();
 			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
 			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 
+		/*
+		 *   WildSkript - Expressions
+		 */
+			 Skript.registerExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"free memory"});
+			 Skript.registerExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, new String[] {"java version"});
+			 Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
+			 Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
+			 Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
+			 Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
 			 
 		/*
 		 *  GattSk stuff
