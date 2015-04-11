@@ -44,6 +44,6 @@ public class EffSetObjectiveName extends Effect {
 			return;
 		}
 
-		ScoreboardManagers.setObjectiveDisplayName(board, objective, slot);
+		ScoreboardManagers.setObjectiveDisplayName(board, objective.replace("&",  "§"), slot);
 	}
 }
