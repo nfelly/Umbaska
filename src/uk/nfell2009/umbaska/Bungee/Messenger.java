@@ -11,11 +11,12 @@ package uk.nfell2009.umbaska.Bungee;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
 import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.*;
@@ -46,7 +47,6 @@ public class Messenger
             return;
         }
         bytein = ByteStreams.newDataInput(message);
-        String subchannel = bytein.readUTF();
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
         try
         {
@@ -137,7 +137,6 @@ public class Messenger
 
     public static Integer getServerCount(String server)
     {
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
         out.writeUTF(server);
@@ -246,7 +245,8 @@ public class Messenger
         //p.sendPluginMessage(plugin, "BungeeCord", msg.toByteArray());
     }
 
-    public static void sendAnonymous(byte[] message)
+    @SuppressWarnings("deprecation")
+	public static void sendAnonymous(byte[] message)
     {
         if (Bukkit.getOnlinePlayers().length < 1) {
             return;

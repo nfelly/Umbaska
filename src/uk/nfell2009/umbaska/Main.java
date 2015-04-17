@@ -13,6 +13,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
+
 import com.palmergames.bukkit.towny.object.Town;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,7 +27,9 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.permissions.Permission;
+
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -34,6 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
+
 import uk.nfell2009.umbaska.Bungee.EffChangeServer;
 import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
 import uk.nfell2009.umbaska.Bungee.Messenger;
@@ -53,6 +57,7 @@ import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
+import uk.nfell2009.umbaska.WildSkript.system.*;
 import uk.nfell2009.umbaska.v1_8.ArmorStands.*;
 
 import java.io.IOException;
@@ -71,6 +76,9 @@ public class Main extends JavaPlugin implements Listener {
 	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
+    public static Messenger messenger;
+	private static WildSkriptTimer timer;
+
 	 @Override
 	    public void onEnable() {
 		 
@@ -84,7 +92,6 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
-		 
 		 loadConfiguration();
 		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
@@ -250,7 +257,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Bungee - Effects
 		  */
 		 if (use_bungee == true) {
-			 new Messenger(this);
+			 messenger = new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
 			 
 			 
@@ -340,6 +347,16 @@ public class Main extends JavaPlugin implements Listener {
 			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
 			 
 		/*
+		 *   WildSkript - Expressions
+		 */
+			 Skript.registerExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"free memory"});
+			 Skript.registerExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, new String[] {"java version"});
+			 Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
+			 Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
+			 Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
+			 Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
+			 
+		/*
 		 *  GattSk stuff
 		 */
 			 
@@ -396,7 +413,7 @@ public class Main extends JavaPlugin implements Listener {
 				//Bukkit Server Properties
 				Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
 				
-				//Misc
+				//Misc1
 				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.PROPERTY, new String[]{"spawn reason (of|for) %entity%"});
 				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
@@ -419,9 +436,6 @@ public class Main extends JavaPlugin implements Listener {
 				 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
 			 }
 		 }
-		 
-		 
-		 
 	 }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -448,6 +462,10 @@ public class Main extends JavaPlugin implements Listener {
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
 	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
+	 
+	public static WildSkriptTimer getTimer(){
+		return timer;
+	}
 	 
 	 private static Main inst;
 	  
