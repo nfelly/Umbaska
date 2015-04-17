@@ -422,14 +422,14 @@ public class Main extends JavaPlugin implements Listener {
 			 /* 1.8 Things */
 
 
-			 if (Bukkit.getVersion().contains("1.8")){
-				 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-				 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
-				 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
-				 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
-				 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
-				 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
-			 }
+			 //if (Bukkit.getVersion().contains("1.8")){
+			//	 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+			//	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
+			//	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
+			//	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
+			//	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
+			//	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+			 //}
 		 }
 	 }
 
