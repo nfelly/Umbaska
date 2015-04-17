@@ -29,11 +29,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import net.milkbowl.vault.permission.Permission;
+//import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
+//import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
@@ -337,9 +337,9 @@ public class Main extends JavaPlugin implements Listener {
 		 /*
 		  *  Vault - Expressions
 		  */
-			 setupPermissions();
-			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
-			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 //setupPermissions();
+			 //Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] Vault was temp disabled for now. It's having problems ;w;");
 			 
 		/*
 		 *   WildSkript - Expressions
@@ -438,13 +438,13 @@ public class Main extends JavaPlugin implements Listener {
         e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(this, e.getSpawnReason()));
     }
 	 
-	 public static Permission perms = null;
-	 
-	 public boolean setupPermissions() {
-	 	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	     perms = rsp.getProvider();
-	     return perms != null;
-	 }
+	 //public static Permission perms = null;
+	 //
+	 //public boolean setupPermissions() {
+	 //	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	 //    perms = rsp.getProvider();
+	 //    return perms != null;
+	 //}
 	 
 	 public void loadConfiguration(){
 	 	String path = "use_bungee";
