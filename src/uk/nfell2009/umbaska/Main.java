@@ -8,7 +8,6 @@
 package uk.nfell2009.umbaska;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
@@ -16,7 +15,6 @@ import ch.njol.skript.util.Getter;
 
 import com.palmergames.bukkit.towny.object.Town;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
