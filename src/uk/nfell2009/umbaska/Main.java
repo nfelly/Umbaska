@@ -55,7 +55,6 @@ import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
-import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
 import uk.nfell2009.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
