@@ -15,6 +15,7 @@ import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 
 import com.palmergames.bukkit.towny.object.Town;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -64,11 +65,6 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-/*
- *  Importing local packages
- */
-
-
 public class Main extends JavaPlugin implements Listener {
 
 	public static Plugin dynmap;
@@ -78,7 +74,6 @@ public class Main extends JavaPlugin implements Listener {
 	public static Main plugin;
     public static Messenger messenger;
 	private static WildSkriptTimer timer;
-
 	 @Override
 	    public void onEnable() {
 		 
