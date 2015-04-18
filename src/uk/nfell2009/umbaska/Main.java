@@ -6,54 +6,70 @@
 */
 
 package uk.nfell2009.umbaska;
-import java.io.IOException;
-import java.util.UUID;
-import java.util.logging.Logger;
 
-import net.milkbowl.vault.permission.Permission;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.dynmap.DynmapAPI;
-import org.mcstats.Metrics;
-
-import com.palmergames.bukkit.towny.object.Town;
-
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import ch.njol.skript.Skript;
-import uk.nfell2009.umbaska.Sound.*;
-/*
- *  Importing local packages
- */
+
+import com.palmergames.bukkit.towny.object.Town;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+
+//import net.milkbowl.vault.permission.Permission;
+
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+//import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
+import org.dynmap.DynmapAPI;
+import org.mcstats.Metrics;
+
+import uk.nfell2009.umbaska.Bungee.EffChangeServer;
+import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
+import uk.nfell2009.umbaska.Bungee.Messenger;
+import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
+import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
+import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
+import uk.nfell2009.umbaska.Gatt.EffOpenDispenser;
+import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
+import uk.nfell2009.umbaska.GattSk.Effects.*;
+import uk.nfell2009.umbaska.GattSk.Expressions.*;
+import uk.nfell2009.umbaska.Misc.*;
+import uk.nfell2009.umbaska.NametagEdit.*;
 import uk.nfell2009.umbaska.PlotMe.*;
+import uk.nfell2009.umbaska.ProtocolLib.*;
+import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
-import uk.nfell2009.umbaska.Vault.*;
-import uk.nfell2009.umbaska.Bungee.*;
-import uk.nfell2009.umbaska.Dynmap.*;
-import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
-import uk.nfell2009.umbaska.Misc.*;
-import uk.nfell2009.umbaska.NametagEdit.*;
+import uk.nfell2009.umbaska.WildSkript.system.*;
 
+import java.io.IOException;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 public class Main extends JavaPlugin implements Listener {
 
 	public static Plugin dynmap;
 	public static DynmapAPI api;
+	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
+    public static Messenger messenger;
+	private static WildSkriptTimer timer;
 	 @Override
 	    public void onEnable() {
 		 
@@ -67,7 +83,6 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
-		 
 		 loadConfiguration();
 		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
@@ -171,6 +186,22 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 
 		 Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
+
+
+
+		 pl = getServer().getPluginManager().getPlugin("ProtocolLib");
+		 if (pl != null) {
+			 /*
+			  * Protocol Lib - Effects - Added by Funnygatt
+			  */
+			 enthider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
+			 Skript.registerEffect(EffHideEntity.class, new String[] {"hide %entity% from %player%"});
+			 Skript.registerEffect(EffShowEntity.class, new String[] {"show %entity% to %player%"});
+			 Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %player%"});
+			 Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
+			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
+		 }
+
 		 pl = getServer().getPluginManager().getPlugin("UmbaskaAPI");
 		 if (pl != null) {
 			 
@@ -217,7 +248,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Bungee - Effects
 		  */
 		 if (use_bungee == true) {
-			 new Messenger(this);
+			 messenger = new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
 			 
 			 
@@ -262,7 +293,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Sound - Effects
 		  */
 		 
-		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play sound %string% to %player%" });
+		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
 		 getLogger().info(ChatColor.GREEN + "[Umbaska] Today I learnt that there were NoteBlockAPI hooks (01/03/15)");
 		 
 		 }
@@ -302,25 +333,114 @@ public class Main extends JavaPlugin implements Listener {
 		 /*
 		  *  Vault - Expressions
 		  */
-			 setupPermissions();
-			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
-			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 //setupPermissions();
+			 //Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] Vault was temp disabled for now. It's having problems ;w;");
 			 
+		/*
+		 *   WildSkript - Expressions
+		 */
+			 Skript.registerExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"free memory"});
+			 Skript.registerExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, new String[] {"java version"});
+			 Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
+			 Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
+			 Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
+			 Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
+			 
+		/*
+		 *  GattSk stuff
+		 */
+			 
+				//General
+
+				Skript.registerEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
+
+				//Scoreboards
+
+				Skript.registerEffect(EffNewScoreboard.class, "create [a] new scoreboard [named] %string%");
+				Skript.registerEffect(EffSetPlayerScoreboard.class, "set scoreboard of %players% to %string%");
+				Skript.registerEffect(EffSetScore.class, "set value of score %string% (for|in) [score][board] %string% objective %string% to %number%");
+				Skript.registerEffect(EffResetScore.class, "reset [value] [of] score %string% (for|in) [score][board] %string%");
+				Skript.registerEffect(EffNewObjective.class, "create [a] [new] %string% objective for [score][board] %string% (called|named) %string%");
+				Skript.registerEffect(EffSetObjectiveDisplay.class, "set objective display slot for [objective] %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetObjectiveName.class, "set objective display name for [objective] %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
+
+				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
+				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
+				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
+				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
+
+				Skript.registerExpression(ExprGetScore.class, Integer.class, ExpressionType.PROPERTY, new String[] {"value [of] %string% objective %string% for [score] %string%"});
+				//Skript.registerExpression(ExprGetPlayerScoreboard.class, Scoreboard.class, ExpressionType.PROPERTY, new String[] {"scoreboard of %player%"});
+				Skript.registerExpression(ExprGetObjectiveType.class, String.class, ExpressionType.PROPERTY, new String[] {"objective type of %string% (from|in) [score][board] %scoreboard%"});
+				Skript.registerExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, new String[] {"objective in [[display]slot] %displayslot% from [score][board] %string%"});
+				Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
+
+				//World Manager
+
+				Skript.registerEffect(EffCreateWorld.class, "create [a] new world [name[d]] %string%");
+				Skript.registerEffect(EffDeleteWorld.class, "delete world %string%");
+				Skript.registerEffect(EffUnloadWorld.class, "unload world %string%");
+				Skript.registerEffect(EffLoadWorld.class, "load world %string%");
+				Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
+
+				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+
+				//Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
+
+				//EnumClassInfo.create(ScoreboardTypes.class, "ScoreboardTypes").register();
+				//EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
+				//EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
+
+				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"cursor item"});
+				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.PROPERTY, new String[]{"clicked slot"});
+				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.PROPERTY, new String[]{"click type"});
+				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item name"});
+				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item lore"});
+
+				//Bukkit Server Properties
+				Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
+				
+				//Misc1
+				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.PROPERTY, new String[]{"spawn reason (of|for) %entity%"});
+				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
+				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
+				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
+				
+			 /* 1.8 Things */
+
+			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
+			 	Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
+			 	Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
+			 /* 1.8 Things */
+
+
+			 //if (Bukkit.getVersion().contains("1.8")){
+			//	 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+			//	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
+			//	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
+			//	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
+			//	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
+			//	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+			 //}
 		 }
-		 
-		 
-		 
 	 }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onSpawn(CreatureSpawnEvent e){
+        e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(this, e.getSpawnReason()));
+    }
 	 
-	 
-	 
-	 public static Permission perms = null;
-	 
-	 public boolean setupPermissions() {
-	 	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	     perms = rsp.getProvider();
-	     return perms != null;
-	 }
+	 //public static Permission perms = null;
+	 //
+	 //public boolean setupPermissions() {
+	 //	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	 //    perms = rsp.getProvider();
+	 //    return perms != null;
+	 //}
 	 
 	 public void loadConfiguration(){
 	 	String path = "use_bungee";
@@ -333,6 +453,10 @@ public class Main extends JavaPlugin implements Listener {
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
 	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
+	 
+	public static WildSkriptTimer getTimer(){
+		return timer;
+	}
 	 
 	 private static Main inst;
 	  
