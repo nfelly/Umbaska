@@ -55,77 +55,77 @@
             <artifactId>dynmap</artifactId>
             <version>2.0.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/dynmap-2.0.0.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/dynmap-2.0.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ca.wacos.nametagedit</groupId>
             <artifactId>NametagEdit</artifactId>
             <version>2.4</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/NametagEdit.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/NametagEdit.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.xxmicloxx.NoteBlockAPI</groupId>
             <artifactId>NoteBlockAPI</artifactId>
             <version>1.1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/NoteBlockAPI-1.1.0.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/NoteBlockAPI-1.1.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.worldcretornica.plotme</groupId>
             <artifactId>PlotMe</artifactId>
             <version>0.13f</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/PlotMe.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/PlotMe.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ca.xshade.bukkit.questioner</groupId>
             <artifactId>Questioner</artifactId>
             <version>0.6</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Questioner.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/Questioner.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.comphenix.protocol.ProtocolLibrary</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>3.6.3-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/ProtocolLib.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/ProtocolLib.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ch.njol.skript</groupId>
             <artifactId>Skript</artifactId>
             <version>2.1.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Skript.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/Skript.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.palmergames.bukkit.towny</groupId>
             <artifactId>Towny</artifactId>
             <version>0.88.0.0_(1.7.2)</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Towny.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/Towny.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.palmergames.bukkit.TownyChat</groupId>
             <artifactId>TownyChat</artifactId>
             <version>0.40</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/TownyChat.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/TownyChat.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.comphenix.protocol.ProtocolLibrary</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>3.6.3-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/ProtocolLib.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/ProtocolLib.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>uk.nfell2009.umbaskapi.Main</groupId>
             <artifactId>UmbaskaAPI</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/UmbaskaAPI.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/UmbaskaAPI.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
