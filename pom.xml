@@ -130,7 +130,7 @@
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>1.4.1-b436</version>
+            <version>1.4.1</version>
         </dependency>
 
     </dependencies>
