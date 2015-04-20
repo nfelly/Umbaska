@@ -453,6 +453,7 @@ public class Main extends JavaPlugin implements Listener {
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
 	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
+	 //public String entityHiderPolicy = getConfig().get("entity_hider_policy"); Reminder for myself to do this once I get home (Thx GitHub Editor)
 	 
 	public static WildSkriptTimer getTimer(){
 		return timer;
