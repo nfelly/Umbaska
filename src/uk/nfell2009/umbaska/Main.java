@@ -48,6 +48,7 @@ import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
+import uk.nfell2009.umbaska.Misc.Books.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.ProtocolLib.*;
@@ -386,7 +387,7 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffLoadWorld.class, "load world %string%");
 				Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
 
-				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
 
 				//Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
 
@@ -394,27 +395,37 @@ public class Main extends JavaPlugin implements Listener {
 				//EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
 				//EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
 
-				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
-				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"cursor item"});
-				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.PROPERTY, new String[]{"clicked slot"});
-				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.PROPERTY, new String[]{"click type"});
-				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item name"});
-				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item lore"});
+				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
+				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"cursor item"});
+				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.SIMPLE, new String[]{"clicked slot"});
+				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.SIMPLE, new String[]{"click type"});
+				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item name"});
+				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item lore"});
 
 				//Bukkit Server Properties
 				Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
 				
 				//Misc1
-				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.PROPERTY, new String[]{"spawn reason (of|for) %entity%"});
+				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.SIMPLE, new String[]{"spawn reason (of|for) %entity%"});
 				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
 				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
-				Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
+
 			 /* 1.8 Things */
 
 			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
 			 	Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
 			 	Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
+
+
+             /* Books! */
+             Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
+             Skript.registerExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book with title %string%"});
+             Skript.registerExpression(ExprPages.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"pages of [book] %itemstack% [to %-string%]"});
+             Skript.registerExpression(ExprAuthor.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"author of [book] %itemstack% [to %-string%]"});
+             Skript.registerExpression(ExprAllinOne.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book (with|from|by) author %string% [with] title %string% [and] pages %strings%"});
+
+
 			 /* 1.8 Things */
 
 
