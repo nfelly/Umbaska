@@ -409,7 +409,7 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
 				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
-				
+				Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
 			 /* 1.8 Things */
 
 			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
