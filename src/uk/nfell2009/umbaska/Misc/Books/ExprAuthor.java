@@ -9,9 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import uk.nfell2009.umbaska.GattSk.Extras.Collect;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Zachary on 4/24/2015.
  */

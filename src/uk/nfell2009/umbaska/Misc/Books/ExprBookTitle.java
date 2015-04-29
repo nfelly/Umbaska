@@ -5,13 +5,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import uk.nfell2009.umbaska.GattSk.Extras.Collect;
-
-import java.util.ArrayList;
 
 /**
  * Created by Zachary on 4/24/2015.
