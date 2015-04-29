@@ -3,11 +3,10 @@
 
     <groupId>uk.nfell2009.umbaska</groupId>
     <artifactId>umbaska</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>umbaska</name>
     <url>https://github.com/nfelly/Umbaska/</url>
     <packaging>jar</packaging>
-    <description>Plugin for Skript</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -139,4 +138,9 @@
             </plugin>
         </plugins>
     </build>
+    <description>The greatest Skript addon around</description>
+    <organization>
+    	<name>The Umbaska Project</name>
+    	<url>http://umbaska.co.uk</url>
+    </organization>
 </project>
