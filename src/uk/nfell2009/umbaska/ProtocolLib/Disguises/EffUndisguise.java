@@ -13,13 +13,11 @@ import org.bukkit.event.Event;
  */
 public class EffUndisguise extends Effect {
 
-    private Expression<String> type;
     private Expression<Player> player;
 
     @Override
     protected void execute(Event event){
         Player[] p = player.getAll(event);
-        String e = type.getSingle(event);
         if (p == null) {
             return;
         }
@@ -43,8 +41,7 @@ public class EffUndisguise extends Effect {
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        type = (Expression<String>) expressions[0];
-        player = (Expression<Player>) expressions[1];
+        player = (Expression<Player>) expressions[0];
         return true;
     }
 }

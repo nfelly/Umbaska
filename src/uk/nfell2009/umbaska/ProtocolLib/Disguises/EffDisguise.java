@@ -5,6 +5,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,17 +27,26 @@ public class EffDisguise  extends Effect {
         if (p == null) {
             return;
         }
-        EntityDisguise disguise = null;
+        EntityDisguise disguise = EntityDisguise.UNKNOWN;
         for (EntityDisguise dis : EntityDisguise.values()){
-            if (dis.toString() == e){
+            if (dis.toString().equalsIgnoreCase(e)){
                 disguise = dis;
             }
         }
-        if (disguise == null){
+        if (disguise == EntityDisguise.UNKNOWN){
             Skript.error(e + " isn't a valid disguise type!");
+            return;
         }
         for (Player pl : p) {
             MyDisguise myDisguise = new MyDisguise(pl, disguise);
+            for (Player player1 : Bukkit.getOnlinePlayers()){
+                try {
+                    myDisguise.sendDisguise(player1);
+                }catch (Exception xe){
+                    xe.printStackTrace();
+                }
+            }
+
         }
     }
 
@@ -49,8 +59,8 @@ public class EffDisguise  extends Effect {
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        type = (Expression<String>) expressions[0];
-        player = (Expression<Player>) expressions[1];
+        type = (Expression<String>) expressions[1];
+        player = (Expression<Player>) expressions[0];
         return true;
     }
 }

@@ -207,8 +207,8 @@ public class Main extends JavaPlugin implements Listener {
 
              // Disguises
 
-             Skript.registerEffect(EffDisguise.class, new String[] {"disguise %player% as %string%"});
-             Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %player%"});
+             Skript.registerEffect(EffDisguise.class, new String[] {"disguise %players% as %string%"});
+             Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %players%"});
 
 			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
 		 }
