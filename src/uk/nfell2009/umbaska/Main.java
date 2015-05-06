@@ -52,6 +52,10 @@ import uk.nfell2009.umbaska.Misc.Books.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.ProtocolLib.*;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffUndisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EntityDisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.MyDisguise;
 import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
@@ -200,6 +204,12 @@ public class Main extends JavaPlugin implements Listener {
 			 Skript.registerEffect(EffShowEntity.class, new String[] {"show %entity% to %player%"});
 			 Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %player%"});
 			 Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
+
+             // Disguises
+
+             Skript.registerEffect(EffDisguise.class, new String[] {"disguise %player% as %string%"});
+             Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %player%"});
+
 			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
 		 }
 
