@@ -5,10 +5,12 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import uk.nfell2009.umbaska.Main;
 
 /**
  * Created by Zachary on 5/6/2015.
@@ -18,8 +20,7 @@ public class EffDisguise  extends Effect {
     private Expression<String> type;
     private Expression<Player> player;
 
-    @SuppressWarnings("deprecation")
-	@Override
+    @Override
     protected void execute(Event event){
         Player[] p = player.getAll(event);
         String e = type.getSingle(event);

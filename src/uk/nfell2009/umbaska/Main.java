@@ -17,7 +17,6 @@ import com.palmergames.bukkit.towny.object.Town;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,9 +24,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 //import net.milkbowl.vault.permission.Permission;
@@ -56,8 +53,8 @@ import uk.nfell2009.umbaska.NametagEdit.*;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.ProtocolLib.*;
 import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguise;
-import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguiseName;
 import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffUndisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EntityDisguise;
 import uk.nfell2009.umbaska.ProtocolLib.Disguises.MyDisguise;
 import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
@@ -66,13 +63,11 @@ import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
 import uk.nfell2009.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin implements Listener {
 
-    public static HashMap<Player, MyDisguise> disguiseHolder = new HashMap<>();
 	public static Plugin dynmap;
 	public static DynmapAPI api;
 	public static EntityHider enthider;
@@ -213,7 +208,6 @@ public class Main extends JavaPlugin implements Listener {
              // Disguises
 
              Skript.registerEffect(EffDisguise.class, new String[] {"disguise %players% as %string%"});
-             Skript.registerEffect(EffDisguiseName.class, new String[] {"disguise %players% as %string% with custom name %string%"});
              Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %players%"});
 
 			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
