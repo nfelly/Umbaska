@@ -54,6 +54,8 @@ import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.ProtocolLib.*;
 import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguise;
 import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffUndisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EntityDisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.MyDisguise;
 import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
