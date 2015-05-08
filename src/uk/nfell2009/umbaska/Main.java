@@ -8,31 +8,38 @@
 package uk.nfell2009.umbaska;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
+
 import com.palmergames.bukkit.towny.object.Town;
-import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+
+//import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
+//import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
+
 import uk.nfell2009.umbaska.Bungee.EffChangeServer;
 import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
 import uk.nfell2009.umbaska.Bungee.Messenger;
@@ -44,32 +51,35 @@ import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
 import uk.nfell2009.umbaska.Misc.*;
+import uk.nfell2009.umbaska.Misc.Books.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
 import uk.nfell2009.umbaska.PlotMe.*;
 import uk.nfell2009.umbaska.ProtocolLib.*;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffDisguiseName;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.EffUndisguise;
+import uk.nfell2009.umbaska.ProtocolLib.Disguises.MyDisguise;
 import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
-import uk.nfell2009.umbaska.Vault.ExprGroupOfPlayer;
-import uk.nfell2009.umbaska.v1_8.ArmorStands.*;
+import uk.nfell2009.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-/*
- *  Importing local packages
- */
-
-
 public class Main extends JavaPlugin implements Listener {
 
+    public static HashMap<Player, MyDisguise> disguiseHolder = new HashMap<>();
 	public static Plugin dynmap;
 	public static DynmapAPI api;
 	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
+    public static Messenger messenger;
+	private static WildSkriptTimer timer;
 	 @Override
 	    public void onEnable() {
 		 
@@ -83,7 +93,6 @@ public class Main extends JavaPlugin implements Listener {
 		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
-		 
 		 loadConfiguration();
 		 
 		 Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
@@ -200,6 +209,13 @@ public class Main extends JavaPlugin implements Listener {
 			 Skript.registerEffect(EffShowEntity.class, new String[] {"show %entity% to %player%"});
 			 Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %player%"});
 			 Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
+
+             // Disguises
+
+             Skript.registerEffect(EffDisguise.class, new String[] {"disguise %players% as %string%"});
+             Skript.registerEffect(EffDisguiseName.class, new String[] {"disguise %players% as %string% with custom name %string%"});
+             Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %players%"});
+
 			 getLogger().info("[Umbaska] Hooked into ProtocolLib and might have added some sweet, sh17 <3 - Funnygatt");
 		 }
 
@@ -249,7 +265,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Bungee - Effects
 		  */
 		 if (use_bungee == true) {
-			 new Messenger(this);
+			 messenger = new Messenger(this);
 			 Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
 			 
 			 
@@ -294,7 +310,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Sound - Effects
 		  */
 		 
-		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play sound %string% to %player%" });
+		 Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
 		 getLogger().info(ChatColor.GREEN + "[Umbaska] Today I learnt that there were NoteBlockAPI hooks (01/03/15)");
 		 
 		 }
@@ -334,9 +350,19 @@ public class Main extends JavaPlugin implements Listener {
 		 /*
 		  *  Vault - Expressions
 		  */
-			 setupPermissions();
-			 Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
-			 getLogger().info(ChatColor.GREEN + "[Umbaska] i can haz perform perms stuffs!!! Aka hooked into Vault");
+			 //setupPermissions();
+			 //Skript.registerExpression(ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"primary group of %player%"});
+			 getLogger().info(ChatColor.GREEN + "[Umbaska] Vault was temp disabled for now. It's having problems ;w;");
+			 
+		/*
+		 *   WildSkript - Expressions
+		 */
+			 Skript.registerExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"free memory"});
+			 Skript.registerExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, new String[] {"java version"});
+			 Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
+			 Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
+			 Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
+			 Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
 			 
 		/*
 		 *  GattSk stuff
@@ -359,7 +385,6 @@ public class Main extends JavaPlugin implements Listener {
 
 				Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
 				Skript.registerEffect(EffTeamPlayer.class, "(0¦remove|1¦add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
-
 				Skript.registerEffect(EffSetTeamPrefix.class, "set (0¦suffix|1¦prefix) for team %string% in [score][board] %string% to %string%");
 				Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
 				Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
@@ -378,7 +403,7 @@ public class Main extends JavaPlugin implements Listener {
 				Skript.registerEffect(EffLoadWorld.class, "load world %string%");
 				Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
 
-				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
+				Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
 
 				//Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
 
@@ -386,53 +411,63 @@ public class Main extends JavaPlugin implements Listener {
 				//EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
 				//EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
 
-				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"clicked item"});
-				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"cursor item"});
-				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.PROPERTY, new String[]{"clicked slot"});
-				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.PROPERTY, new String[]{"click type"});
-				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item name"});
-				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.PROPERTY, new String[]{"clicked item lore"});
+				Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
+				Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"cursor item"});
+				Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.SIMPLE, new String[]{"clicked slot"});
+				Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.SIMPLE, new String[]{"click type"});
+				Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item name"});
+				Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item lore"});
 
 				//Bukkit Server Properties
 				Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
 				
-				//Misc
-				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.PROPERTY, new String[]{"spawn reason (of|for) %entity%"});
+				//Misc1
+				Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.SIMPLE, new String[]{"spawn reason (of|for) %entity%"});
 				Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
 				Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
 				Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
+
+			 /* 1.8 Things */
+
 			 	getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
 			 	Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
 			 	Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
+
+
+             /* Books! */
+             Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
+             Skript.registerExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book with title %string%"});
+             Skript.registerExpression(ExprPages.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"pages of [book] %itemstack% [to %-string%]"});
+             Skript.registerExpression(ExprAuthor.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"author of [book] %itemstack% [to %-string%]"});
+             Skript.registerExpression(ExprAllinOne.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book (with|from|by) author %string% [with] title %string% [and] pages %strings%"});
+
+
 			 /* 1.8 Things */
 
 
-			 if (Bukkit.getVersion().contains("1.8")){
-				 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-				 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
-				 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
-				 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
-				 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
-				 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
-			 }
+			 //if (Bukkit.getVersion().contains("1.8")){
+			//	 getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+			//	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
+			//	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
+			//	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
+			//	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
+			//	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+			 //}
 		 }
-		 
-		 
-		 
 	 }
 
-	@EventHandler
-	public void onSpawn(CreatureSpawnEvent e){
-		e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(plugin, e.getSpawnReason()));
-	}
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onSpawn(CreatureSpawnEvent e){
+        e.getEntity().setMetadata("spawnreason", new FixedMetadataValue(this, e.getSpawnReason()));
+    }
 	 
-	 public static Permission perms = null;
-	 
-	 public boolean setupPermissions() {
-	 	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	     perms = rsp.getProvider();
-	     return perms != null;
-	 }
+	 //public static Permission perms = null;
+	 //
+	 //public boolean setupPermissions() {
+	 //	 RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	 //    perms = rsp.getProvider();
+	 //    return perms != null;
+	 //}
 	 
 	 public void loadConfiguration(){
 	 	String path = "use_bungee";
@@ -445,6 +480,11 @@ public class Main extends JavaPlugin implements Listener {
 	 	
 	 public Boolean use_bungee = getConfig().getBoolean("use_bungee");
 	 public Boolean enable_tag_features = getConfig().getBoolean("enable_tag_features");
+	 //public String entityHiderPolicy = getConfig().get("entity_hider_policy"); Reminder for myself to do this once I get home (Thx GitHub Editor)
+	 
+	public static WildSkriptTimer getTimer(){
+		return timer;
+	}
 	 
 	 private static Main inst;
 	  

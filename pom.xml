@@ -3,63 +3,65 @@
 
     <groupId>uk.nfell2009.umbaska</groupId>
     <artifactId>umbaska</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>umbaska</name>
     <url>https://github.com/nfelly/Umbaska/</url>
     <packaging>jar</packaging>
-    <description></description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-	
-	<repositories>
+
+    <repositories>
 		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
 		</repository>
         <repository>
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
         <repository>
-			<id>vault-repo</id>
-			<url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
+            <id>vault-repo</id>
+            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
+        </repository>
+<<<<<<< HEAD
+
+        <repository>
+            <id>dynmap-repo</id>
+            <url>http://repo.mikeprimm.com</url>
+=======
+        <repository>
+        	<id>dynmap-repo</id>
+        	<url>http://repo.mikeprimm.com</url>
+>>>>>>> d17dc7cc6d8b3feee7d6bb8a0b76d2156e785e80
+        </repository>
+        <repository>
+   			<id>sanjay900-repo</id>
+   			<url>http://ci.eyrenetwork.net/plugin/repository/everything/</url>
 		</repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>net.md-5</groupId>
+        		<groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
             <version>1.8-SNAPSHOT</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bukkit</groupId>
-              <artifactId>bukkit</artifactId>
-              <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.dynmap</groupId>
-            <artifactId>dynmap</artifactId>
-            <version>2.0.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/dynmap-2.0.0.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>ca.wacos.nametagedit</groupId>
-            <artifactId>NametagEdit</artifactId>
-            <version>2.4</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/NametagEdit.jar</systemPath>
-        </dependency>
+		<!--Spigot-API-->
+		<dependency>
+		        <groupId>org.spigotmc</groupId>
+		          <artifactId>spigot-api</artifactId>
+		          <version>1.8.3-R0.1-SNAPSHOT</version>
+		</dependency>
+		<!--Bukkit API-->
+		<dependency>
+		        <groupId>org.bukkit</groupId>
+		        <artifactId>bukkit</artifactId>
+		        <version>1.8.3-R0.1-SNAPSHOT</version>
+		</dependency>
         <dependency>
             <groupId>com.xxmicloxx.NoteBlockAPI</groupId>
             <artifactId>NoteBlockAPI</artifactId>
@@ -87,6 +89,13 @@
             <version>3.6.3-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/ProtocolLib.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.dynmap.bukkit.DynmapPlugin</groupId>
+            <artifactId>dynmap</artifactId>
+            <version>2.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/dynmap-2.0.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ch.njol.skript</groupId>
@@ -124,9 +133,9 @@
     </dependencies>
 
     <build>
-		
-		<defaultGoal>clean install</defaultGoal>
-		
+
+        <defaultGoal>clean install</defaultGoal>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -139,4 +148,9 @@
             </plugin>
         </plugins>
     </build>
+    <description>The greatest Skript addon around</description>
+    <organization>
+    	<name>The Umbaska Project</name>
+    	<url>http://umbaska.co.uk</url>
+    </organization>
 </project>
