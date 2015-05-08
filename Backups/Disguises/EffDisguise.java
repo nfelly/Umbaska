@@ -38,9 +38,12 @@ public class EffDisguise  extends Effect {
         }
         for (Player pl : p) {
             MyDisguise myDisguise = new MyDisguise(pl, disguise);
+            Main.disguiseHolder.put(pl, myDisguise);
             for (Player player1 : Bukkit.getOnlinePlayers()){
                 try {
-                    myDisguise.sendDisguise(player1);
+                    if (player1 != pl) {
+                        myDisguise.sendDisguise(player1);
+                    }
                 }catch (Exception xe){
                     xe.printStackTrace();
                 }

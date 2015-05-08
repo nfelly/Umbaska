@@ -6,6 +6,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import uk.nfell2009.umbaska.Main;
 
 /**
  * Created by Zachary on 5/6/2015.
@@ -22,9 +23,8 @@ public class EffUndisguise extends Effect {
         }
 
         for (Player pl : p) {
-            MyDisguise disguise = new MyDisguise(pl, EntityDisguise.BAT);
             try {
-                disguise.removeDisguise();
+                Main.disguiseHolder.get(pl).removeDisguise();
             }catch (ReflectiveOperationException expect){
                 expect.printStackTrace();
             }
