@@ -1,6 +1,0 @@
-name: Umbaska
-main: uk.nfell2009.umbaska.Main
-version: 1.4.82
-authors: [nfell2009, Funnygatt]
-depend: [Skript]
-softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib]

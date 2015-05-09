@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Marvin Schäfer (inventivetalent). All rights reserved.
+ * Copyright 2015 Marvin Schï¿½fer (inventivetalent). All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -36,6 +36,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import uk.nfell2009.umbaska.Main;
 import de.inventivegames.hologram.reflection.AccessUtil;
 import de.inventivegames.hologram.reflection.ClassBuilder;
 import de.inventivegames.hologram.reflection.NMSClass;
@@ -43,7 +44,7 @@ import de.inventivegames.hologram.reflection.Reflection;
 
 /**
  *
- * © Copyright 2015 inventivetalent
+ * ï¿½ Copyright 2015 inventivetalent
  *
  * @author inventivetalent
  *
@@ -260,7 +261,7 @@ abstract class CraftHologram implements Hologram {
 				public void run() {
 					CraftHologram.this.sendTeleportPackets(receivers, holo, touch);
 				}
-			}.runTaskLater(HologramPlugin.instance, 1L);
+			}.runTaskLater(Main.getInstance(), 1L);
 		}
 	}
 

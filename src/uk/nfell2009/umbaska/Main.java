@@ -37,16 +37,13 @@ import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
 import org.mcstats.Metrics;
 
-import uk.nfell2009.umbaska.Bungee.EffChangeServer;
-import uk.nfell2009.umbaska.Bungee.ExprBungeeUUID;
-import uk.nfell2009.umbaska.Bungee.Messenger;
-import uk.nfell2009.umbaska.Dynmap.EffSetVisOfPlayer;
-import uk.nfell2009.umbaska.Dynmap.ExprVisOfPlayer;
+import uk.nfell2009.umbaska.Bungee.*;
+import uk.nfell2009.umbaska.Dynmap.*;
 import uk.nfell2009.umbaska.Factions.ExprFactionOfPlayer;
-import uk.nfell2009.umbaska.Gatt.EffOpenDispenser;
-import uk.nfell2009.umbaska.Gatt.EffOpenHopper;
+import uk.nfell2009.umbaska.Gatt.*;
 import uk.nfell2009.umbaska.GattSk.Effects.*;
 import uk.nfell2009.umbaska.GattSk.Expressions.*;
+import uk.nfell2009.umbaska.Holograms.*;
 import uk.nfell2009.umbaska.Misc.*;
 import uk.nfell2009.umbaska.Misc.Books.*;
 import uk.nfell2009.umbaska.NametagEdit.*;
@@ -77,7 +74,7 @@ public class Main extends JavaPlugin implements Listener {
 	private static WildSkriptTimer timer;
 	 @Override
 	    public void onEnable() {
-		 
+		 plugin = this;
 		 try {
 		    Metrics metrics = new Metrics(this);
 		    metrics.start();
@@ -138,6 +135,27 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
 		 getLogger().info(ChatColor.GREEN + "[Umbaska] Just loaded Spawner syntaxs...");
 		 pl = getServer().getPluginManager().getPlugin("Towny");
+		 
+		 /*
+		  *  Holograms - Effects
+		  */
+		 
+		 Skript.registerEffect(EffCreateHologram.class, new String[] { "create [new] hologram at %location% with %string% in %string% [for %long%]" });
+		 Skript.registerEffect(EffAddLineBelow.class, new String[] { "add %string% below hologram at %location% in %string%" });
+		 Skript.registerEffect(EffAddLineAbove.class, new String[] { "add %string% above hologram at %location% in %string%" });
+		 Skript.registerEffect(EffDeleteHologram.class, new String[] { "delete hologram at %location% in %string%" });
+		 Skript.registerEffect(EffMoveHologram.class, new String[] { "move hologram from %location% to %location% in %string%" });
+		 Skript.registerEffect(EffSetText.class, new String[] { "set text of hologram at %location% to %string% in %string%" });
+		 Skript.registerEffect(EffSetTextAbove.class, new String[] { "set text of line above hologram at %location% to %string% in %string%" });
+		 Skript.registerEffect(EffSetTextBelow.class, new String[] { "set text of line below hologram at %location% to %string% in %string%" });
+		 
+		 /*
+		  *  Holograms - Expressions
+		  */
+		 
+		 Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line above hologram at %location% in %string%");
+		 Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line below hologram at %location% in %string%");
+		 Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of hologram at %location% in %string%");
 		 
 		 /*
 		  *  UUID - Expressions

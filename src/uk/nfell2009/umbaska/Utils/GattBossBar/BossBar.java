@@ -2,9 +2,7 @@ package uk.nfell2009.umbaska.Utils.GattBossBar;
 
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftWither;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Wither;
 
 /**
  * Created by Zachary on 5/9/2015.

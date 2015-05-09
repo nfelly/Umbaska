@@ -48,11 +48,6 @@ public class HologramPlugin extends JavaPlugin implements Listener {
 		instance = this;
 		Bukkit.getPluginManager().registerEvents(new HologramListeners(), this);
 
-		if (Bukkit.getPluginManager().isPluginEnabled("PacketListenerApi")) {
-			System.out.println("[HologramAPI] Found PacketListenerAPI. Enabled touch-holograms.");
-			new PacketListener(instance);
-			HologramAPI.packetsEnabled = true;
-		}
 	}
 
 	@Override
@@ -60,7 +55,6 @@ public class HologramPlugin extends JavaPlugin implements Listener {
 		for (Hologram h : HologramAPI.getHolograms()) {
 			HologramAPI.removeHologram(h);
 		}
-		PacketListener.disable();
 	}
 
 }
