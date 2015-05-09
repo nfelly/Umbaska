@@ -9,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import uk.nfell2009.umbaska.Main;
+import uk.nfell2009.umbaska.Utils.Disguise.EntityDisguise;
+import uk.nfell2009.umbaska.Utils.Disguise.MyDisguise;
 
 /**
  * Created by Zachary on 5/6/2015.

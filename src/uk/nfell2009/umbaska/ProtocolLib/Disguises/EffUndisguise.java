@@ -1,6 +1,5 @@
 package uk.nfell2009.umbaska.ProtocolLib.Disguises;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -8,6 +7,8 @@ import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import uk.nfell2009.umbaska.Main;
+import uk.nfell2009.umbaska.Utils.Disguise.EntityDisguise;
+import uk.nfell2009.umbaska.Utils.Disguise.MyDisguise;
 
 /**
  * Created by Zachary on 5/6/2015.

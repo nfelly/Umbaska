@@ -1,4 +1,4 @@
-package uk.nfell2009.umbaska.ProtocolLib.Disguises;
+package uk.nfell2009.umbaska.Utils;
 
 
 import org.bukkit.Bukkit;

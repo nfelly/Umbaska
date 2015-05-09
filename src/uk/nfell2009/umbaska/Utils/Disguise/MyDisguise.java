@@ -1,9 +1,10 @@
-package uk.nfell2009.umbaska.ProtocolLib.Disguises;
+package uk.nfell2009.umbaska.Utils.Disguise;
 
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import uk.nfell2009.umbaska.Utils.ReflectionUtils;
 
 
 /**
@@ -86,8 +87,8 @@ public class MyDisguise {
 			throw new IllegalArgumentException(
 					"Target Player cannot be the same as the disguised player");
 		Object packetplayoutentitydestroy = ReflectionUtils.instantiateObject(
-				"PacketPlayOutEntityDestroy", ReflectionUtils.PackageType.MINECRAFT_SERVER,
-				new int[] { disguised.getEntityId() });
+                "PacketPlayOutEntityDestroy", ReflectionUtils.PackageType.MINECRAFT_SERVER,
+                new int[]{disguised.getEntityId()});
 		Object world = ReflectionUtils.invokeMethod(disguised.getWorld(),
 				"getHandle", null);
 		Class<?> entity = Class.forName(type.getClassName());
