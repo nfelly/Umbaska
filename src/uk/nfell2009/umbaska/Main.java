@@ -54,6 +54,7 @@ import uk.nfell2009.umbaska.Sound.EffPlayTrack;
 import uk.nfell2009.umbaska.Spawner.*;
 import uk.nfell2009.umbaska.Towny.*;
 import uk.nfell2009.umbaska.UUID.ExprNamesOfPlayer;
+import uk.nfell2009.umbaska.Utils.Disguise.DisguiseHandler;
 import uk.nfell2009.umbaska.Utils.Disguise.MyDisguise;
 import uk.nfell2009.umbaska.WildSkript.system.*;
 
@@ -69,7 +70,7 @@ public class Main extends JavaPlugin implements Listener {
 	public static DynmapAPI api;
 	public static EntityHider enthider;
 	public final Logger logger = Logger.getLogger("Minecraft");
-    public static HashMap<Player, MyDisguise> disguiseHashMap = new HashMap<>();
+    public static DisguiseHandler disguiseHandler;
 	public static Main plugin;
     public static Messenger messenger;
 	private static WildSkriptTimer timer;
@@ -84,7 +85,7 @@ public class Main extends JavaPlugin implements Listener {
 		    getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
 		 }
          holoManager = new HologramManager();
-		 
+		 disguiseHandler = new DisguiseHandler(this);
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);
 		 loadConfiguration();

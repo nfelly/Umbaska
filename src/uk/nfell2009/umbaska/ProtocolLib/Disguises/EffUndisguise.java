@@ -23,13 +23,7 @@ public class EffUndisguise extends Effect {
         }
 
         for (Player pl : p) {
-            try {
-                if (Main.disguiseHashMap.containsKey(pl)){
-                    Main.disguiseHashMap.get(pl).removeDisguise();
-                }
-            }catch (ReflectiveOperationException expect){
-                expect.printStackTrace();
-            }
+            Main.disguiseHandler.removeDisguise(pl);
         }
     }
 

@@ -42,7 +42,7 @@ public class EffDisguise  extends Effect {
         }
         for (Player pl : p) {
             MyDisguise myDisguise = new MyDisguise(pl, disguise);
-            Main.disguiseHashMap.put(pl, myDisguise);
+            Main.disguiseHandler.setDisguise(pl, myDisguise);
             for (Player player1 : Bukkit.getOnlinePlayers()){
                 try {
                     myDisguise.sendDisguise(player1);

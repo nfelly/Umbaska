@@ -45,7 +45,7 @@ public class EffDisguiseName extends Effect {
         for (Player pl : p) {
             MyDisguise myDisguise = new MyDisguise(pl, disguise);
             myDisguise.setCustomName(name.getSingle(event));
-            Main.disguiseHashMap.put(pl, myDisguise);
+            Main.disguiseHandler.setDisguise(pl, myDisguise);
             for (Player player1 : Bukkit.getOnlinePlayers()){
                 try {
                     myDisguise.sendDisguise(player1);
