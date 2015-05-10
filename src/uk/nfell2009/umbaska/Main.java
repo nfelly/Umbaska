@@ -64,6 +64,7 @@ import java.util.logging.Logger;
 
 public class Main extends JavaPlugin implements Listener {
 
+    public static HologramManager holoManager;
 	public static Plugin dynmap;
 	public static DynmapAPI api;
 	public static EntityHider enthider;
@@ -82,6 +83,7 @@ public class Main extends JavaPlugin implements Listener {
 		 } catch (IOException e) {
 		    getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
 		 }
+         holoManager = new HologramManager();
 		 
 		 final PluginManager pluginManager = getServer().getPluginManager();
 		 pluginManager.registerEvents(this, this);

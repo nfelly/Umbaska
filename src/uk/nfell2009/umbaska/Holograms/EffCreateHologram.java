@@ -18,7 +18,8 @@ import org.bukkit.event.Event;
 
 import de.inventivegames.hologram.Hologram;
 import de.inventivegames.hologram.HologramAPI;
- 
+import uk.nfell2009.umbaska.Main;
+
 public class EffCreateHologram extends Effect {
  
   private Expression<Location> location;

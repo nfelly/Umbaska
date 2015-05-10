@@ -1,6 +1,7 @@
 package uk.nfell2009.umbaska.Holograms;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
@@ -10,6 +11,8 @@ import de.inventivegames.hologram.Hologram;
 import de.inventivegames.hologram.HologramAPI;
 
 public class HologramManager {
+
+    public HashMap<String, Hologram> holos = new HashMap<>();
 
 	public Hologram getHologramByLocation(Location location, String world) {
   		Collection<Hologram> ch = HologramAPI.getHolograms();
