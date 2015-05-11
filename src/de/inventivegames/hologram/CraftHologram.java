@@ -36,7 +36,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import uk.nfell2009.umbaska.Main;
+import uk.co.umbaska.Main;
 import de.inventivegames.hologram.reflection.AccessUtil;
 import de.inventivegames.hologram.reflection.ClassBuilder;
 import de.inventivegames.hologram.reflection.NMSClass;
