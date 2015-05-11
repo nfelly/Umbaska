@@ -27,6 +27,7 @@ public class DisguiseHandler {
                 ex.printStackTrace();
             }
         }
+        new DisguiseTracker(p);
     }
 
     public void removeDisguise(Player p){
@@ -40,29 +41,42 @@ public class DisguiseHandler {
         disguiseTracker.remove(p);
     }
 
-    public class DisguiseTracker extends BukkitRunnable{
+    public class DisguiseTracker{
 
         Plugin plugin = p;
         Player player;
+        MyDisguise currentDisguise;
+        BukkitRunnable runnable;
+
         public DisguiseTracker(Player player){
+
             this.player = player;
+            this.currentDisguise = disguiseTracker.get(player);
+            start();
         }
 
-        @Override
-        public void run(){
-            if (disguiseTracker.containsKey(player)){
-                for (Player player1 : Bukkit.getOnlinePlayers()) {
-                    try {
-                        disguiseTracker.get(player).updateDisguise(player1);
-                    }catch (Exception ex){
-                        ex.printStackTrace();
+        private void start(){
+            runnable = Bukkit.getScheduler().runTaskTimer(p, new Runnable() {
+                @Override
+                public void run() {
+                    if (disguiseTracker.containsKey(player)){
+                        if (disguiseTracker.get(player) != currentDisguise){
+                            runnable.cancel();
+                        }
+                        for (Player player1 : Bukkit.getOnlinePlayers()) {
+                            try {
+                                disguiseTracker.get(player).updateDisguise(player1);
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+                    if (!player.isOnline()){
+                        removeDisguise(player);
+                        runnable.cancel();
                     }
                 }
-            }
-            if (!player.isOnline()){
-                removeDisguise(player);
-                this.cancel();
-            }
+            }, 20l);
         }
     }
 

@@ -16,6 +16,7 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 
 import de.inventivegames.hologram.Hologram;
+import uk.nfell2009.umbaska.Main;
 
 public class EffSetTextAbove extends Effect {
  
@@ -34,8 +35,8 @@ public class EffSetTextAbove extends Effect {
 	  		} else if (w == null) {
 	  			return;
 	  		}
-	  		HologramManager hm = new HologramManager();
-	  		Hologram hologram = hm.getHologramByLocation(l, w);
+            HologramManager hm = Main.holoManager;
+            Hologram hologram = hm.getHologramByLocation(l, w);
 	  		Hologram above = hologram.getLineAbove();
 	  		above.setText(t);
 	  		hologram.update();

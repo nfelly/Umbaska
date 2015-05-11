@@ -387,6 +387,7 @@ public class Main extends JavaPlugin implements Listener {
 				//General
 
 				Skript.registerEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
+                Skript.registerEffect(EffClearExplodedBlocks.class, "(remove|delete|clear) all [better] exploded blocks");
 
 				//Scoreboards
 
