@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 
@@ -46,7 +47,7 @@ public class DisguiseHandler {
         Plugin plugin = p;
         Player player;
         MyDisguise currentDisguise;
-        BukkitRunnable runnable;
+        BukkitTask runnable;
 
         public DisguiseTracker(Player player){
 
@@ -76,7 +77,7 @@ public class DisguiseHandler {
                         runnable.cancel();
                     }
                 }
-            }, 20l);
+            }, 20l, 20l);
         }
     }
 
