@@ -15,6 +15,7 @@ import ch.njol.skript.util.Getter;
 
 import com.palmergames.bukkit.towny.object.Town;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -149,7 +150,8 @@ public class Main extends JavaPlugin implements Listener {
 		 Skript.registerEffect(EffSetText.class, new String[] { "set text of hologram at %location% to %string% in %string%" });
 		 Skript.registerEffect(EffSetTextAbove.class, new String[] { "set text of line above hologram at %location% to %string% in %string%" });
 		 Skript.registerEffect(EffSetTextBelow.class, new String[] { "set text of line below hologram at %location% to %string% in %string%" });
-		 
+         Bukkit.getLogger().info("Information Gathered: Funnygatt really hates this hologram api -.-");
+
 		 /*
 		  *  Holograms - Expressions
 		  */
