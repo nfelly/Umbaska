@@ -47,10 +47,11 @@ public class ExprUUIDOfEntity extends SimpleExpression<String> {
     @javax.annotation.Nullable
     protected String[] get(Event arg0) {
         Entity[] entities = this.entity.getAll(arg0);
-        List<String> uuids = new ArrayList<>();
+        ArrayList<String> uuids = new ArrayList<>();
         for (Entity e : entities){
             uuids.add(e.getUniqueId().toString());
         }
-        return ((String[])uuids.toArray());
+        String[] stringArray = uuids.toArray(new String[uuids.size()]);
+        return stringArray;
     }
 }
