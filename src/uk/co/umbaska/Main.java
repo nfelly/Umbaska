@@ -52,11 +52,14 @@ import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
 import uk.co.umbaska.Replacers.EffParticle;
+import uk.co.umbaska.Replacers.ParticleFunction;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.ExprNamesOfPlayer;
 import uk.co.umbaska.Utils.Disguise.DisguiseHandler;
+import uk.co.umbaska.Utils.EnumClassInfo;
+import uk.co.umbaska.Utils.ParticleEnum;
 import uk.co.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
@@ -464,15 +467,19 @@ public class Main extends JavaPlugin implements Listener {
 			 /* 1.8 Things */
 
         if (Bukkit.getVersion().contains("1.8") && getConfig().getBoolean("Enable 1_8 Features")) {
+
             getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+            EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
+            getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
             getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
-            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%-number%] [offset (at|by|from) %-number%, %-number% (,|and) %-number%] at %locations% [[ with] data %-integer%");
+            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %integer%]");
             //	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             //	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
             //	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
             //	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
             //	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
             //}
+
         }
     }
 
