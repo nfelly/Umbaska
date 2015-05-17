@@ -8,6 +8,7 @@
 package uk.co.umbaska;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.expressions.ExprUUID;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
@@ -57,6 +58,7 @@ import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.ExprNamesOfPlayer;
+import uk.co.umbaska.UUID.ExprUUIDOfEntity;
 import uk.co.umbaska.Utils.Disguise.DisguiseHandler;
 import uk.co.umbaska.Utils.EnumClassInfo;
 import uk.co.umbaska.Utils.ParticleEnum;
@@ -168,7 +170,8 @@ public class Main extends JavaPlugin implements Listener {
 		  *  UUID - Expressions
 		  */
 
-        Skript.registerExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.SIMPLE, "names of %string%");
+        Skript.registerExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.COMBINED, "names of %string%");
+        Skript.registerExpression(ExprUUIDOfEntity.class, String.class, ExpressionType.SIMPLE, "uuid of %entity%");
         getLogger().info(ChatColor.GREEN + "[Umbaska] Finished loading up UUID stuffs");
 
         if (pl != null) {
@@ -465,6 +468,7 @@ public class Main extends JavaPlugin implements Listener {
 
 
 			 /* 1.8 Things */
+
 
         if (Bukkit.getVersion().contains("1.8") && getConfig().getBoolean("Enable 1_8 Features")) {
 
