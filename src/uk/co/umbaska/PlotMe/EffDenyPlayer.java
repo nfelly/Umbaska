@@ -17,39 +17,39 @@ import org.bukkit.event.Event;
 
 import com.worldcretornica.plotme.Plot;
 import com.worldcretornica.plotme.PlotManager;
- 
+
 public class EffDenyPlayer extends Effect {
- 
-  private Expression<String> plot;
-  private Expression<Player> player;
- 
-  @Override
-  protected void execute(Event event){
-	  		String pl = plot.getSingle(event);
-	  		String p = player.getSingle(event).toString();
-	  		if (pl == null) {
-	  			return;
-	  		} else if (p == null) {
-	  			return;
-	  		}
-	  		if (PlotManager.isValidId(pl)) {
-	  			Plot plot = PlotManager.getPlotById(pl, pl);
-	  			plot.addDenied(p);
-	  			plot.removeAllowed(p);
-	  		}
+
+    private Expression<String> plot;
+    private Expression<Player> player;
+
+    @Override
+    protected void execute(Event event){
+        String pl = plot.getSingle(event);
+        String p = player.getSingle(event).toString();
+        if (pl == null) {
+            return;
+        } else if (p == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Deny a player from a plot";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        if (PlotManager.isValidId(pl)) {
+            Plot plot = PlotManager.getPlotById(pl, pl);
+            plot.addDenied(p);
+            plot.removeAllowed(p);
+        }
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Deny a player from a plot";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
         plot = (Expression<String>) expressions[0];
         player = (Expression<Player>) expressions[1];
         return true;
-  }
+    }
 }

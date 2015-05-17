@@ -19,46 +19,46 @@ import com.worldcretornica.plotme.PlotManager;
 
 public class ExprGetOwner extends SimpleExpression<String>{
 
-	private Expression<String> plot;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<String> plot;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.plot = (Expression<String>) args[0];
-		return true;
-	}
+        return String.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return owner of plot";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.plot = (Expression<String>) args[0];
+        return true;
+    }
 
-		String plot = this.plot.getSingle(arg0);
-		
-		if (plot == null){
-			return null;
-		}
-		
-		if (!PlotManager.isValidId(plot)) {
-			return new String[] { null } ;
-		}
-		Plot p = PlotManager.getPlotById(plot, plot);
-		String owner = p.owner;
-		return new String[] { owner };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return owner of plot";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+
+        String plot = this.plot.getSingle(arg0);
+
+        if (plot == null){
+            return null;
+        }
+
+        if (!PlotManager.isValidId(plot)) {
+            return new String[] { null } ;
+        }
+        Plot p = PlotManager.getPlotById(plot, plot);
+        String owner = p.owner;
+        return new String[] { owner };
+    }
 
 }

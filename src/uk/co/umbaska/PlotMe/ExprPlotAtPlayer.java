@@ -21,43 +21,43 @@ import com.worldcretornica.plotme.PlotManager;
 
 public class ExprPlotAtPlayer extends SimpleExpression<String>{
 
-	private Expression<Player> player;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<Player> player;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		return true;
-	}
+        return String.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return plot id at player";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        return true;
+    }
 
-		Player player = this.player.getSingle(arg0);
-		
-		if (player == null){
-			return null;
-		}
-		
-		String plot = PlotManager.getPlotId(player);
-		
-		return new String[] { plot };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return plot id at player";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+
+        Player player = this.player.getSingle(arg0);
+
+        if (player == null){
+            return null;
+        }
+
+        String plot = PlotManager.getPlotId(player);
+
+        return new String[] { plot };
+    }
 
 }

@@ -14,17 +14,17 @@ public class HologramManager {
 
     public HashMap<String, Hologram> holos = new HashMap<>();
 
-	public Hologram getHologramByLocation(Location location, String world) {
-  		Collection<Hologram> ch = HologramAPI.getHolograms();
-  		Iterator<Hologram> iter = ch.iterator();
-  		Location l = new Location(Bukkit.getWorld(world), location.getX(), location.getY(), location.getZ());
-  		while (iter.hasNext()) {
-  		    Hologram current = iter.next();
-  		    if (current.getLocation() == l) {
-  		    	return current;
-  		    }
-  		}
-  		return null;
-	}
-	
+    public Hologram getHologramByLocation(Location location, String world) {
+        Collection<Hologram> ch = HologramAPI.getHolograms();
+        Iterator<Hologram> iter = ch.iterator();
+        Location l = new Location(Bukkit.getWorld(world), location.getX(), location.getY(), location.getZ());
+        while (iter.hasNext()) {
+            Hologram current = iter.next();
+            if (current.getLocation() == l) {
+                return current;
+            }
+        }
+        return null;
+    }
+
 }

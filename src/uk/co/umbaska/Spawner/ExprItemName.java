@@ -22,37 +22,37 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 
 public class ExprItemName extends SimpleExpression<String> {
-	 
+
     @Override
     public Class<? extends String> getReturnType() {
-            return String.class;
+        return String.class;
     }
 
     @Override
     public boolean isSingle() {
-            return true;
+        return true;
     }
 
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, ParseResult pr) {
-            if (!ScriptLoader.isCurrentEvent(BlockPlaceEvent.class)) {
-                    Skript.error(
-                                    "Cannot use client in other events other than the transaction event",
-                                    ErrorQuality.SEMANTIC_ERROR);
-                    return false;
-            }
-            return true;
+        if (!ScriptLoader.isCurrentEvent(BlockPlaceEvent.class)) {
+            Skript.error(
+                    "Cannot use client in other events other than the transaction event",
+                    ErrorQuality.SEMANTIC_ERROR);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-            return "Returns price";
+        return "Returns price";
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-            return new String[] { ((BlockPlaceEvent) e).getItemInHand().getItemMeta().getDisplayName().toString() };
+        return new String[] { ((BlockPlaceEvent) e).getItemInHand().getItemMeta().getDisplayName().toString() };
     }
 
 }

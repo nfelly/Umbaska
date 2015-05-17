@@ -19,41 +19,41 @@ import de.inventivegames.hologram.Hologram;
 import uk.co.umbaska.Main;
 
 public class EffSetTextBelow extends Effect {
- 
-  private Expression<Location> location;
-  private Expression<String> text, world;
- 
-  @Override
-  protected void execute(Event event){
-	  		Location l = location.getSingle(event);
-	  		String t = text.getSingle(event);
-	  		String w = world.getSingle(event);
-	  		if (l == null) {
-	  			return;
-	  		} else if (t == null) {
-	  			return;
-	  		} else if (w == null) {
-	  			return;
-	  		}
-      HologramManager hm = Main.holoManager;
-      Hologram hologram = hm.getHologramByLocation(l, w);
-	  		Hologram above = hologram.getLineBelow();
-	  		above.setText(t);
-	  		hologram.update();
+
+    private Expression<Location> location;
+    private Expression<String> text, world;
+
+    @Override
+    protected void execute(Event event){
+        Location l = location.getSingle(event);
+        String t = text.getSingle(event);
+        String w = world.getSingle(event);
+        if (l == null) {
+            return;
+        } else if (t == null) {
+            return;
+        } else if (w == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Holograms (EffSetTextBelow)";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	  	location = (Expression<Location>) expressions[0];
-	  	text = (Expression<String>) expressions[1];
-	  	world = (Expression<String>) expressions[2];
+        HologramManager hm = Main.holoManager;
+        Hologram hologram = hm.getHologramByLocation(l, w);
+        Hologram above = hologram.getLineBelow();
+        above.setText(t);
+        hologram.update();
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Holograms (EffSetTextBelow)";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        location = (Expression<Location>) expressions[0];
+        text = (Expression<String>) expressions[1];
+        world = (Expression<String>) expressions[2];
         return true;
-  }
+    }
 }

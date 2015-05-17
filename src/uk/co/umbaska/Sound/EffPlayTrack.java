@@ -22,39 +22,39 @@ import com.xxmicloxx.NoteBlockAPI.SongPlayer;
 
 
 import java.io.File;
- 
+
 public class EffPlayTrack extends Effect {
- 
-  private Expression<String> trk;
-  private Expression<Player> ply;
- 
-  @Override
-  protected void execute(Event event){
-	  		Player p = ply.getSingle(event);
-	  		String t = trk.getSingle(event);
-	  		if (p == null) {
-	  			return;
-	  		} else if (t == null) {
-	  			return;
-	  		}
-	  		Song s = NBSDecoder.parse(new File(t));
-	  		SongPlayer sp = new RadioSongPlayer(s);
-	  		sp.setAutoDestroy(true);
-	  		sp.addPlayer(p);
-	  		sp.setPlaying(true);
+
+    private Expression<String> trk;
+    private Expression<Player> ply;
+
+    @Override
+    protected void execute(Event event){
+        Player p = ply.getSingle(event);
+        String t = trk.getSingle(event);
+        if (p == null) {
+            return;
+        } else if (t == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Playing song";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	    trk = (Expression<String>) expressions[0];
+        Song s = NBSDecoder.parse(new File(t));
+        SongPlayer sp = new RadioSongPlayer(s);
+        sp.setAutoDestroy(true);
+        sp.addPlayer(p);
+        sp.setPlaying(true);
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Playing song";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        trk = (Expression<String>) expressions[0];
         ply = (Expression<Player>) expressions[1];
         return true;
-  }
+    }
 }

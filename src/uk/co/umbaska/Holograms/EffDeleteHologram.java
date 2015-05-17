@@ -19,36 +19,36 @@ import de.inventivegames.hologram.Hologram;
 import uk.co.umbaska.Main;
 
 public class EffDeleteHologram extends Effect {
- 
-  private Expression<Location> location;
-  private Expression<String> world;
- 
-  @Override
-  protected void execute(Event event){
-	  		Location l = location.getSingle(event);
-	  		String w = world.getSingle(event);
-	  		if (l == null) {
-	  			return;
-	  		} else if (w == null) {
-	  			return;
-	  		}
-	  		HologramManager hm = Main.holoManager;
-            Hologram hologram = hm.getHologramByLocation(l, w);
-	  		hologram.despawn();
-	  		
+
+    private Expression<Location> location;
+    private Expression<String> world;
+
+    @Override
+    protected void execute(Event event){
+        Location l = location.getSingle(event);
+        String w = world.getSingle(event);
+        if (l == null) {
+            return;
+        } else if (w == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Delete hologram (EffDeleteHologram)";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	  	location = (Expression<Location>) expressions[0];
-	  	world = (Expression<String>) expressions[1];
+        HologramManager hm = Main.holoManager;
+        Hologram hologram = hm.getHologramByLocation(l, w);
+        hologram.despawn();
+
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Delete hologram (EffDeleteHologram)";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        location = (Expression<Location>) expressions[0];
+        world = (Expression<String>) expressions[1];
         return true;
-  }
+    }
 }

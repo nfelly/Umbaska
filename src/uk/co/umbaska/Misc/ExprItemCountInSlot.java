@@ -20,47 +20,47 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class ExprItemCountInSlot extends SimpleExpression<ItemStack>{
 
-	private Expression<Player> player;
-	private Expression<Integer> slot;
-	
-	public Class<? extends ItemStack> getReturnType() {
-		
-		return ItemStack.class;
-	}
+    private Expression<Player> player;
+    private Expression<Integer> slot;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends ItemStack> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		this.slot = (Expression<Integer>) args[1];
-		return true;
-	}
+        return ItemStack.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return owner of plot";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected ItemStack[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        this.slot = (Expression<Integer>) args[1];
+        return true;
+    }
 
-		Player p = this.player.getSingle(arg0);
-		Integer s = this.slot.getSingle(arg0);
-		
-		p.getUniqueId();
-		
-		if (p == null || s == null){
-			return null;
-		}
-		PlayerInventory inv = p.getInventory();
-		ItemStack red = inv.getItem(s);
-		return new ItemStack[] { red };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return owner of plot";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected ItemStack[] get(Event arg0) {
+
+        Player p = this.player.getSingle(arg0);
+        Integer s = this.slot.getSingle(arg0);
+
+        p.getUniqueId();
+
+        if (p == null || s == null){
+            return null;
+        }
+        PlayerInventory inv = p.getInventory();
+        ItemStack red = inv.getItem(s);
+        return new ItemStack[] { red };
+    }
 
 }

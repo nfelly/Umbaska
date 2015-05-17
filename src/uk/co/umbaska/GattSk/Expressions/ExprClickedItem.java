@@ -20,31 +20,31 @@ import org.bukkit.inventory.ItemStack;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 public class ExprClickedItem extends SimpleExpression<ItemStack>{
-	
-	public Class<? extends ItemStack> getReturnType() {
-		
-		return ItemStack.class;
-	}
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends ItemStack> getReturnType() {
 
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		return true;
-	}
+        return ItemStack.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "item clicked";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected ItemStack[] get(Event event) {
-		return Collect.asArray(((InventoryClickEvent) event).getCurrentItem());
-	}
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "item clicked";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected ItemStack[] get(Event event) {
+        return Collect.asArray(((InventoryClickEvent) event).getCurrentItem());
+    }
 
 }

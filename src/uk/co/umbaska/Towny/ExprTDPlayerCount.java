@@ -22,48 +22,48 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class ExprTDPlayerCount extends SimpleExpression<Integer>{
 
-	private Expression<String> town;
-	
-	public Class<? extends Integer> getReturnType() {
-		
-		return Integer.class;
-	}
+    private Expression<String> town;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Integer> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.town = (Expression<String>) args[0];
-		return true;
-	}
+        return Integer.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return count of players in a town";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Integer[] get(Event arg0) {
-		String t = this.town.getSingle(arg0);
-		Town tw = null;
-		try {
-			tw = TownyUniverse.getDataSource().getTown(t);
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
-		
-		if (tw == null){
-			return null;
-		}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.town = (Expression<String>) args[0];
+        return true;
+    }
 
-		Integer i = tw.getNumResidents();
-		
-		return new Integer[] { i };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return count of players in a town";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Integer[] get(Event arg0) {
+        String t = this.town.getSingle(arg0);
+        Town tw = null;
+        try {
+            tw = TownyUniverse.getDataSource().getTown(t);
+        } catch (NotRegisteredException e) {
+            e.printStackTrace();
+        }
+
+        if (tw == null){
+            return null;
+        }
+
+        Integer i = tw.getNumResidents();
+
+        return new Integer[] { i };
+    }
 
 }

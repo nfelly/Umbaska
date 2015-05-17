@@ -12,34 +12,34 @@ import org.bukkit.event.Event;
  * Created by Zachary on 11/28/2014.
  */
 public class EffCreateTeam extends Effect {
-	private Expression<String> boardname;
-	private Expression<String> teamName;
+    private Expression<String> boardname;
+    private Expression<String> teamName;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2,
-						SkriptParser.ParseResult arg3) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2,
+                        SkriptParser.ParseResult arg3) {
 
-		this.boardname = (Expression<String>) args[1];
-		this.teamName = (Expression<String>) args[0];
+        this.boardname = (Expression<String>) args[1];
+        this.teamName = (Expression<String>) args[0];
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "create new objective";
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "create new objective";
+    }
 
-	@Override
-	protected void execute(Event arg0) {
-		String boardname = this.boardname.getSingle(arg0);
-		String teamname = this.teamName.getSingle(arg0);
-		if (teamname == null | boardname == null){
-			return;
-		}
-		ScoreboardManagers.createTeam(boardname, teamname);
-	}
+    @Override
+    protected void execute(Event arg0) {
+        String boardname = this.boardname.getSingle(arg0);
+        String teamname = this.teamName.getSingle(arg0);
+        if (teamname == null | boardname == null){
+            return;
+        }
+        ScoreboardManagers.createTeam(boardname, teamname);
+    }
 
 }
 

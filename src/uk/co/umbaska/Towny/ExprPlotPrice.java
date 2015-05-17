@@ -21,41 +21,41 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class ExprPlotPrice extends SimpleExpression<Double>{
 
-	private Expression<Location> location;
-	
-	public Class<? extends Double> getReturnType() {
-		
-		return Double.class;
-	}
+    private Expression<Location> location;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Double> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.location = (Expression<Location>) args[0];
-		return true;
-	}
+        return Double.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return plot price";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Double[] get(Event arg0) {
-		Location l = this.location.getSingle(arg0);
-		if (l == null){
-			return null;
-		}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.location = (Expression<Location>) args[0];
+        return true;
+    }
 
-		Double s = TownyUniverse.getTownBlock(l).getPlotPrice();
-		
-		return new Double[] { s };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return plot price";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Double[] get(Event arg0) {
+        Location l = this.location.getSingle(arg0);
+        if (l == null){
+            return null;
+        }
+
+        Double s = TownyUniverse.getTownBlock(l).getPlotPrice();
+
+        return new Double[] { s };
+    }
 
 }

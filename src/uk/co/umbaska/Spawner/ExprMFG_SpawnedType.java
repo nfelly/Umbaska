@@ -19,37 +19,37 @@ import org.bukkit.event.Event;
 
 public class ExprMFG_SpawnedType extends SimpleExpression<EntityType>{
 
-	private Expression<Block> block;
-	
-	public Class<? extends EntityType> getReturnType() {
-		
-		return EntityType.class;
-	}
+    private Expression<Block> block;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends EntityType> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.block = (Expression<Block>) args[0];
-		return true;
-	}
+        return EntityType.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "get entity type of a spawner";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected EntityType[] get(Event arg0) {
-		Block b = block.getSingle(arg0);
-		CreatureSpawner cs = (CreatureSpawner) b.getState();
-		EntityType e = cs.getSpawnedType();
-		return new EntityType[] { e };
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.block = (Expression<Block>) args[0];
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "get entity type of a spawner";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected EntityType[] get(Event arg0) {
+        Block b = block.getSingle(arg0);
+        CreatureSpawner cs = (CreatureSpawner) b.getState();
+        EntityType e = cs.getSpawnedType();
+        return new EntityType[] { e };
+    }
 
 }

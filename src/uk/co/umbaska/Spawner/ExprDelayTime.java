@@ -19,37 +19,37 @@ import org.bukkit.event.Event;
 
 public class ExprDelayTime extends SimpleExpression<Integer>{
 
-	private Expression<Location> location;
-	
-	public Class<? extends Integer> getReturnType() {
-		
-		return Integer.class;
-	}
+    private Expression<Location> location;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Integer> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.location = (Expression<Location>) args[0];
-		return true;
-	}
+        return Integer.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "get spawner delay time";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Integer[] get(Event arg0) {
-		Location l = location.getSingle(arg0);
-		CreatureSpawner cs = (CreatureSpawner) l.getBlock().getState();
-		Integer e = cs.getDelay();
-		return new Integer[] { e };
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.location = (Expression<Location>) args[0];
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "get spawner delay time";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Integer[] get(Event arg0) {
+        Location l = location.getSingle(arg0);
+        CreatureSpawner cs = (CreatureSpawner) l.getBlock().getState();
+        Integer e = cs.getDelay();
+        return new Integer[] { e };
+    }
 
 }

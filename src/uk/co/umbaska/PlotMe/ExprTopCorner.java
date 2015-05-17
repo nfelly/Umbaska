@@ -20,50 +20,50 @@ import com.worldcretornica.plotme.PlotManager;
 
 public class ExprTopCorner extends SimpleExpression<Location>{
 
-	private Expression<String> plot;
-	private Expression<World> world;
-	
-	public Class<? extends Location> getReturnType() {
-		
-		return Location.class;
-	}
+    private Expression<String> plot;
+    private Expression<World> world;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Location> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.plot = (Expression<String>) args[0];
-		this.world = (Expression<World>) args[1];
-		return true;
-	}
+        return Location.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return owner of plot";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Location[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.plot = (Expression<String>) args[0];
+        this.world = (Expression<World>) args[1];
+        return true;
+    }
 
-		String plot = this.plot.getSingle(arg0);
-		World w = this.world.getSingle(arg0);
-		
-		if (plot == null){
-			return null;
-		} else if (w == null) {
-			return null;
-		}
-		
-		if (!PlotManager.isValidId(plot)) {
-			return new Location[] { null } ;
-		}
-		Location out = PlotManager.getPlotTopLoc(w, plot);
-		return new Location[] { out };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return owner of plot";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Location[] get(Event arg0) {
+
+        String plot = this.plot.getSingle(arg0);
+        World w = this.world.getSingle(arg0);
+
+        if (plot == null){
+            return null;
+        } else if (w == null) {
+            return null;
+        }
+
+        if (!PlotManager.isValidId(plot)) {
+            return new Location[] { null } ;
+        }
+        Location out = PlotManager.getPlotTopLoc(w, plot);
+        return new Location[] { out };
+    }
 
 }

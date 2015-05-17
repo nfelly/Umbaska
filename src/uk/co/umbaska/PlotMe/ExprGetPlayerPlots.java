@@ -22,47 +22,47 @@ import com.worldcretornica.plotme.PlotManager;
 
 public class ExprGetPlayerPlots extends SimpleExpression<String>{
 
-	private Expression<Player> player;
-	
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<Player> player;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return owner of plot";
-	}
+        return String.class;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-		Player p = this.player.getSingle(arg0);
-		
-		if (p == null){
-			return null;
-		}
-		HashMap<String, Plot> plots = new HashMap<String, Plot>();
-		plots = PlotManager.getPlots(p);
-		String out = plots.toString();
-		
-		out = out.replace("{", "");
-		out = out.replace("}", "");
-		return new String[] { out };
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return owner of plot";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+
+        Player p = this.player.getSingle(arg0);
+
+        if (p == null){
+            return null;
+        }
+        HashMap<String, Plot> plots = new HashMap<String, Plot>();
+        plots = PlotManager.getPlots(p);
+        String out = plots.toString();
+
+        out = out.replace("{", "");
+        out = out.replace("}", "");
+        return new String[] { out };
+    }
 
 }

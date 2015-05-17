@@ -15,35 +15,35 @@ import ch.njol.util.Kleenean;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
- 
+
 public class EffSetPrefix extends Effect {
- 
-  private Expression<Player> player;
-  private Expression<String> changeto;
- 
-  @Override
-  protected void execute(Event event){
-	  		String p = player.getSingle(event).toString();
-	  		String ct = changeto.getSingle(event);
-	  		if (p == null) {
-	  			return;
-	  		} else if (ct == null) {
-	  			return;
-	  		}
-	  		NametagAPI.setPrefix(p, ct);
+
+    private Expression<Player> player;
+    private Expression<String> changeto;
+
+    @Override
+    protected void execute(Event event){
+        String p = player.getSingle(event).toString();
+        String ct = changeto.getSingle(event);
+        if (p == null) {
+            return;
+        } else if (ct == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Clear a plot";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        NametagAPI.setPrefix(p, ct);
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Clear a plot";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
         player = (Expression<Player>) expressions[0];
         changeto = (Expression<String>) expressions[1];
         return true;
-  }
+    }
 }

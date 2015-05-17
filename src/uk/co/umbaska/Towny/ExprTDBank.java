@@ -23,54 +23,54 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class ExprTDBank extends SimpleExpression<Double>{
 
-	private Expression<String> town;
-	
-	public Class<? extends Double> getReturnType() {
-		
-		return Double.class;
-	}
+    private Expression<String> town;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Double> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.town = (Expression<String>) args[0];
-		return true;
-	}
+        return Double.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return town balance";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Double[] get(Event arg0) {
-		String t = this.town.getSingle(arg0);
-		Town tw = null;
-		try {
-			tw = TownyUniverse.getDataSource().getTown(t);
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
-		
-		if (tw == null){
-			return null;
-		}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.town = (Expression<String>) args[0];
+        return true;
+    }
 
-		Double i = null;
-		try {
-			i = tw.getHoldingBalance();
-		} catch (EconomyException e) {
-			e.printStackTrace();
-		}
-		
-	
-		return new Double[] { i };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return town balance";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Double[] get(Event arg0) {
+        String t = this.town.getSingle(arg0);
+        Town tw = null;
+        try {
+            tw = TownyUniverse.getDataSource().getTown(t);
+        } catch (NotRegisteredException e) {
+            e.printStackTrace();
+        }
+
+        if (tw == null){
+            return null;
+        }
+
+        Double i = null;
+        try {
+            i = tw.getHoldingBalance();
+        } catch (EconomyException e) {
+            e.printStackTrace();
+        }
+
+
+        return new Double[] { i };
+    }
 
 }

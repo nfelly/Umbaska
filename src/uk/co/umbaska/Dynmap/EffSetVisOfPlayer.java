@@ -16,33 +16,33 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 import uk.co.umbaska.Main;
- 
+
 public class EffSetVisOfPlayer extends Effect {
- 
-  private Expression<Player> player;
-  private Expression<Boolean> vis;
- 
-  @Override
-  protected void execute(Event event){
-	  		Player p = player.getSingle(event);
-	  		Boolean b = vis.getSingle(event);
-	  		if (p == null) {
-	  			return;
-	  		}
-	  		Main.api.setPlayerVisiblity(p, b);
+
+    private Expression<Player> player;
+    private Expression<Boolean> vis;
+
+    @Override
+    protected void execute(Event event){
+        Player p = player.getSingle(event);
+        Boolean b = vis.getSingle(event);
+        if (p == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Set a players visibility on dynmap";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	  	player = (Expression<Player>) expressions[0];
-	  	vis = (Expression<Boolean>) expressions[1];
+        Main.api.setPlayerVisiblity(p, b);
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Set a players visibility on dynmap";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        player = (Expression<Player>) expressions[0];
+        vis = (Expression<Boolean>) expressions[1];
         return true;
-  }
+    }
 }

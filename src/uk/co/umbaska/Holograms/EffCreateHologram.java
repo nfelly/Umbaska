@@ -20,35 +20,35 @@ import de.inventivegames.hologram.Hologram;
 import de.inventivegames.hologram.HologramAPI;
 
 public class EffCreateHologram extends Effect {
- 
-  private Expression<Location> location;
-  private Expression<String> text;
- 
-  @Override
-  protected void execute(Event event){
-	  		Location l = location.getSingle(event);
-	  		String t = text.getSingle(event);
-	  		if (l == null) {
-	  			return;
-	  		} else if (t == null) {
-	  			return;
-	  		}
-	  		Hologram hologram = HologramAPI.createHologram(l, t);
-	  		hologram.spawn();
-	  		Bukkit.broadcastMessage(l.toString());
+
+    private Expression<Location> location;
+    private Expression<String> text;
+
+    @Override
+    protected void execute(Event event){
+        Location l = location.getSingle(event);
+        String t = text.getSingle(event);
+        if (l == null) {
+            return;
+        } else if (t == null) {
+            return;
         }
-  
-   
-  @Override
-  public String toString(Event event, boolean b){
-    return "Create hologram (EffCreateHologram)";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	  	location = (Expression<Location>) expressions[0];
-	  	text = (Expression<String>) expressions[1];
+        Hologram hologram = HologramAPI.createHologram(l, t);
+        hologram.spawn();
+        Bukkit.broadcastMessage(l.toString());
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Create hologram (EffCreateHologram)";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        location = (Expression<Location>) expressions[0];
+        text = (Expression<String>) expressions[1];
         return true;
-  }
+    }
 }

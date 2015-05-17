@@ -19,41 +19,41 @@ import uk.co.umbaska.Main;
 
 public class ExprVisOfPlayer extends SimpleExpression<Boolean>{
 
-	private Expression<Player> player;
-	
-	public Class<? extends Boolean> getReturnType() {
-		
-		return Boolean.class;
-	}
+    private Expression<Player> player;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends Boolean> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		return true;
-	}
+        return Boolean.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return dynmap vis of player";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected Boolean[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        return true;
+    }
 
-		Player p = this.player.getSingle(arg0);
-		
-		if (p == null){
-			return null;
-		}
-		Boolean out = Main.api.getPlayerVisbility(p);
-		return new Boolean[] { out };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return dynmap vis of player";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected Boolean[] get(Event arg0) {
+
+        Player p = this.player.getSingle(arg0);
+
+        if (p == null){
+            return null;
+        }
+        Boolean out = Main.api.getPlayerVisbility(p);
+        return new Boolean[] { out };
+    }
 
 }

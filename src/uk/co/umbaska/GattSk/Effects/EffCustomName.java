@@ -17,34 +17,34 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 
 public class EffCustomName extends Effect {
-	private Expression<Entity[]> entities;
-	private Expression<String> name;
+    private Expression<Entity[]> entities;
+    private Expression<String> name;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2,
-						SkriptParser.ParseResult arg3) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2,
+                        SkriptParser.ParseResult arg3) {
 
-		this.entities = (Expression<Entity[]>) args[0];
-		this.name = (Expression<String>) args[1];
+        this.entities = (Expression<Entity[]>) args[0];
+        this.name = (Expression<String>) args[1];
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "create new objective";
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "create new objective";
+    }
 
-	@Override
-	protected void execute(Event arg0) {
-		Entity[] entities = this.entities.getSingle(arg0);
-		String name = this.name.getSingle(arg0);
-		for (Entity e : entities){
-			e.setCustomName(name);
-			e.setCustomNameVisible(true);
-		}
-	}
+    @Override
+    protected void execute(Event arg0) {
+        Entity[] entities = this.entities.getSingle(arg0);
+        String name = this.name.getSingle(arg0);
+        for (Entity e : entities){
+            e.setCustomName(name);
+            e.setCustomNameVisible(true);
+        }
+    }
 
 }
 

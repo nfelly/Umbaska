@@ -18,42 +18,42 @@ import org.bukkit.event.Event;
 
 public class ExprGetSuffix extends SimpleExpression<String>{
 
-	private Expression<Player> player;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<Player> player;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		return true;
-	}
+        return String.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return owner of plot";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        return true;
+    }
 
-		String p = this.player.getSingle(arg0).toString();
-		
-		if (p == null){
-			return null;
-		}
-		
-		
-		return new String[] { NametagAPI.getSuffix(p) };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return owner of plot";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+
+        String p = this.player.getSingle(arg0).toString();
+
+        if (p == null){
+            return null;
+        }
+
+
+        return new String[] { NametagAPI.getSuffix(p) };
+    }
 
 }

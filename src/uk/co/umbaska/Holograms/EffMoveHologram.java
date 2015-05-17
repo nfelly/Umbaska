@@ -19,40 +19,40 @@ import de.inventivegames.hologram.Hologram;
 import uk.co.umbaska.Main;
 
 public class EffMoveHologram extends Effect {
- 
-  private Expression<Location> location, location2;
-  private Expression<String> world;
- 
-  @Override
-  protected void execute(Event event){
-	  		Location l = location.getSingle(event);
-	  		Location l2 = location2.getSingle(event);
-	  		String w = world.getSingle(event);
-	  		if (l == null) {
-	  			return;
-	  		} else if (l2 == null) {
-	  			return;
-	  		} else if (w == null) {
-	  			return;
-	  		}
-	  		HologramManager hm = Main.holoManager;
-            Hologram hologram = hm.getHologramByLocation(l, w);
-	  		hologram.move(l2);
-	  		hologram.update();
+
+    private Expression<Location> location, location2;
+    private Expression<String> world;
+
+    @Override
+    protected void execute(Event event){
+        Location l = location.getSingle(event);
+        Location l2 = location2.getSingle(event);
+        String w = world.getSingle(event);
+        if (l == null) {
+            return;
+        } else if (l2 == null) {
+            return;
+        } else if (w == null) {
+            return;
         }
-  
- 
-  @Override
-  public String toString(Event event, boolean b){
-    return "Add line below (EffMoveHologram)";
-  }
- 
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-	  	location = (Expression<Location>) expressions[0];
-	  	location2 = (Expression<Location>) expressions[1];
-	  	world = (Expression<String>) expressions[2];
+        HologramManager hm = Main.holoManager;
+        Hologram hologram = hm.getHologramByLocation(l, w);
+        hologram.move(l2);
+        hologram.update();
+    }
+
+
+    @Override
+    public String toString(Event event, boolean b){
+        return "Add line below (EffMoveHologram)";
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        location = (Expression<Location>) expressions[0];
+        location2 = (Expression<Location>) expressions[1];
+        world = (Expression<String>) expressions[2];
         return true;
-  }
+    }
 }

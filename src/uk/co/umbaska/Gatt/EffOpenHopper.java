@@ -15,35 +15,35 @@ import org.bukkit.inventory.Inventory;
  */
 public class EffOpenHopper extends Effect{
 
-	private Expression<String> name;
-	private Expression<Player[]> player;
+    private Expression<String> name;
+    private Expression<Player[]> player;
 
-	@Override
-	protected void execute(Event event){
-		Player[] p = player.getSingle(event);
-		String n = name.getSingle(event);
-		if (p == null) {
-			return;
-		} else if (name == null) {
-			return;
-		}
-		for (Player pl : p){
-			Inventory inv = Bukkit.createInventory(pl, InventoryType.HOPPER, n);
-			pl.openInventory(inv);
-		}
-	}
+    @Override
+    protected void execute(Event event){
+        Player[] p = player.getSingle(event);
+        String n = name.getSingle(event);
+        if (p == null) {
+            return;
+        } else if (name == null) {
+            return;
+        }
+        for (Player pl : p){
+            Inventory inv = Bukkit.createInventory(pl, InventoryType.HOPPER, n);
+            pl.openInventory(inv);
+        }
+    }
 
 
-	@Override
-	public String toString(Event event, boolean b){
-		return "Open Hopper";
-	}
+    @Override
+    public String toString(Event event, boolean b){
+        return "Open Hopper";
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-		name = (Expression<String>) expressions[0];
-		player = (Expression<Player[]>) expressions[1];
-		return true;
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
+        name = (Expression<String>) expressions[0];
+        player = (Expression<Player[]>) expressions[1];
+        return true;
+    }
 }

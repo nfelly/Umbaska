@@ -246,7 +246,7 @@ public class Messenger
     }
 
     @SuppressWarnings("deprecation")
-	public static void sendAnonymous(byte[] message)
+    public static void sendAnonymous(byte[] message)
     {
         if (Bukkit.getOnlinePlayers().length < 1) {
             return;

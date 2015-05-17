@@ -29,6 +29,6 @@ public class EffClearExplodedBlocks extends Effect {
 	}
 	@Override
 	protected void execute(Event event) {
-        ((EntityExplodeEvent)event).blockList().clear();
+		((EntityExplodeEvent)event).blockList().clear();
 	}
 }

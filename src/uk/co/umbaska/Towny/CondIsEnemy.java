@@ -23,62 +23,62 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 
 public class CondIsEnemy extends Condition {
-	 
-	 
+
+
     private Expression<String> twn1;
     private Expression<String> twn2;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] expr, int i, Kleenean kl, ParseResult pr) {
-            twn1 = (Expression<String>) expr[0];
-            return true;
+        twn1 = (Expression<String>) expr[0];
+        return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-            return "Enemy Relation of a town";
+        return "Enemy Relation of a town";
     }
 
     @Override
     public boolean check(Event e) {
 
-		String tw1 = twn1.getSingle(e);
-		String tw2 = twn2.getSingle(e);
-		Town t1 = null;
-		Town t2 = null;
+        String tw1 = twn1.getSingle(e);
+        String tw2 = twn2.getSingle(e);
+        Town t1 = null;
+        Town t2 = null;
         try {
-			t1 = TownyUniverse.getDataSource().getTown(tw1);
-		} catch (NotRegisteredException e1) {
-			e1.printStackTrace();
-		}
+            t1 = TownyUniverse.getDataSource().getTown(tw1);
+        } catch (NotRegisteredException e1) {
+            e1.printStackTrace();
+        }
         try {
-			t2 = TownyUniverse.getDataSource().getTown(tw2);
-		} catch (NotRegisteredException e1) {
-			e1.printStackTrace();
-		}
-		Nation n1 = null;
-		try {
-			n1 = t1.getNation();
-		} catch (NotRegisteredException e1) {
-			e1.printStackTrace();
-		}
-		Nation n2 = null;
-		try {
-			n2 = t2.getNation();
-		} catch (NotRegisteredException e1) {
-			e1.printStackTrace();
-		}
+            t2 = TownyUniverse.getDataSource().getTown(tw2);
+        } catch (NotRegisteredException e1) {
+            e1.printStackTrace();
+        }
+        Nation n1 = null;
+        try {
+            n1 = t1.getNation();
+        } catch (NotRegisteredException e1) {
+            e1.printStackTrace();
+        }
+        Nation n2 = null;
+        try {
+            n2 = t2.getNation();
+        } catch (NotRegisteredException e1) {
+            e1.printStackTrace();
+        }
         Boolean out = false;
         if (n1.hasEnemy(n2)) {
-        	out = true;
-        	return (out);
+            out = true;
+            return (out);
         } else {
-        	out = false;
-        	return (out);
+            out = false;
+            return (out);
         }
-            
-            
+
+
     }
 
 }

@@ -22,66 +22,66 @@ import org.json.simple.parser.*;
 
 public class ExprNamesOfPlayer extends SimpleExpression<String>{
 
-	private Expression<String> uuid;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<String> uuid;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.uuid = (Expression<String>) args[0];
-		return true;
-	}
+        return String.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return names of player";
-	}
+    @Override
+    public boolean isSingle() {
+        return false; //Silly Nfell is Silly
+    }
 
-	@javax.annotation.Nullable
-	private static String NAME_HISTORY_URL = "https://api.mojang.com/user/profiles/";
-	private static final JSONParser jsonParser = new JSONParser();
-	protected String[] get(Event arg0) {
-			String uuid = this.uuid.getSingle(arg0);
-		    JSONArray array = null;
-		    try
-		    {
-		      HttpURLConnection connection = (HttpURLConnection)new URL(NAME_HISTORY_URL + uuid.toString().replace("-", "") + "/names").openConnection();
-		      array = (JSONArray)jsonParser.parse(new InputStreamReader(connection.getInputStream()));
-		    }
-		    catch (Exception ioe)
-		    {
-		    }
-		    String arr = array.toString();
-		    arr = arr.replace("{", "");
-		    arr = arr.replace("}", "");
-		    arr = arr.replace("[", "");
-		    arr = arr.replace("]", "");
-		    arr = arr.replace("\"", "");
-		    String[] ar = arr.split(",");
-		    Integer size = ar.length;
-		    String a = null;
-		    Integer c = -1;
-		    String[] name = null;
-		    for (int i = 0; i < size; ++i) {
-		    	name = ar[i].split(":");
-		    	if (name[0].toString().equalsIgnoreCase("name")) {
-		    		++c;
-		    		if (a == null) {
-		    			a = name[1];
-		    		} else {
-		    			a = a + ", " + name[1];
-		    		}
-		    	}
-		    }
-		    return new String[] { a };
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.uuid = (Expression<String>) args[0];
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return names of player";
+    }
+
+    @javax.annotation.Nullable
+    private static String NAME_HISTORY_URL = "https://api.mojang.com/user/profiles/";
+    private static final JSONParser jsonParser = new JSONParser();
+    protected String[] get(Event arg0) {
+        String uuid = this.uuid.getSingle(arg0);
+        JSONArray array = null;
+        try
+        {
+            HttpURLConnection connection = (HttpURLConnection)new URL(NAME_HISTORY_URL + uuid.toString().replace("-", "") + "/names").openConnection();
+            array = (JSONArray)jsonParser.parse(new InputStreamReader(connection.getInputStream()));
+        }
+        catch (Exception ioe)
+        {
+        }
+        String arr = array.toString();
+        arr = arr.replace("{", "");
+        arr = arr.replace("}", "");
+        arr = arr.replace("[", "");
+        arr = arr.replace("]", "");
+        arr = arr.replace("\"", "");
+        String[] ar = arr.split(",");
+        Integer size = ar.length;
+        String a = null;
+        Integer c = -1;
+        String[] name = null;
+        for (int i = 0; i < size; ++i) {
+            name = ar[i].split(":");
+            if (name[0].toString().equalsIgnoreCase("name")) {
+                ++c;
+                if (a == null) {
+                    a = name[1];
+                } else {
+                    a = a + ", " + name[1];
+                }
+            }
+        }
+        return new String[] { a };
+    }
 }

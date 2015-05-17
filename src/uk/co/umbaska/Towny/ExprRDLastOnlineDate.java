@@ -25,45 +25,45 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class ExprRDLastOnlineDate extends SimpleExpression<String>{
 
-	public static final SimpleDateFormat lastOnlineFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
-	
-	private Expression<Player> player;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return  String.class;
-	}
+    public static final SimpleDateFormat lastOnlineFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    private Expression<Player> player;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.player = (Expression<Player>) args[0];
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return last online time of player";
-	}
+        return  String.class;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
-		String p = this.player.getSingle(arg0).getName();
-		Resident r = null;
-		try {
-			r = TownyUniverse.getDataSource().getResident(p);
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
-		String s = lastOnlineFormat.format(r.getLastOnline());
-		
-		return new String[] { s };
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.player = (Expression<Player>) args[0];
+        return true;
+    }
+
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return last online time of player";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+        String p = this.player.getSingle(arg0).getName();
+        Resident r = null;
+        try {
+            r = TownyUniverse.getDataSource().getResident(p);
+        } catch (NotRegisteredException e) {
+            e.printStackTrace();
+        }
+        String s = lastOnlineFormat.format(r.getLastOnline());
+
+        return new String[] { s };
+    }
 
 }

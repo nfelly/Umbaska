@@ -22,48 +22,48 @@ import com.palmergames.bukkit.towny.object.TownyUniverse;
 
 public class ExprTDPlayers extends SimpleExpression<String>{
 
-	private Expression<String> town;
-	
-	public Class<? extends String> getReturnType() {
-		
-		return String.class;
-	}
+    private Expression<String> town;
 
-	@Override
-	public boolean isSingle() {
-		return true;
-	}
+    public Class<? extends String> getReturnType() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
-		this.town = (Expression<String>) args[0];
-		return true;
-	}
+        return String.class;
+    }
 
-	@Override
-	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "return list of players in town";
-	}
+    @Override
+    public boolean isSingle() {
+        return true;
+    }
 
-	@Override
-	@javax.annotation.Nullable
-	protected String[] get(Event arg0) {
-		String t = this.town.getSingle(arg0);
-		Town tw = null;
-		try {
-			tw = TownyUniverse.getDataSource().getTown(t);
-		} catch (NotRegisteredException e) {
-			e.printStackTrace();
-		}
-		
-		if (tw == null){
-			return null;
-		}
-		
-		String pl = tw.getResidents().toString();
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
+        this.town = (Expression<String>) args[0];
+        return true;
+    }
 
-		return new String[] { pl };
-	}
+    @Override
+    public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
+        return "return list of players in town";
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    protected String[] get(Event arg0) {
+        String t = this.town.getSingle(arg0);
+        Town tw = null;
+        try {
+            tw = TownyUniverse.getDataSource().getTown(t);
+        } catch (NotRegisteredException e) {
+            e.printStackTrace();
+        }
+
+        if (tw == null){
+            return null;
+        }
+
+        String pl = tw.getResidents().toString();
+
+        return new String[] { pl };
+    }
 
 }
