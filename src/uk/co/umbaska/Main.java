@@ -39,6 +39,7 @@ import org.dynmap.DynmapAPI;
 
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
+import uk.co.umbaska.Enums.InventoryTypes;
 import uk.co.umbaska.Factions.ExprFactionOfPlayer;
 import uk.co.umbaska.Gatt.*;
 import uk.co.umbaska.GattSk.Effects.*;
@@ -51,6 +52,7 @@ import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
 import uk.co.umbaska.Replacers.EffParticle;
+import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
@@ -94,7 +96,7 @@ public class Main extends JavaPlugin implements Listener {
         Plugin pl = getServer().getPluginManager().getPlugin("PlotMe");
 
         if (pl != null) {
-		 
+
 		 /*
 		  *  PlotMe - Effects
 		  */
@@ -104,8 +106,8 @@ public class Main extends JavaPlugin implements Listener {
             Skript.registerEffect(EffMovePlot.class, new String[] { "move %string% to %string% in %world%" });
             Skript.registerEffect(EffDenyPlayer.class, new String[] { "deny %player% from %string%" });
             Skript.registerEffect(EffUnDeny.class, new String[] { "allow %player% to %string%" });
-		 
-		 
+
+
 		 /*
 		  *  PlotMe - Expressions
 		  */
@@ -118,7 +120,7 @@ public class Main extends JavaPlugin implements Listener {
             Skript.registerExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(bottom|lower) corner of %string% in %world%"});
             getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into PlotMe");
         }
-		 
+
 		 /*
 		  *  Spawner - Effects
 		  */
@@ -128,8 +130,8 @@ public class Main extends JavaPlugin implements Listener {
         Skript.registerEffect(EffMFG_Drop.class, new String[] { "drop a spawner at %location% based on %block%" });
         Skript.registerEffect(EffMFG_GiveSpawner.class, new String[] { "give a spawner to %player% based on %block%" });
         Skript.registerEffect(EffMFG_SetSpawner.class, new String[] { "set spawner at %location% to its type" });
-		 
-		 
+
+
 		 /*
 		  *  Spawner - Expressions
 		  */
@@ -139,7 +141,7 @@ public class Main extends JavaPlugin implements Listener {
         Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
         getLogger().info(ChatColor.GREEN + "[Umbaska] Just loaded Spawner syntaxs...");
         pl = getServer().getPluginManager().getPlugin("Towny");
-		 
+
 		 /*
 		  *  Holograms - Effects
 		  */
@@ -161,7 +163,7 @@ public class Main extends JavaPlugin implements Listener {
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line above hologram at %location% in %string%");
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line below hologram at %location% in %string%");
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of hologram at %location% in %string%");
-		 
+
 		 /*
 		  *  UUID - Expressions
 		  */
@@ -171,7 +173,7 @@ public class Main extends JavaPlugin implements Listener {
         getLogger().info(ChatColor.GREEN + "[Umbaska] Finished loading up UUID stuffs");
 
         if (pl != null) {
-		 
+
 		 /*
 		  *  Towny - Effects
 		  */
@@ -180,7 +182,7 @@ public class Main extends JavaPlugin implements Listener {
 
             Skript.registerEffect(EffSetPlotOwner.class, new String[] { "set owner of plot at %location% to %player%" });
             Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %double%" });
-		 
+
 		 /*
 		  *  Towny - Expressions
 		  */
@@ -201,7 +203,7 @@ public class Main extends JavaPlugin implements Listener {
             Skript.registerExpression(ExprRDRegistered.class, Long.class, ExpressionType.PROPERTY, new String[] {"resident data registered of %player%"});
             Skript.registerExpression(ExprRDSurname.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data surname of %player%"});
             Skript.registerExpression(ExprRDTitle.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data title of %player%"});
-		 
+
 		 /*
 		  *  Towny - Conditions
 		  */
@@ -240,7 +242,7 @@ public class Main extends JavaPlugin implements Listener {
 
         pl = getServer().getPluginManager().getPlugin("UmbaskaAPI");
         if (pl != null) {
-			 
+
 			 /*
 			  *  UmbaskaAPI - Effects
 			  */
@@ -248,21 +250,21 @@ public class Main extends JavaPlugin implements Listener {
             Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
             Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
             getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into UmbaskaAPI");
-			 
+
 			 /*
 			  *  UmbaskaAPI - Expressions
 			  */
 
             Skript.registerExpression(ExprFactionOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"faction of %player%"});
         }
-		 
+
 		 /*
 		  *  Misc - Expressions
 		  */
 
         Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"armour points of %player%"});
         Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
-		 
+
 		 /*
 		  *  Events - Registeration
 		  */
@@ -279,15 +281,15 @@ public class Main extends JavaPlugin implements Listener {
                 }, 0);
         getLogger().info(ChatColor.GREEN + "[Umbaska] Loaded up umbaska rightclick. You don't need to know about this...");
 
-		 
+
 		 /*
 		  *  Bungee - Effects
 		  */
         if (use_bungee == true) {
             messenger = new Messenger(this);
             Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
-			 
-			 
+
+
  		 /*
 		  *  Bungee - Expressions
 		  */
@@ -302,7 +304,7 @@ public class Main extends JavaPlugin implements Listener {
 
         if (pl != null) {
             if (enable_tag_features == true) {
-		 
+
 		 /*
 		  *  NametagEdit - Effects
 		  */
@@ -310,7 +312,7 @@ public class Main extends JavaPlugin implements Listener {
                 Skript.registerEffect(EffSetPrefix.class, new String[] { "set prefix of %player% to %string%" });
                 Skript.registerEffect(EffSetSuffix.class, new String[] { "set suffix of %player% to %string%" });
                 Skript.registerEffect(EffSetNametag.class, new String[] { "set name tag of %player% to %string%, %string%, %string%" });
-		 
+
 		 /*
 		  *  NametagEdit - Expressions
 		  */
@@ -324,7 +326,7 @@ public class Main extends JavaPlugin implements Listener {
 
         pl = getServer().getPluginManager().getPlugin("NoteBlockAPI");
         if (pl != null) {
-		 
+
 		 /*
 		  *  Sound - Effects
 		  */
@@ -346,13 +348,13 @@ public class Main extends JavaPlugin implements Listener {
             if (api == null) {
                 getLogger().info(ChatColor.RED + "[Umbaska] Damn son! There was a problem hooking into dynmap. Sorry dude.");
             }
-		 
+
 		 /*
 		  *  Dynmap - Effects
 		  */
 
             Skript.registerEffect(EffSetVisOfPlayer.class, new String[] { "set dynmap visibility of %player% to %boolean%" });
-	        
+
 	     /*
 	      *  Dynmap - Expressions
 	      */
@@ -451,8 +453,8 @@ public class Main extends JavaPlugin implements Listener {
 			 /* 1.8 Things */
 
         getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
-        Skript.registerEffect(EffOpenHopper.class, "open hopper named %string% to %player%");
-        Skript.registerEffect(EffOpenDispenser.class, "open dispenser named %string% to %player%");
+        EnumClassInfo.create(InventoryTypes.class, "inventorytypes").register();
+        Skript.registerEffect(EffOpenDispenser.class, "open %inventorytypes% [named %-string%] to %player%");
 
 
              /* Books! */
@@ -472,7 +474,9 @@ public class Main extends JavaPlugin implements Listener {
             EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
             getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
             getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
-            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %integer%]");
+            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% (to|for) %players% [[ with] data %integer%]");
+            Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %integer%]");
+
             //	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             //	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
             //	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");

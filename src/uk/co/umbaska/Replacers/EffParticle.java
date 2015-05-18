@@ -6,6 +6,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.ParticleEnum;
 
@@ -18,6 +19,7 @@ public class EffParticle extends Effect{
     private Expression<Number> offx, offy, offz, speed;
     private Expression<Integer> count, data;
     private Expression<Location> locations;
+    private Expression<Player> players;
 
     @Override
     protected void execute(Event event){
@@ -28,11 +30,12 @@ public class EffParticle extends Effect{
         Number speed = this.speed.getSingle(event);
         Location[] loc = this.locations.getAll(event);
         Integer count = this.count.getSingle(event);
+        Player[] players = this.players.getAll(event);
         Integer data = this.data.getSingle(event);
         if (particlename == null) {
             return;
         }
-        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc,  data) == false){
+        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc, data, players) == false){
             Skript.error("Unknown Effect! " + particlename + " isn't a valid effect! \nSee https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html for valid particle effects!");
         }
         return;
@@ -54,7 +57,8 @@ public class EffParticle extends Effect{
         offy =(Expression<Number>) expressions[4];
         offz =(Expression<Number>) expressions[5];
         locations = (Expression<Location>) expressions[6];
-        data =(Expression<Integer>) expressions[7];
+        players =(Expression<Player>) expressions[7];
+        data =(Expression<Integer>) expressions[8];
         return true;
     }
 }
