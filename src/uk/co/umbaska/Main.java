@@ -8,7 +8,6 @@
 package uk.co.umbaska;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.expressions.ExprUUID;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
@@ -37,7 +36,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
-import org.mcstats.Metrics;
 
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -53,7 +51,6 @@ import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
 import uk.co.umbaska.Replacers.EffParticle;
-import uk.co.umbaska.Replacers.ParticleFunction;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
@@ -61,10 +58,9 @@ import uk.co.umbaska.UUID.ExprNamesOfPlayer;
 import uk.co.umbaska.UUID.ExprUUIDOfEntity;
 import uk.co.umbaska.Utils.Disguise.DisguiseHandler;
 import uk.co.umbaska.Utils.EnumClassInfo;
-import uk.co.umbaska.Utils.ParticleEnum;
+import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.WildSkript.system.*;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
 

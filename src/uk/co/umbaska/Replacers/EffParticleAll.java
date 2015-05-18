@@ -6,18 +6,20 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.ParticleEnum;
 
 /**
  * Created by Zachary on 5/17/2015.
  */
-public class EffParticle extends Effect{
+public class EffParticleAll extends Effect{
 
     private Expression<ParticleEnum> particleName;
     private Expression<Number> offx, offy, offz, speed;
     private Expression<Integer> count, data;
     private Expression<Location> locations;
+    private Expression<Player[]> player;
 
     @Override
     protected void execute(Event event){

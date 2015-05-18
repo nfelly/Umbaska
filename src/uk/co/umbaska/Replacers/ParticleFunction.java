@@ -1,9 +1,8 @@
 package uk.co.umbaska.Replacers;
 
-import ch.njol.skript.Skript;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import uk.co.umbaska.Utils.ParticleEnum;
+import uk.co.umbaska.Enums.ParticleEnum;
 
 /**
  * Created by Zachary on 5/17/2015.
