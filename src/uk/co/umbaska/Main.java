@@ -36,6 +36,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.dynmap.DynmapAPI;
+import org.mcstats.Metrics;
 
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -44,7 +45,7 @@ import uk.co.umbaska.Factions.ExprFactionOfPlayer;
 import uk.co.umbaska.Gatt.*;
 import uk.co.umbaska.GattSk.Effects.*;
 import uk.co.umbaska.GattSk.Expressions.*;
-import uk.co.umbaska.Holograms.*;
+//import uk.co.umbaska.Holograms.*;
 import uk.co.umbaska.Misc.*;
 import uk.co.umbaska.Misc.Books.*;
 import uk.co.umbaska.NametagEdit.*;
@@ -63,12 +64,13 @@ import uk.co.umbaska.Utils.EnumClassInfo;
 import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.WildSkript.system.*;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin implements Listener {
 
-    public static HologramManager holoManager;
+    //public static HologramManager holoManager;
     public static Plugin dynmap;
     public static DynmapAPI api;
     public static EntityHider enthider;
@@ -80,14 +82,14 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         plugin = this;
-        //try {
-        //   Metrics metrics = new Metrics(this);
-        //   metrics.start();
-        //   getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
-        //} catch (IOException e) {
-        //   getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
-        //} //Metrics doesn't seem to allow Umbaska to load?
-        holoManager = new HologramManager();
+        try {
+           Metrics metrics = new Metrics(this);
+           metrics.start();
+           getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
+        } catch (IOException e) {
+           getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
+        } //Metrics doesn't seem to allow Umbaska to load?
+        //holoManager = new HologramManager();
         disguiseHandler = new DisguiseHandler(this);
         final PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(this, this);
@@ -144,7 +146,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		 /*
 		  *  Holograms - Effects
-		  */
+		  
 
         Skript.registerEffect(EffCreateHologram.class, new String[] { "create [new] hologram at %location% with %string% in %string% [for %long%]" });
         Skript.registerEffect(EffAddLineBelow.class, new String[] { "add %string% below hologram at %location% in %string%" });
@@ -158,12 +160,13 @@ public class Main extends JavaPlugin implements Listener {
 
 		 /*
 		  *  Holograms - Expressions
-		  */
+		  
 
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line above hologram at %location% in %string%");
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line below hologram at %location% in %string%");
         Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of hologram at %location% in %string%");
-
+		  */
+		 
 		 /*
 		  *  UUID - Expressions
 		  */

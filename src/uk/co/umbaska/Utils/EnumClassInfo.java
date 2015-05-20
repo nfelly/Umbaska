@@ -6,9 +6,12 @@ import ch.njol.skript.classes.EnumSerializer;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+
 import java.util.HashMap;
 import java.util.Map;
 
+
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class EnumClassInfo<E extends Enum<E>>
 {
     private final Class<E> enumType;
@@ -16,14 +19,16 @@ public class EnumClassInfo<E extends Enum<E>>
     private final ClassInfo<E> classInfo;
     private final HashMap<String, String> synonyms = new HashMap();
 
-    private EnumClassInfo(Class<E> enumType, String codeName)
+
+	private EnumClassInfo(Class<E> enumType, String codeName)
     {
         this.enumType = enumType;
         this.codeName = codeName;
         this.classInfo = new ClassInfo(enumType, codeName);
     }
 
-    public static <E extends Enum<E>> EnumClassInfo<E> create(Class<E> enumType, String codeName)
+
+	public static <E extends Enum<E>> EnumClassInfo<E> create(Class<E> enumType, String codeName)
     {
         return new EnumClassInfo(enumType, codeName);
     }

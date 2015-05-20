@@ -90,7 +90,7 @@ public class MyDisguise {
 		Object packetplayoutentitydestroy = ReflectionUtils.instantiateObject(
                 "PacketPlayOutEntityDestroy", ReflectionUtils.PackageType.MINECRAFT_SERVER,
                 new int[]{disguised.getEntityId()});
-		Object world = ReflectionUtils.invokeMethod(disguised.getWorld(),
+		Object world = (Object) ReflectionUtils.invokeMethod(disguised.getWorld(),
 				"getHandle", null);
 		Class<?> entity = Class.forName(type.getClassName());
 		Object ent = ReflectionUtils.instantiateObject(entity, world);
@@ -161,6 +161,7 @@ public class MyDisguise {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void removeDisguise() throws ReflectiveOperationException {
 		Object ppoed = ReflectionUtils.instantiateObject(
 				"PacketPlayOutEntityDestroy", ReflectionUtils.PackageType.MINECRAFT_SERVER,

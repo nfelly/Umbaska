@@ -10,10 +10,12 @@ import java.util.logging.Level;
 /**
  * Created by Zachary on 5/9/2015.
  */
+@SuppressWarnings("unused")
 public class BossBarHandler {
 
     private HashMap<Player, BossBar> bossBarTracker = new HashMap<>();
-    private Plugin p;
+    
+	private Plugin p;
     private String ver;
 
     public BossBarHandler(Plugin p){

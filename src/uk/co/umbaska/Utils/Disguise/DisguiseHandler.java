@@ -3,7 +3,6 @@ package uk.co.umbaska.Utils.Disguise;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -19,7 +18,8 @@ public class DisguiseHandler {
         this.p = p;
     }
 
-    public void setDisguise(Player p, MyDisguise dis){
+    @SuppressWarnings("deprecation")
+	public void setDisguise(Player p, MyDisguise dis){
         disguiseTracker.put(p, dis);
         for (Player p1 : Bukkit.getOnlinePlayers()) {
             try {
@@ -58,7 +58,8 @@ public class DisguiseHandler {
 
         private void start(){
             runnable = Bukkit.getScheduler().runTaskTimer(p, new Runnable() {
-                @Override
+                @SuppressWarnings("deprecation")
+				@Override
                 public void run() {
                     if (disguiseTracker.containsKey(player)){
                         if (disguiseTracker.get(player) != currentDisguise){

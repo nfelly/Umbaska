@@ -1,6 +1,5 @@
 package uk.co.umbaska.Enums;
 
-import org.bukkit.Effect;
 import org.bukkit.event.inventory.InventoryType;
 
 /**
