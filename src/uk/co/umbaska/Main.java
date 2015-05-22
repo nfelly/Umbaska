@@ -264,7 +264,7 @@ public class Main extends JavaPlugin implements Listener {
 		  *  Misc - Expressions
 		  */
 
-        Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"armour points of %player%"});
+        Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"(armour|armor) points of %player%"});
         Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
 
 		 /*
