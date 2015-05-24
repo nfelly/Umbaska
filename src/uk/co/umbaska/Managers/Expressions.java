@@ -22,7 +22,7 @@ import uk.co.umbaska.Misc.Books.*;
 import uk.co.umbaska.NametagEdit.*;
 import uk.co.umbaska.PlaceHolderAPI.EffParse;
 import uk.co.umbaska.PlotMe.*;
-import uk.co.umbaska.Sound.*;
+import uk.co.umbaska.ProtocolLib.ExprCanSee;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.*;
@@ -136,12 +136,7 @@ public class Expressions {
 	        	
 	        }
 	        
-	        // NOTEBLOCKAPI (NEEDS FIXING)
-	        
-	        pl = Bukkit.getServer().getPluginManager().getPlugin("NoteBlockAPI");
-	        if (pl != null) {
-		        Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
-	        }
+
 	        
 	        // CLIPS PLACEHOLDERAPI
 	        
@@ -167,6 +162,13 @@ public class Expressions {
 	        Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
 	        
 			// GATTSK STUFF
+	        
+	        // ProtocolLib
+	        
+	        pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
+	        if (pl != null) {
+		        Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"visibility of %entities% for %player%"});
+	        }
 
 	        //General
 

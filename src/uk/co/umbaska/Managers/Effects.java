@@ -18,11 +18,13 @@ import uk.co.umbaska.Enums.*;
 import uk.co.umbaska.GattSk.Effects.*;
 import uk.co.umbaska.Misc.*;
 import uk.co.umbaska.NametagEdit.*;
+import uk.co.umbaska.PlaceHolderAPI.EffPlaceholderRegister;
 import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
 import uk.co.umbaska.Replacers.EffParticle;
 import uk.co.umbaska.Replacers.EffParticleAll;
+import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.Utils.EnumClassInfo;
@@ -50,6 +52,13 @@ public class Effects {
             Skript.registerEffect(EffUnDeny.class, new String[] { "allow %player% to %string%" });
 		}
 		
+        // NOTEBLOCKAPI (NEEDS FIXING)
+        
+        pl = Bukkit.getServer().getPluginManager().getPlugin("NoteBlockAPI");
+        if (pl != null) {
+	        Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
+        }
+		
 		// SPAWNER
 		
         Skript.registerEffect(EffSetSpawner.class, new String[] { "set spawner %location% to %string%" });
@@ -65,6 +74,13 @@ public class Effects {
             Skript.registerEffect(EffSetPlotOwner.class, new String[] { "set owner of plot at %location% to %player%" });
             Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %double%" });
 			
+		}
+		
+		// PLACEHOLDERAPI
+		
+		pl = Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI");
+		if (pl != null) {
+            Skript.registerEffect(EffPlaceholderRegister.class, new String[] { "register %string% (as|for) %string%" });			
 		}
 		
 		// MISC/OTHER

@@ -7,6 +7,7 @@
 
 package uk.co.umbaska;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -55,7 +56,13 @@ public class Main extends JavaPlugin implements Listener {
         }
         final PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(this, this);
+        Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
+        if (pl != null) {
+        	enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
+        }
+        disguiseHandler = new DisguiseHandler(this);
         Register.registerAll();
+        
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
