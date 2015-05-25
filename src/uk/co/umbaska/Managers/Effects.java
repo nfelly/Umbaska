@@ -10,6 +10,8 @@ import org.dynmap.DynmapAPI;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
+import uk.co.umbaska.Gatt.EffOpenInventory;
+import uk.co.umbaska.Gatt.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.EffChangeServer;
 import uk.co.umbaska.Bungee.Messenger;
@@ -168,6 +170,9 @@ public class Effects {
         Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
 
+        Skript.registerEffect(EffOpenInventory.class, "open %inventorytypes% [named %-string%] to %player%");
+        Skript.registerEffect(EffOpenInventoryRows.class, "open %inventorytypes% [named %-string%] with %integer% rows to %player%");
+
 
         //World Manager
 
@@ -178,7 +183,7 @@ public class Effects {
         Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
         
         //Misc1
-        Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
+        Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %string%");
         Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
         Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
         
@@ -186,8 +191,7 @@ public class Effects {
         if (Bukkit.getVersion().contains("1.8") && Main.getInstance().getConfig().getBoolean("Enable 1_8 Features")) {
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-            EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
-            Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
+
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
             Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% (to|for) %players% [[ with] data %integer%]");
             Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %integer%]");

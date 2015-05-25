@@ -203,8 +203,7 @@ public class Expressions {
 				 /* 1.8 Things */
 
 	        Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
-	        EnumClassInfo.create(InventoryTypes.class, "inventorytypes").register();
-	        Skript.registerEffect(EffOpenDispenser.class, "open %inventorytypes% [named %-string%] to %player%");
+
 
 
 	             /* Books! */
