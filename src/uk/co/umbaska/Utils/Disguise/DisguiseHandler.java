@@ -6,6 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Zachary on 5/10/2015.
@@ -28,7 +29,7 @@ public class DisguiseHandler {
                 ex.printStackTrace();
             }
         }
-        new DisguiseTracker(p);
+        //new DisguiseTracker(p);
     }
 
     public void removeDisguise(Player p){
@@ -48,6 +49,7 @@ public class DisguiseHandler {
         Player player;
         MyDisguise currentDisguise;
         BukkitTask runnable;
+        List<Player> canSee;
 
         public DisguiseTracker(Player player){
 
@@ -66,11 +68,18 @@ public class DisguiseHandler {
                             runnable.cancel();
                         }
                         for (Player player1 : Bukkit.getOnlinePlayers()) {
-                            try {
-                                disguiseTracker.get(player).updateDisguise(player1);
-                            }catch (Exception ex){
-                                ex.printStackTrace();
+                            if (!canSee.contains(player1) && player1.getLocation().distance(player.getLocation()) < 25){
+                                canSee.add(player1);
+                                try {
+                                    disguiseTracker.get(player).updateDisguise(player1);
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
                             }
+                            if (player1.getLocation().distance(player.getLocation()) > 24){
+                                canSee.remove(player1);
+                            }
+
                         }
                     }
                     if (!player.isOnline()){

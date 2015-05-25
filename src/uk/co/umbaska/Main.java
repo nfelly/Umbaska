@@ -13,6 +13,7 @@ import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 
+import com.avaje.ebeaninternal.server.expression.SimpleExpression;
 import com.palmergames.bukkit.towny.object.Town;
 
 import org.bukkit.Bukkit;
@@ -23,6 +24,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -53,6 +55,8 @@ import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
 import uk.co.umbaska.Replacers.EffParticle;
 import uk.co.umbaska.Replacers.EffParticleAll;
+import uk.co.umbaska.Replacers.EffSetResultSlot;
+import uk.co.umbaska.Replacers.ExprResultSlot;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
@@ -448,15 +452,16 @@ public class Main extends JavaPlugin implements Listener {
 
         //Misc1
         Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.SIMPLE, new String[]{"spawn reason (of|for) %entity%"});
-        Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %name%");
+        Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %string%");
         Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
         Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
 
 			 /* 1.8 Things */
 
         getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
-        EnumClassInfo.create(InventoryTypes.class, "inventorytypes").register();
-        Skript.registerEffect(EffOpenDispenser.class, "open %inventorytypes% [named %-string%] to %player%");
+        EnumClassInfo.create(InventoryTypes.class, "invtype").register();
+        Skript.registerEffect(EffOpenInventory.class, "open %invtype% [named %-string%] to %player%");
+        Skript.registerEffect(EffOpenInventoryRows.class, "open %invtype% [named %-string%] with %integer% rows to %player%");
 
 
              /* Books! */
@@ -468,6 +473,8 @@ public class Main extends JavaPlugin implements Listener {
 
 
 			 /* 1.8 Things */
+        Skript.registerExpression(ExprResultSlot.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"result[s] slot (for|of) %player%"});
+        Skript.registerEffect(EffSetResultSlot.class, "set result[s] slot (for|of) %player% to %itemstack%");
 
 
         if (Bukkit.getVersion().contains("1.8") && getConfig().getBoolean("Enable 1_8 Features")) {
