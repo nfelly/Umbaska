@@ -13,9 +13,7 @@ import com.palmergames.bukkit.towny.object.Town;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
-import uk.co.umbaska.Enums.*;
 import uk.co.umbaska.Factions.*;
-import uk.co.umbaska.Gatt.*;
 import uk.co.umbaska.GattSk.Expressions.*;
 import uk.co.umbaska.Misc.*;
 import uk.co.umbaska.Misc.Books.*;
@@ -26,7 +24,6 @@ import uk.co.umbaska.ProtocolLib.ExprCanSee;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.*;
-import uk.co.umbaska.Utils.*;
 import uk.co.umbaska.WildSkript.system.*;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
@@ -128,6 +125,11 @@ public class Expressions {
 	        Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"(armour|armor) points of %player%"});
 	        Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
 	        Skript.registerExpression(ExprGetJSONString.class, String.class, ExpressionType.SIMPLE, "json string %string% from %string%");
+	        
+	        Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
+	        Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
+	        Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
+	        
 	        
 	        
 	        pl = Bukkit.getServer().getPluginManager().getPlugin("NametagEdit");

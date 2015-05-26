@@ -12,19 +12,18 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Event;
 
 import uk.co.umbaska.Managers.YAMLManager;
 
 
-public class ExprYAMLBoolean extends SimpleExpression<String>{
+public class ExprYAMLBoolean extends SimpleExpression<Boolean>{
 
     private Expression<String> cmd, ccc;
 
-    public Class<? extends String> getReturnType() {
+    public Class<? extends Boolean> getReturnType() {
 
-        return String.class;
+        return Boolean.class;
     }
 
     @Override
@@ -47,14 +46,13 @@ public class ExprYAMLBoolean extends SimpleExpression<String>{
 
 	@Override
     @javax.annotation.Nullable
-    protected String[] get(Event arg0) {
+    protected Boolean[] get(Event arg0) {
 
         String c = this.cmd.getSingle(arg0);
         String cc = this.ccc.getSingle(arg0);
         YAMLManager yaml = new YAMLManager();
-        FileConfiguration ymlFile = yaml.newCustomYml(c);
-        String out = (String) yaml.getSingleYAML(ymlFile, cc, 3);
-        return new String[] { out };
+        Boolean out = (Boolean) yaml.getSingleYAML(cc, c, 3);
+        return new Boolean[] { out };
     }
 
 }

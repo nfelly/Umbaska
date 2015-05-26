@@ -10,11 +10,19 @@ public class YAMLManager {
 
 	public FileConfiguration newCustomYml(String file) {
 		File customYml = new File(file);
-		return YamlConfiguration.loadConfiguration(customYml);
+		if (customYml.exists()) {
+			return YamlConfiguration.loadConfiguration(customYml);
+		} else {
+			return null;
+		}
 	}
 	
 	
-	public Object getSingleYAML(FileConfiguration customConfig, String path, Integer type) {
+	public Object getSingleYAML(String file, String path, Integer type) {
+		FileConfiguration customConfig = newCustomYml(file);
+		if (customConfig == null) {
+			return null;
+		}
 		if (type == 1) {
 			return customConfig.getString(path);
 		} else if (type == 2) {
@@ -26,21 +34,54 @@ public class YAMLManager {
 		}
 	}
 	
-	public void writeYAML(File file, FileConfiguration customConfig, String path, String value) {
-		customConfig.set(path, value);
+	public void writeYAML(String file, String path, String value) {
+		FileConfiguration customConfig = newCustomYml(file);
+		if (customConfig == null) {
+			return;
+		}
+		if (value == "true") {
+			customConfig.set(true, path);
+		}
+		customConfig.set(value, path);
+		saveYAML(file, customConfig);
+	}
+	
+	public void deleteYAML(String file, String path) {
+		FileConfiguration customConfig = newCustomYml(file);
+		if (customConfig == null) {
+			return;
+		}
+		customConfig.set(path, null);
+		saveYAML(file, customConfig);
+	}
+	
+	public void saveYAML(String mainFile, FileConfiguration customConfig) {
 		try {
-			customConfig.save(file);
+			customConfig.save(mainFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void deleteYAML(File file, FileConfiguration customConfig, String path) {
-		customConfig.set(path, null);
-		try {
-			customConfig.save(file);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void newFile(String file) {
+		File f = new File(file);
+		if (f.exists()) {
+			return;
+		} else {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void delFile(String file) {
+		File f = new File(file);
+		if (f.exists()) {
+			f.delete();
+		} else {
+			return;
 		}
 	}
 	

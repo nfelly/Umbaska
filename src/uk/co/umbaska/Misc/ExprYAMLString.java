@@ -12,7 +12,6 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Event;
 
 import uk.co.umbaska.Managers.YAMLManager;
@@ -52,8 +51,7 @@ public class ExprYAMLString extends SimpleExpression<String>{
         String c = this.cmd.getSingle(arg0);
         String cc = this.ccc.getSingle(arg0);
         YAMLManager yaml = new YAMLManager();
-        FileConfiguration ymlFile = yaml.newCustomYml(c);
-        String out = (String) yaml.getSingleYAML(ymlFile, cc, 1);
+        String out = (String) yaml.getSingleYAML(cc, c, 3);
         return new String[] { out };
     }
 

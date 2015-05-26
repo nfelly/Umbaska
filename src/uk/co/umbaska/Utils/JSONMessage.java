@@ -3,6 +3,7 @@ package uk.co.umbaska.Utils;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.NBTTagCompound;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
+
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.com.google.gson.stream.JsonWriter;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
@@ -15,15 +16,18 @@ import java.util.List;
 /**
  * Created by Zachary on 5/25/2015.
  */
+@SuppressWarnings("unused")
 public class JSONMessage {
     private final List<MessagePart> messageParts;
     private String jsonString;
     private boolean dirty;
     private ChatSerializer nmsChatSerializer = new ChatSerializer();
     private NBTTagCompound nmsTagCompound = new NBTTagCompound();
-    private PacketPlayOutChat nmsPacketPlayOutChat = new PacketPlayOutChat();
 
-    public JSONMessage(String firstPartText)
+	private PacketPlayOutChat nmsPacketPlayOutChat = new PacketPlayOutChat();
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public JSONMessage(String firstPartText)
     {
         this.messageParts = new ArrayList();
         this.messageParts.add(new MessagePart(firstPartText));

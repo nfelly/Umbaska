@@ -1,5 +1,5 @@
 /*
- * EffWriteYAML.class - Made by nfell2009
+ * EffDelFile.class - Made by nfell2009
  * nfell2009.uk (C) nfell2009 | 2014 - 2015
  * Submitted to: Umbaska
  * 
@@ -17,31 +17,27 @@ import org.bukkit.event.Listener;
 
 import uk.co.umbaska.Managers.YAMLManager;
 
-public class EffWriteYAML extends Effect implements Listener {
+public class EffDelFile extends Effect implements Listener {
 
-    private Expression<String> file, path, value;
+    private Expression<String> file;
 
     @Override
     protected void execute(Event event) {
     	String filee = file.getSingle(event);
-    	String pathe = path.getSingle(event);
-    	String valuee = value.getSingle(event);
         YAMLManager yaml = new YAMLManager();
-        yaml.writeYAML(filee, pathe, valuee);
+        yaml.delFile(filee);
     }
 
 
     @Override
     public String toString(Event event, boolean b){
-        return "Write YAML";
+        return "Delete file";
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        value = (Expression<String>) expressions[0];
-        path = (Expression<String>) expressions[1];
-        file = (Expression<String>) expressions[2];
+        file = (Expression<String>) expressions[0];
         return true;
     }
 }

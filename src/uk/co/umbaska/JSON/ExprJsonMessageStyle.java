@@ -4,9 +4,10 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.event.Event;
+
 import uk.co.umbaska.GattSk.Extras.Collect;
 import uk.co.umbaska.Utils.JSONMessage;
 
@@ -17,7 +18,8 @@ public class ExprJsonMessageStyle
     private Expression<JSONMessage> json;
     private Expression<ChatColor> append;
 
-    protected JSONMessage[] get(Event event) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected JSONMessage[] get(Event event) {
         JSONMessage j = (JSONMessage) this.json.getSingle(event);
         if (j == null) {
             return null;
@@ -68,9 +70,10 @@ public class ExprJsonMessageStyle
         return ((JSONMessage) this.json.getSingle(event)).toOldMessageFormat();
     }
 
-    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-        this.json = expressions[0];
-        this.append = expressions[1];
+    @SuppressWarnings("unchecked")
+	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
+        this.json = (Expression<JSONMessage>) expressions[0];
+        this.append = (Expression<ChatColor>) expressions[1];
         return true;
     }
 }

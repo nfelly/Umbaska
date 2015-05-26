@@ -16,7 +16,6 @@ import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.EffChangeServer;
 import uk.co.umbaska.Bungee.Messenger;
 import uk.co.umbaska.Dynmap.*;
-import uk.co.umbaska.Enums.*;
 import uk.co.umbaska.GattSk.Effects.*;
 import uk.co.umbaska.Misc.*;
 import uk.co.umbaska.NametagEdit.*;
@@ -29,7 +28,6 @@ import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
-import uk.co.umbaska.Utils.EnumClassInfo;
 
 
 public class Effects {
@@ -88,6 +86,10 @@ public class Effects {
 		// MISC/OTHER
 		
         Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
+
+        Skript.registerEffect(EffNewFile.class, new String[] { "create [new] file %string%" });
+        Skript.registerEffect(EffDelFile.class, new String[] { "delete file %string%" });
+        Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
 		
 		// PROTCOLLIB
 		
