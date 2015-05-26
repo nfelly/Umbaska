@@ -10,7 +10,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import uk.co.umbaska.Main;
+import uk.co.umbaska.Managers.Effects;
 
 /**
  * Created by Zachary on 4/1/2015.
@@ -30,7 +30,7 @@ public class EffToggleVisibility extends Effect {
 		for (Player player : p){
 			for (Entity ent : e){
 				if (ent.getType() != EntityType.PLAYER) {
-					Main.enthider.toggleEntity(player, ent);
+					Effects.enthider.toggleEntity(player, ent);
 				}
 			}
 		}

@@ -38,7 +38,7 @@ public class EffPlaceholderRegister extends Effect {
 
         if (umbaska != null) {
 		
-			boolean Umbaska = PlaceholderAPI.registerPlaceholderHook("Umbaskas", new PlaceholderHook() {
+			boolean Umbaska = PlaceholderAPI.registerPlaceholderHook("Umbaska", new PlaceholderHook() {
 
 				@Override
 				public String onPlaceholderRequest(Player p, String identifier) {

@@ -87,6 +87,8 @@ public class Expressions {
 	            Skript.registerExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, new String[] {"bungee uuid of %player%"});
 	        }
 	        
+	        
+	        
 	        // HOLOGRAMS (WIP)
 	        
 			 /*
@@ -125,6 +127,7 @@ public class Expressions {
 	        
 	        Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"(armour|armor) points of %player%"});
 	        Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
+	        Skript.registerExpression(ExprGetJSONString.class, String.class, ExpressionType.SIMPLE, "json string %string% from %string%");
 	        
 	        
 	        pl = Bukkit.getServer().getPluginManager().getPlugin("NametagEdit");
