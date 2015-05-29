@@ -1,4 +1,4 @@
-package uk.nfell2009.umbaska.v1_8.ArmorStands;
+package uk.co.umbaska.ArmorStands;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsSmall extends SimplePropertyExpression<Entity, Boolean> {
+public class ExprsBasePlate extends SimplePropertyExpression<Entity, Boolean> {
 	@Override
 	public Boolean convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).isSmall();
+		return ((ArmorStand)ent).hasBasePlate();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ExprsSmall extends SimplePropertyExpression<Entity, Boolean> {
 		}
 		Boolean b = (Boolean) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
-			((ArmorStand)ent).setSmall(b);
+			((ArmorStand)ent).setBasePlate(b);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class ExprsSmall extends SimplePropertyExpression<Entity, Boolean> {
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "small";
+		return "base plate";
 	}
 
 }

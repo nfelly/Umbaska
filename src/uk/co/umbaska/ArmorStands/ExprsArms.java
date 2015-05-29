@@ -1,4 +1,4 @@
-package uk.nfell2009.umbaska.v1_8.ArmorStands;
+package uk.co.umbaska.ArmorStands;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;

@@ -1,4 +1,4 @@
-package uk.nfell2009.umbaska.v1_8.ArmorStands;
+package uk.co.umbaska.ArmorStands;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsVisible extends SimplePropertyExpression<Entity, Boolean> {
+public class ExprsGravity extends SimplePropertyExpression<Entity, Boolean> {
 	@Override
 	public Boolean convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).isVisible();
+		return ((ArmorStand)ent).hasGravity();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ExprsVisible extends SimplePropertyExpression<Entity, Boolean> {
 		}
 		Boolean b = (Boolean) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
-			((ArmorStand)ent).setVisible(b);
+			((ArmorStand)ent).setGravity(b);
 		}
 	}
 
