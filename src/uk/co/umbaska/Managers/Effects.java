@@ -90,6 +90,8 @@ public class Effects {
         Skript.registerEffect(EffNewFile.class, new String[] { "create [new] file %string%" });
         Skript.registerEffect(EffDelFile.class, new String[] { "delete file %string%" });
         Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
+        Skript.registerEffect(EffCopy.class, new String[] { "copy file %string% to %string%" });
+        Skript.registerEffect(EffCopyDir.class, new String[] { "copy (d|dir|dire|directory) %string% to %string%" });
 		
 		// PROTCOLLIB
 		
