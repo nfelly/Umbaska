@@ -40,7 +40,7 @@ public class YAMLManager {
 			return;
 		}
 		if (value == "true") {
-			customConfig.set(true, path);
+			customConfig.set(path, true);
 		}
 		customConfig.set(value, path);
 		saveYAML(file, customConfig);

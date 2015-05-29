@@ -2,6 +2,7 @@ package uk.co.umbaska.Managers;
 
 import java.util.UUID;
 
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +11,7 @@ import org.bukkit.scoreboard.Objective;
 
 import com.palmergames.bukkit.towny.object.Town;
 
+import uk.co.umbaska.ArmorStands.*;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -222,14 +224,14 @@ public class Expressions {
 	        
 	        if (Bukkit.getVersion().contains("1.8") && Main.getInstance().getConfig().getBoolean("Enable 1_8 Features")) {
 
-	            //	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
-	            //	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
-	            //	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
-	            //	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
-	            //	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
-	            //}
+	            	 SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
+	            	 SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
+	            	 SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
+	            	 SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
+	            	 SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+	            }
 
 	        }
 	}
 	
-}
+

@@ -9,6 +9,7 @@ package uk.co.umbaska;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -36,6 +37,7 @@ import java.util.logging.Logger;
 public class Main extends JavaPlugin implements Listener {
 
     //public static HologramManager holoManager;
+    public static Entity armorStand;
     public static Plugin dynmap;
     public static DynmapAPI api;
     public static EntityHider enthider;
