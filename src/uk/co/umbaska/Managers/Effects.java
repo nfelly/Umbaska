@@ -193,7 +193,7 @@ public class Effects {
         Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
         
 
-        if (Bukkit.getVersion().contains("1.8") && Main.getInstance().getConfig().getBoolean("Enable_1_8_Features")) {
+        if (Bukkit.getVersion().contains("1.8")) {
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
