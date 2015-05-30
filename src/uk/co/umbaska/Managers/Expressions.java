@@ -127,7 +127,7 @@ public class Expressions {
         Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"(armour|armor) points of %player%"});
         Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
         Skript.registerExpression(ExprGetJSONString.class, String.class, ExpressionType.SIMPLE, "json string %string% from %string%");
-
+        Skript.registerExpression(ExprGetDigits.class, String.class, ExpressionType.SIMPLE, "get (digits|numbers|nums|num) of %string%");
         Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
         Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
         Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");

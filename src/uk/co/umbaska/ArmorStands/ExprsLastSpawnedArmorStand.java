@@ -25,7 +25,6 @@ public class ExprsLastSpawnedArmorStand extends SimpleExpression<Entity> {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean init(Expression<?>[] args, int arg1, Kleenean arg2,
 						SkriptParser.ParseResult arg3) {
