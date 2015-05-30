@@ -39,12 +39,6 @@ public class YAMLManager {
 		if (customConfig == null) {
 			return;
 		}
-<<<<<<< HEAD
-=======
-		if (value == "true") {
-			customConfig.set(path, true);
-		}
->>>>>>> origin/master
 		customConfig.set(value, path);
 		saveYAML(file, customConfig);
 	}

@@ -196,7 +196,7 @@ public class Effects {
         if (Bukkit.getVersion().contains("1.8") && Main.getInstance().getConfig().getBoolean("Enable_1_8_Features")) {
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-            Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] armor stand at %locations%");
+            Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
 
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
             Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% (to|for) %players% [[ with] data %integer%]");
