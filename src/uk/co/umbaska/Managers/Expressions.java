@@ -12,6 +12,9 @@ import org.bukkit.scoreboard.Objective;
 import com.palmergames.bukkit.towny.object.Town;
 
 import uk.co.umbaska.ArmorStands.*;
+import uk.co.umbaska.ArmorStands.Direction.*;
+import uk.co.umbaska.ArmorStands.Direction.Arms.*;
+import uk.co.umbaska.ArmorStands.Direction.Legs.*;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -210,13 +213,32 @@ public class Expressions {
 				 /* 1.8 Things */
 
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
-        if (Bukkit.getVersion().contains("1.8") && Main.getInstance().getConfig().getBoolean("Enable_1_8_Features")) {
+        if (Bukkit.getVersion().contains("1.8")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
             SimplePropertyExpression.register(ExprsGravity.class, Boolean.class, "[has] gravity", "entity");
             SimplePropertyExpression.register(ExprsSmall.class, Boolean.class, "[is] small", "entity");
             SimplePropertyExpression.register(ExprsVisible.class, Boolean.class, "[is] visible", "entity");
+            SimplePropertyExpression.register(ExprsRightLegDirectionX.class, Number.class, "right leg (x angle|angle x)", "entity");
+            SimplePropertyExpression.register(ExprsRightLegDirectionY.class, Number.class, "right leg (y angle|angle y)", "entity");
+            SimplePropertyExpression.register(ExprsRightLegDirectionZ.class, Number.class, "right leg (z angle|angle z)", "entity");
+
+            SimplePropertyExpression.register(ExprsLeftLegDirectionX.class, Number.class, "left leg (x angle|angle x)", "entity");
+            SimplePropertyExpression.register(ExprsLeftLegDirectionY.class, Number.class, "left leg (y angle|angle y)", "entity");
+            SimplePropertyExpression.register(ExprsLeftLegDirectionZ.class, Number.class, "left leg (z angle|angle z)", "entity");
+
+            SimplePropertyExpression.register(ExprsRightArmDirectionX.class, Number.class, "right arm (x angle|angle x)", "entity");
+            SimplePropertyExpression.register(ExprsRightArmDirectionY.class, Number.class, "right arm (y angle|angle y)", "entity");
+            SimplePropertyExpression.register(ExprsRightArmDirectionZ.class, Number.class, "right arm (z angle|angle z)", "entity");
+
+            SimplePropertyExpression.register(ExprsLeftArmDirectionX.class, Number.class, "left arm (x angle|angle x)", "entity");
+            SimplePropertyExpression.register(ExprsLeftArmDirectionY.class, Number.class, "left arm (y angle|angle y)", "entity");
+            SimplePropertyExpression.register(ExprsLeftArmDirectionZ.class, Number.class, "left arm (z angle|angle z)", "entity");
+
+            SimplePropertyExpression.register(ExprsHeadDirectionX.class, Number.class, "head (x angle|angle x)", "entity");
+            SimplePropertyExpression.register(ExprsHeadDirectionY.class, Number.class, "head (y angle|angle y)", "entity");
+            SimplePropertyExpression.register(ExprsHeadDirectionZ.class, Number.class, "head (z angle|angle z)", "entity");
         }
 
 
