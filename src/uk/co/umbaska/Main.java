@@ -63,8 +63,14 @@ public class Main extends JavaPlugin implements Listener {
             enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
         }
         disguiseHandler = new DisguiseHandler(this);
+        saveDefaultConfig();
         Register.registerAll();
 
+    }
+    
+    public void onDisable() {
+    	plugin = null;
+    	inst = null;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

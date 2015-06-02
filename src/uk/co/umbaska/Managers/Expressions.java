@@ -239,6 +239,8 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsHeadDirectionX.class, Number.class, "head (x angle|angle x)", "entity");
             SimplePropertyExpression.register(ExprsHeadDirectionY.class, Number.class, "head (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsHeadDirectionZ.class, Number.class, "head (z angle|angle z)", "entity");
+        } else {
+        	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");
         }
 
 

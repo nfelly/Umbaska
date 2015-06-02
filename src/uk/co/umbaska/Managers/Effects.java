@@ -59,7 +59,7 @@ public class Effects {
         if (pl != null) {
 	        Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
         }
-		
+
 		// SPAWNER
 		
         Skript.registerEffect(EffSetSpawner.class, new String[] { "set spawner %location% to %string%" });
@@ -93,6 +93,7 @@ public class Effects {
         Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
         Skript.registerEffect(EffCopy.class, new String[] { "copy file %string% to %string%" });
         Skript.registerEffect(EffCopyDir.class, new String[] { "copy (d|dir|dire|directory) %string% to %string%" });
+        Skript.registerEffect(EffCentredText.class, new String[] { "send (centred|centered) %string% to %player%" });
 		
 		// PROTCOLLIB
 		
