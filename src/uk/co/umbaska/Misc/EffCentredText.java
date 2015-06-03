@@ -24,9 +24,11 @@ public class EffCentredText extends Effect {
     @Override
     protected void execute(Event event) {
     	String msg = message.getSingle(event);
-    	Player p = player.getSingle(event);
+    	Player[] p = player.getAll(event);
     	String out = StringUtils.center(msg, 52);
-    	p.sendMessage(out);
+    	for (Player p1 : p){
+    	    p1.sendMessage(out);
+    	}
     }
 
 
