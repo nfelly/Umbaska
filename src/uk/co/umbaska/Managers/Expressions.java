@@ -84,7 +84,7 @@ public class Expressions {
 
         Skript.registerExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.COMBINED, "names of %string%");
         Skript.registerExpression(ExprUUIDOfEntity.class, String.class, ExpressionType.SIMPLE, "uuid of %entity%");
-		Skript.registerExpression(EffCentredText.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string%");
+		Skript.registerExpression(EffCentredText.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string% [[with] [max] [length] [of] %integer%]");
         if (use_bungee == true) {
             messenger = new Messenger(Main.getInstance());
             Skript.registerExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, new String[] {"bungee uuid of %player%"});
