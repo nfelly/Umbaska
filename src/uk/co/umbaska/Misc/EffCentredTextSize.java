@@ -7,25 +7,26 @@
 
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.util.StringUtil;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
-public class EffCentredText extends SimpleExpression<String> {
+public class EffCentredTextSize extends SimpleExpression<String> {
 	private Expression<String> msg;
+	private Expression<Integer> size;
 
 	protected String[] get(Event event) {
 		String msg = this.msg.getSingle(event);
+		Integer size = this.size.getSingle(event);
+		if (size <= 0){
+			size = 52;
+		}
 
-		return Collect.asArray(StringUtils.center(msg, 52));
+		return Collect.asArray(StringUtils.center(msg, size));
 	}
 
 	public boolean isSingle() {
@@ -43,6 +44,7 @@ public class EffCentredText extends SimpleExpression<String> {
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
 		this.msg = (Expression<String>) expressions[0];
+		this.size = (Expression<Integer>) expressions[1];
 		return true;
 	}
 }
