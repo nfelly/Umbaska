@@ -10,38 +10,39 @@ package uk.co.umbaska.Misc;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.util.StringUtil;
+import uk.co.umbaska.GattSk.Extras.Collect;
 
-public class EffCentredText extends Effect {
+public class EffCentredText extends SimpleExpression<String> {
+	private Expression<String> msg;
 
-    private Expression<String> message;
-    private Expression<Player> player;
+	protected String[] get(Event event) {
+		String msg = this.msg.getSingle(event);
 
-    @Override
-    protected void execute(Event event) {
-    	String msg = message.getSingle(event);
-    	Player[] p = player.getAll(event);
-    	String out = StringUtils.center(msg, 52);
-    	for (Player p1 : p){
-    	    p1.sendMessage(out);
-    	}
-    }
+		return Collect.asArray(StringUtils.center(msg, 52));
+	}
 
+	public boolean isSingle() {
+		return true;
+	}
 
-    @Override
-    public String toString(Event event, boolean b){
-        return "Send centred text";
-    }
+	public Class<? extends String> getReturnType() {
+		return String.class;
+	}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        message = (Expression<String>) expressions[0];
-        player = (Expression<Player>) expressions[1];
-        return true;
-    }
+	public String toString(Event event, boolean b) {
+		return this.msg.getSingle(event).toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
+		this.msg = (Expression<String>) expressions[0];
+		return true;
+	}
 }

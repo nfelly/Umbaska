@@ -7,16 +7,15 @@
 
 package uk.co.umbaska.PlotMe;
 
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-
 import com.worldcretornica.plotme.Plot;
 import com.worldcretornica.plotme.PlotManager;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 
 public class EffDenyPlayer extends Effect {
 
