@@ -16,19 +16,13 @@ import uk.co.umbaska.Enums.ParticleEnum;
 public class EffBukkitEffectAll extends Effect{
 
     private Expression<BukkitEffectEnum> particleName;
-    private Expression<Number> offx, offy, offz, speed;
-    private Expression<Integer> count, data;
+    private Expression<Integer>  data;
     private Expression<Location> locations;
 
     @Override
     protected void execute(Event event){
         BukkitEffectEnum particlename = particleName.getSingle(event);
-        Number offx = this.offx.getSingle(event);
-        Number offy = this.offy.getSingle(event);
-        Number offz = this.offz.getSingle(event);
-        Number speed = this.speed.getSingle(event);
         Location[] loc = this.locations.getAll(event);
-        Integer count = this.count.getSingle(event);
         Integer data = this.data.getSingle(event);
         if (particlename == null) {
             return;
