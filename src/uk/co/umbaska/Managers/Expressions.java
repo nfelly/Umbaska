@@ -171,7 +171,7 @@ public class Expressions {
         Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
         Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
         Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
-        Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player% ping"});
+        Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player%[[']s] ping", "ping of %player%"});
 
         // GATTSK STUFF
 
@@ -213,10 +213,8 @@ public class Expressions {
         Skript.registerExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, new String[] {"objective in [[display]slot] %displayslot% from [score][board] %string%"});
         Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
 				 /* 1.8 Things */
-        Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {
-                "[umbaska] [the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
-                "[umbaska] (location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%" });
-
+        Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {"[the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
+                "(location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%"});
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         if (Bukkit.getVersion().contains("1.8")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
@@ -244,14 +242,13 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsHeadDirectionX.class, Number.class, "head (x angle|angle x)", "entity");
             SimplePropertyExpression.register(ExprsHeadDirectionY.class, Number.class, "head (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsHeadDirectionZ.class, Number.class, "head (z angle|angle z)", "entity");
+
             SimplePropertyExpression.register(ExprsBodyDirectionX.class, Number.class, "body (x angle|angle x)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
         } else {
         	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");
         }
-
-
 	             /* Books! */
         Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
         Skript.registerExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book with title %string%"});
@@ -260,9 +257,6 @@ public class Expressions {
         Skript.registerExpression(ExprAllinOne.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book (with|from|by) author %string% [with] title %string% [and] pages %strings%"});
 
         // 1.8
-
-
-
     }
 }
 	

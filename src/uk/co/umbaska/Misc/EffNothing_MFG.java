@@ -18,7 +18,7 @@ public class EffNothing_MFG extends Effect {
 
     @Override
     protected void execute(Event event) {
-    	return;
+    	String potato = "potato";
     }
 
 

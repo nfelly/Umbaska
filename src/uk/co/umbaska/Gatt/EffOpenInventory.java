@@ -16,7 +16,7 @@ import uk.co.umbaska.Enums.InventoryTypes;
  */
 public class EffOpenInventory extends Effect{
 
-    private Expression<InventoryType> types;
+    private Expression<InventoryTypes> types;
     private Expression<String> name;
     private Expression<Player> player;
 
@@ -24,7 +24,8 @@ public class EffOpenInventory extends Effect{
     protected void execute(Event event){
         Player[] p = player.getAll(event);
         String n = name.getSingle(event);
-        InventoryType t = types.getSingle(event);
+        InventoryTypes t2 = types.getSingle(event);
+        InventoryType t = t2.getType();
         if (p == null) {
             return;
         }
@@ -47,7 +48,7 @@ public class EffOpenInventory extends Effect{
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        types = (Expression<InventoryType>) expressions[0];
+        types = (Expression<InventoryTypes>) expressions[0];
         name = (Expression<String>) expressions[1];
         player = (Expression<Player>) expressions[2];
         return true;

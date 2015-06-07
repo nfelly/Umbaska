@@ -29,6 +29,7 @@ import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.Towny.*;
+import uk.co.umbaska.hologramBased.*;
 
 
 public class Effects {
@@ -147,8 +148,10 @@ public class Effects {
             if (api == null) {
                 Main.getInstance().getLogger().info(ChatColor.RED + "[Umbaska] Damn son! There was a problem hooking into dynmap. Sorry dude.");
             }
+            else {
 
-            Skript.registerEffect(EffSetVisOfPlayer.class, new String[]{"set dynmap visibility of %player% to %boolean%"});
+                Skript.registerEffect(EffSetVisOfPlayer.class, new String[]{"set dynmap visibility of %player% to %boolean%"});
+            }
 
         }
         // GATTSK
@@ -174,8 +177,8 @@ public class Effects {
         Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
 
-        Skript.registerEffect(EffOpenInventory.class, "open %inventorytypes% [named %-string%] to %player%");
-        Skript.registerEffect(EffOpenInventoryRows.class, "open %inventorytypes% [named %-string%] with %integer% rows to %player%");
+        Skript.registerEffect(EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
+        Skript.registerEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
 
 
         //World Manager
@@ -187,12 +190,28 @@ public class Effects {
         Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
         
         //Misc1
-        Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %string%");
         Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
-        Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
+        Skript.registerEffect(EffResetRecipes.class, "reset all [server] recipes");
 
-        Skript.registerEffect(EffNothing_MFG.class, "(do nothing|null|blank|nada|nope|nothing here|blame mfg for this|woohoo|its peanut butter jelly time|no more stupid warnings or something|i dont know what this is|mfg loves you)");
-        
+        Skript.registerEffect(EffNothing_MFG.class, "do nothing");
+
+        // Temporary Hologram System
+        Skript.registerEffect(EffCreateHologram.class, "create [a ]new holo[gram] named %string%");
+        Skript.registerEffect(EffSetHoloLine.class, "set holo[gram] line %integer% of holo[gram] %string% to %string%");
+
+        Skript.registerEffect(EffAddHoloLine.class, "set lines of holo[gram] %string% to %strings%");
+        Skript.registerEffect(EffDeleteHoloLine.class, "(remove|clear|delete) lines of holo[gram] %string%");
+        Skript.registerEffect(EffMoveHolo.class, "move holo[gram] %string% to %location%");
+        Skript.registerEffect(EffHoloFollow.class, "make holo[gram] %string% follow %entity%");
+        Skript.registerEffect(EffHoloStart.class, "start holo[gram] %string%");
+        Skript.registerEffect(EffHoloStop.class, "stop holo[gram] %string%");
+        Skript.registerEffect(EffDeleteHolo.class, "delete holo[gram] %string%");
+
+        Skript.registerEffect(EffCreateFollowGram.class, "create [a ]new following holo[gram] (to|that) follow[s] %entity% with [text] %strings%");
+
+        Skript.registerEffect(EffSetHoloType.class, "set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])");
+
+
 
         if (Bukkit.getVersion().contains("1.8")) {
 

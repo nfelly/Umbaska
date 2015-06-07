@@ -31,7 +31,7 @@ public class ExprDirectionLocation extends SimpleExpression<Location>
         return true;
     }
 
-    public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, ParseResult pr)
+    public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
     {
         if (matchedPattern == 0)
         {

@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryType;
  */
 public enum InventoryTypes {
 
-    ANVIL("anvil", InventoryType.ANVIL), BEACON("beacon", InventoryType.BEACON), CHEST("chest", InventoryType.CHEST), CREATIVE("creative", InventoryType.CREATIVE), DISPENSER("dispenser", InventoryType.DISPENSER), DROPPER("dropper", InventoryType.DROPPER), ENCHANTING("enchanting", InventoryType.ENCHANTING), ENDER_CHEST("ender chest", InventoryType.ENDER_CHEST), FURNACE("furnace", InventoryType.FURNACE), HOPPER("hopper", InventoryType.HOPPER), MERCHANT("merchant", InventoryType.MERCHANT), PLAYER("player", InventoryType.PLAYER), WORKBENCH("WORKBENCH", InventoryType.WORKBENCH);
+    ANVIL("umbaska anvil", InventoryType.ANVIL), BEACON("umbaska beacon", InventoryType.BEACON), CHEST("umbaska chest", InventoryType.CHEST), CREATIVE("umbaska creative", InventoryType.CREATIVE), DISPENSER("umbaska dispenser", InventoryType.DISPENSER), DROPPER("umbaska dropper", InventoryType.DROPPER), ENCHANTING("umbaska enchanting", InventoryType.ENCHANTING), ENDER_CHEST("umbaska ender chest", InventoryType.ENDER_CHEST), FURNACE("umbaska furnace", InventoryType.FURNACE), HOPPER("umbaska hopper", InventoryType.HOPPER), MERCHANT("umbaska merchant", InventoryType.MERCHANT), PLAYER("umbaska player", InventoryType.PLAYER), WORKBENCH("umbaska WORKBENCH", InventoryType.WORKBENCH);
 
     private final String id;
     private final InventoryType effect;
