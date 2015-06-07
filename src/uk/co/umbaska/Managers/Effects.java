@@ -143,15 +143,14 @@ public class Effects {
 		  */
             PluginManager pm = Bukkit.getServer().getPluginManager();
             dynmap = pm.getPlugin("dynmap");
-            api = (DynmapAPI)dynmap;
+            api = (DynmapAPI) dynmap;
             if (api == null) {
                 Main.getInstance().getLogger().info(ChatColor.RED + "[Umbaska] Damn son! There was a problem hooking into dynmap. Sorry dude.");
             }
-            
-            Skript.registerEffect(EffSetVisOfPlayer.class, new String[] { "set dynmap visibility of %player% to %boolean%" });    
+
+            Skript.registerEffect(EffSetVisOfPlayer.class, new String[]{"set dynmap visibility of %player% to %boolean%"});
 
         }
-        
         // GATTSK
         
         Skript.registerEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
