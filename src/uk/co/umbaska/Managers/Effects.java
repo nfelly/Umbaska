@@ -191,6 +191,8 @@ public class Effects {
         Skript.registerEffect(EffCustomName.class, "set custom name of %entities% to %string%");
         Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
         Skript.registerEffect(EffResetRecipes.class, "reset all server recipes");
+
+        Skript.registerEffect(EffNothing_MFG.class, "(do nothing|null|blank|nada|nope|nothing here|blame mfg for this|woohoo|its peanut butter jelly time|no more stupid warnings or something|i dont know what this is|mfg loves you)");
         
 
         if (Bukkit.getVersion().contains("1.8")) {
