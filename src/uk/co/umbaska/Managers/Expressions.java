@@ -214,7 +214,7 @@ public class Expressions {
         Skript.registerExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, new String[] {"objective in [[display]slot] %displayslot% from [score][board] %string%"});
         Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
 				 /* 1.8 Things */
-        Skript.registerExpression(ExprBetterExplodedBlocks.class, Block.class, ExpressionType.COMBINED, new String[]{"[better] exploded blocks"});
+        //Skript.registerExpression(ExprBetterExplodedBlocks.class, Block.class, ExpressionType.COMBINED, new String[]{"[better] exploded blocks"});
         Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {"[the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
                 "(location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%"});
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
