@@ -214,6 +214,18 @@ public class Expressions {
         Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
 				 /* 1.8 Things */
 
+        if (Bukkit.getServer().getPluginManager().getPlugin("RandomSK") != null){
+            Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {
+                    "[umbaska] [the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
+                    "[umbaska] (location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%" });
+            Bukkit.getLogger().info("Registered Location/Direction effect with UMBASKA at the start of Syntax, due to RandomSK being installed! (Thanks, Mirre!)");
+        }
+        else {
+            Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {
+                    "[umbaska] [the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
+                    "[umbaska] (location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%" });
+        }
+
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         if (Bukkit.getVersion().contains("1.8")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
