@@ -1,4 +1,4 @@
-package uk.co.umbaska.Gatt;
+package uk.co.umbaska.Misc;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
@@ -14,26 +14,39 @@ import uk.co.umbaska.Enums.InventoryTypes;
 /**
  * Created by Zachary on 3/30/2015.
  */
-public class EffOpenInventory extends Effect{
+public class EffOpenInventoryRows extends Effect{
 
-    private Expression<InventoryTypes> types;
+    private Expression<InventoryType> types;
     private Expression<String> name;
     private Expression<Player> player;
+    private Expression<Integer> rows;
 
     @Override
     protected void execute(Event event){
         Player[] p = player.getAll(event);
         String n = name.getSingle(event);
-        InventoryTypes t2 = types.getSingle(event);
-        InventoryType t = t2.getType();
+        Integer i = rows.getSingle(event);
+        InventoryType t = types.getSingle(event);
         if (p == null) {
             return;
         }
         if (n == null){
             n = t.getDefaultTitle();
         }
+        if (i != null){
+            t = InventoryType.CHEST;
+        }
+        if (t == InventoryType.CHEST) {
+            if (i == null) {
+                i = 1;
+            }
+            i = i * 9;
+        }
         for (Player pl : p){
             Inventory inv = Bukkit.createInventory(null, t, n);
+            if (t == InventoryType.CHEST){
+                inv = Bukkit.createInventory(null, i, n);
+            }
 
             pl.openInventory(inv);
         }
@@ -48,9 +61,10 @@ public class EffOpenInventory extends Effect{
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        types = (Expression<InventoryTypes>) expressions[0];
+        types = (Expression<InventoryType>) expressions[0];
         name = (Expression<String>) expressions[1];
-        player = (Expression<Player>) expressions[2];
+        rows = (Expression<Integer>) expressions[2];
+        player = (Expression<Player>) expressions[3];
         return true;
     }
 }

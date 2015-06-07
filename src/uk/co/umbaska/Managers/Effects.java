@@ -11,8 +11,8 @@ import org.dynmap.DynmapAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
-import uk.co.umbaska.Gatt.EffOpenInventory;
-import uk.co.umbaska.Gatt.EffOpenInventoryRows;
+import uk.co.umbaska.Misc.EffOpenInventory;
+import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.EffChangeServer;
 import uk.co.umbaska.Bungee.Messenger;
@@ -24,6 +24,8 @@ import uk.co.umbaska.PlaceHolderAPI.EffPlaceholderRegister;
 import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
+import uk.co.umbaska.Replacers.EffBukkitEffect;
+import uk.co.umbaska.Replacers.EffBukkitEffectAll;
 import uk.co.umbaska.Replacers.EffParticle;
 import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
@@ -221,7 +223,8 @@ public class Effects {
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
             Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% (to|for) %players% [[ with] data %integer%]");
             Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %integer%]");
-
+            Skript.registerEffect(EffBukkitEffect.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%]");
+            Skript.registerEffect(EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%]");
         }
         
         if (use_bungee == true) {
