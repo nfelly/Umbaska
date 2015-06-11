@@ -179,8 +179,8 @@ public class Effects {
         Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
 
-        Skript.registerEffect(EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
-        Skript.registerEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
+        Skript.registerEffect(EffOpenInventory.class, "open %umbaskainv% [named %string%] to %player%");
+        Skript.registerEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %string%] with %integer% rows to %player%");
 
 
         //World Manager
