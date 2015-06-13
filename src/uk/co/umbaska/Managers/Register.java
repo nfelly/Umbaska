@@ -3,12 +3,14 @@ package uk.co.umbaska.Managers;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.util.SimpleEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.block.NotePlayEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public class Register {
 	public static void registerAll() {
@@ -26,6 +28,12 @@ public class Register {
         Skript.registerEvent("Note Play", SimpleEvent.class, NotePlayEvent.class, new String[]{"note play"});
         Skript.registerEvent("Inventory Open", SimpleEvent.class, InventoryOpenEvent.class, new String[]{"inventory open"});
         Skript.registerEvent("Health Regen", SimpleEvent.class, EntityRegainHealthEvent.class, new String[]{"[entity] health reg(ain|en)"});
-        Skript.registerEvent("Entity Interact", SimpleEvent.class, EntityInteractEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interract))"});
+
+        Bukkit.getLogger().info("Registering Entity Interact Event");
+        Skript.registerEvent("Entity Interact", SimpleEvent.class, PlayerInteractAtEntityEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interact))"});
+        Skript.registerEvent("Entity Interact", SimpleEvent.class, PlayerInteractAtEntityEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interact))"});
+        Skript.registerEvent("Entity Interact", SimpleEvent.class, PlayerInteractAtEntityEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interact))"});
+        Skript.registerEvent("Entity Interact", SimpleEvent.class, PlayerInteractAtEntityEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interact))"});
+        Skript.registerEvent("Entity Interact", SimpleEvent.class, PlayerInteractAtEntityEvent.class, new String[]{"([entity] interact|armo[u]r stand (right[ ]click|interact))"});
 	}
 }

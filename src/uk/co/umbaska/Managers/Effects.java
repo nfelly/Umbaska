@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.dynmap.DynmapAPI;
@@ -11,6 +12,7 @@ import org.dynmap.DynmapAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
+import uk.co.umbaska.Misc.Books.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
@@ -216,6 +218,9 @@ public class Effects {
 
 
         if (Bukkit.getVersion().contains("1.8")) {
+            Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
+            Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
+
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");

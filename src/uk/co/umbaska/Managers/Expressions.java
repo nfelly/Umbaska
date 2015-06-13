@@ -220,6 +220,7 @@ public class Expressions {
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
+        Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
         if (Bukkit.getVersion().contains("1.8")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
