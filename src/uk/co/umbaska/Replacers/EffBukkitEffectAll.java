@@ -16,15 +16,15 @@ import uk.co.umbaska.Enums.ParticleEnum;
 public class EffBukkitEffectAll extends Effect{
 
     private Expression<BukkitEffectEnum> particleName;
-    private Expression<Integer>  data, secondaryData;
+    private Expression<Number>  data, secondaryData;
     private Expression<Location> locations;
 
     @Override
     protected void execute(Event event){
         BukkitEffectEnum particlename = particleName.getSingle(event);
         Location[] loc = this.locations.getAll(event);
-        Integer data = this.data.getSingle(event);
-        Integer secondaryData = this.secondaryData.getSingle(event);
+        Integer data = this.data.getSingle(event).intValue();
+        Integer secondaryData = this.secondaryData.getSingle(event).intValue();
         if (particlename == null) {
             return;
         }
@@ -45,8 +45,8 @@ public class EffBukkitEffectAll extends Effect{
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
         particleName = (Expression<BukkitEffectEnum>) expressions[0];
         locations = (Expression<Location>) expressions[1];
-        data =(Expression<Integer>) expressions[2];
-        secondaryData =(Expression<Integer>) expressions[3];
+        data =(Expression<Number>) expressions[2];
+        secondaryData =(Expression<Number>) expressions[3];
         return true;
     }
 }

@@ -18,8 +18,8 @@ import uk.co.umbaska.Enums.ParticleEnum;
 public class EffParticle extends Effect{
 
     private Expression<ParticleEnum> particleName;
-    private Expression<Number> offx, offy, offz, speed;
-    private Expression<Integer> count, data, secondaryData;
+    private Expression<Number> offx, offy, offz, speed, data, secondaryData;
+    private Expression<Integer> count;
     private Expression<Location> locations;
     private Expression<Player> players;
 
@@ -33,8 +33,8 @@ public class EffParticle extends Effect{
         Location[] loc = this.locations.getAll(event);
         Integer count = this.count.getSingle(event);
         Player[] players = this.players.getAll(event);
-        Integer data = this.data.getSingle(event);
-        Integer secondaryData = this.secondaryData.getSingle(event);
+        Integer data = this.data.getSingle(event).intValue();
+        Integer secondaryData = this.secondaryData.getSingle(event).intValue();
         if (particlename == null) {
             return;
         }
@@ -61,8 +61,8 @@ public class EffParticle extends Effect{
         offz =(Expression<Number>) expressions[5];
         locations = (Expression<Location>) expressions[6];
         players =(Expression<Player>) expressions[7];
-        data =(Expression<Integer>) expressions[8];
-        secondaryData =(Expression<Integer>) expressions[9];
+        data =(Expression<Number>) expressions[8];
+        secondaryData =(Expression<Number>) expressions[9];
         return true;
     }
 }
