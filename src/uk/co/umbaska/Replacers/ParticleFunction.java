@@ -12,7 +12,7 @@ import uk.co.umbaska.Enums.ParticleEnum;
  */
 public class ParticleFunction {
 
-    public static Boolean spawnEffect(BukkitEffectEnum effect, Location[] locations, Integer data){
+    public static Boolean spawnEffect(BukkitEffectEnum effect, Location[] locations, Integer data, Integer secondaryData){
         Effect eff = effect.getEffect();
         if (eff == null){
 
@@ -23,13 +23,13 @@ public class ParticleFunction {
             if (data == null) {
                 location.getWorld().spigot().playEffect(location, eff);
             } else {
-                location.getWorld().spigot().playEffect(location, eff, data, 0, 1, 1, 1, 1, 1, 500);
+                location.getWorld().spigot().playEffect(location, eff, data, secondaryData, 1, 1, 1, 1, 1, 500);
             }
         }
         return true;
     }
 
-    public static Boolean spawnEffect(BukkitEffectEnum effect, Location[] locations, Integer data, Player[] players) {
+    public static Boolean spawnEffect(BukkitEffectEnum effect, Location[] locations, Integer data, Player[] players, Integer secondaryData) {
         Effect eff = effect.getEffect();
         if (eff == null) {
 
@@ -38,7 +38,7 @@ public class ParticleFunction {
         for (Player p : players){
             for (Location location : locations) {
                 //location.getWorld().playEffect(location, eff, integer);
-                p.spigot().playEffect(location, eff, data, 0, 1, 1, 1, 1, 1, 500);
+                p.spigot().playEffect(location, eff, data, secondaryData, 1, 1, 1, 1, 1, 500);
 
             }
         }

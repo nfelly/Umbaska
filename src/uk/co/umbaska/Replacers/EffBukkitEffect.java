@@ -17,7 +17,7 @@ import uk.co.umbaska.Enums.ParticleEnum;
 public class EffBukkitEffect extends Effect{
 
     private Expression<BukkitEffectEnum> particleName;
-    private Expression<Integer> data;
+    private Expression<Integer> data, secondaryData;
     private Expression<Location> locations;
     private Expression<Player> players;
 
@@ -27,10 +27,11 @@ public class EffBukkitEffect extends Effect{
         Location[] loc = this.locations.getAll(event);
         Player[] players = this.players.getAll(event);
         Integer data = this.data.getSingle(event);
+        Integer secondaryData = this.secondaryData.getSingle(event);
         if (particlename == null) {
             return;
         }
-        if (ParticleFunction.spawnEffect(particlename, loc, data, players) == false){
+        if (ParticleFunction.spawnEffect(particlename, loc, data, secondaryData) == false){
             Skript.error("Unknown Effect! " + particlename + " isn't a valid effect! \nSee https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html for valid particle effects!");
         }
         return;
@@ -49,6 +50,7 @@ public class EffBukkitEffect extends Effect{
         locations = (Expression<Location>) expressions[1];
         players =(Expression<Player>) expressions[2];
         data =(Expression<Integer>) expressions[3];
+        secondaryData =(Expression<Integer>) expressions[4];
         return true;
     }
 }
