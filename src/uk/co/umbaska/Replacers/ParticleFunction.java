@@ -45,7 +45,7 @@ public class ParticleFunction {
         return true;
     }
 
-    public static Boolean spawnParticle(Integer count, ParticleEnum effect, Number speed, Number offsetx, Number offsety, Number offsetz, Location[] locations, Integer data){
+    public static Boolean spawnParticle(Integer count, ParticleEnum effect, Number speed, Number offsetx, Number offsety, Number offsetz, Location[] locations, Integer data, Integer secondaryData){
         Effect eff = effect.getEffect();
         if (eff == null){
 
@@ -56,13 +56,13 @@ public class ParticleFunction {
             if (data == null) {
                 location.getWorld().spigot().playEffect(location, eff);
             } else {
-                location.getWorld().spigot().playEffect(location, eff, data, 0, offsetx.floatValue(), offsety.floatValue(), offsetz.floatValue(), speed.floatValue(), count, 500);
+                location.getWorld().spigot().playEffect(location, eff, data, secondaryData, offsetx.floatValue(), offsety.floatValue(), offsetz.floatValue(), speed.floatValue(), count, 500);
             }
         }
         return true;
     }
 
-    public static Boolean spawnParticle(Integer count, ParticleEnum effect, Number speed, Number offsetx, Number offsety, Number offsetz, Location[] locations, Integer data, Player[] players) {
+    public static Boolean spawnParticle(Integer count, ParticleEnum effect, Number speed, Number offsetx, Number offsety, Number offsetz, Location[] locations, Integer data, Player[] players, Integer secondaryData) {
         Effect eff = effect.getEffect();
         if (eff == null) {
 
@@ -71,7 +71,7 @@ public class ParticleFunction {
         for (Player p : players){
             for (Location location : locations) {
                 //location.getWorld().playEffect(location, eff, integer);
-                p.spigot().playEffect(location, eff, data, 0, offsetx.floatValue(), offsety.floatValue(), offsetz.floatValue(), speed.floatValue(), count, 500);
+                p.spigot().playEffect(location, eff, data, secondaryData, offsetx.floatValue(), offsety.floatValue(), offsetz.floatValue(), speed.floatValue(), count, 500);
 
             }
         }

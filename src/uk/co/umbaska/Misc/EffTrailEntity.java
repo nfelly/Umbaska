@@ -6,7 +6,9 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
@@ -68,8 +70,11 @@ public class EffTrailEntity extends Effect implements Listener {
                     if (ent == null || !ent.isValid()){
                         runnable.cancel();
                     }
+                    if (ent.getType() == EntityType.ARROW && ((Arrow)ent).isOnGround()){
+                        runnable.cancel();
+                    }
                     else{
-                        ParticleFunction.spawnParticle(1, part, 0, 0, 0, 0, Collect.asArray(ent.getLocation()), 0);
+                        ParticleFunction.spawnParticle(1, part, 0, 0, 0, 0, Collect.asArray(ent.getLocation()), 0, 0);
                     }
                 }
             }, 1, 1);

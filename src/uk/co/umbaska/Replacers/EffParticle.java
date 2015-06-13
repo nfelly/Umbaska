@@ -19,7 +19,7 @@ public class EffParticle extends Effect{
 
     private Expression<ParticleEnum> particleName;
     private Expression<Number> offx, offy, offz, speed;
-    private Expression<Integer> count, data;
+    private Expression<Integer> count, data, secondaryData;
     private Expression<Location> locations;
     private Expression<Player> players;
 
@@ -34,10 +34,11 @@ public class EffParticle extends Effect{
         Integer count = this.count.getSingle(event);
         Player[] players = this.players.getAll(event);
         Integer data = this.data.getSingle(event);
+        Integer secondaryData = this.secondaryData.getSingle(event);
         if (particlename == null) {
             return;
         }
-        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc, data, players) == false){
+        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc, data, players, secondaryData) == false){
             Skript.error("Unknown Effect! " + particlename + " isn't a valid effect! \nSee https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html for valid particle effects!");
         }
         return;
@@ -61,6 +62,7 @@ public class EffParticle extends Effect{
         locations = (Expression<Location>) expressions[6];
         players =(Expression<Player>) expressions[7];
         data =(Expression<Integer>) expressions[8];
+        secondaryData =(Expression<Integer>) expressions[9];
         return true;
     }
 }

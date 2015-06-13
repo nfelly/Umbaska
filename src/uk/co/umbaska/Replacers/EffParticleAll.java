@@ -18,7 +18,7 @@ public class EffParticleAll extends Effect{
 
     private Expression<ParticleEnum> particleName;
     private Expression<Number> offx, offy, offz, speed;
-    private Expression<Integer> count, data;
+    private Expression<Integer> count, data, secondaryData;
     private Expression<Location> locations;
 
     @Override
@@ -31,10 +31,11 @@ public class EffParticleAll extends Effect{
         Location[] loc = this.locations.getAll(event);
         Integer count = this.count.getSingle(event);
         Integer data = this.data.getSingle(event);
+        Integer secondaryData = this.secondaryData.getSingle(event);
         if (particlename == null) {
             return;
         }
-        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc,  data) == false){
+        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc,  data, secondaryData) == false){
             Skript.error("Unknown Effect! " + particlename + " isn't a valid effect! \nSee https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html for valid particle effects!");
         }
         return;
@@ -57,6 +58,7 @@ public class EffParticleAll extends Effect{
         offz =(Expression<Number>) expressions[5];
         locations = (Expression<Location>) expressions[6];
         data =(Expression<Integer>) expressions[7];
+        secondaryData =(Expression<Integer>) expressions[8];
         return true;
     }
 }
