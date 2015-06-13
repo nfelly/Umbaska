@@ -24,9 +24,6 @@ public class EffSendTitle extends Effect implements Listener {
     private Expression<Number> afadein;
     private Expression<Number> afadeout;
     private Expression<Number> astay;
-    public static Number fadein;
-    public static Number fadeout;
-    public static Number stay;
 
 
 
@@ -62,7 +59,7 @@ public class EffSendTitle extends Effect implements Listener {
         for (Player p : playerlist) {
             try {
                 PlayerConnection connection = ((CraftPlayer)p).getHandle().playerConnection;
-                PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, fadein.intValue(), stay.intValue(), fadeout.intValue());
+                PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, newfadein.intValue(), newstay.intValue(), newfadeout.intValue());
                 connection.sendPacket(packetPlayOutTimes);
             } catch (final Exception e) {
                 e.printStackTrace();
