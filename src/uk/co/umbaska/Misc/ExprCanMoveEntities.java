@@ -3,9 +3,6 @@ package uk.co.umbaska.Misc;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -14,12 +11,12 @@ import uk.co.umbaska.Main;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprFreeze extends SimplePropertyExpression<Player, Boolean> {
+public class ExprCanMoveEntities extends SimplePropertyExpression<Player, Boolean> {
 	@Override
 	public Boolean convert(Player ent) {
 		if(ent == null)
 			return null;
-		return Main.freezeListener.isFrozen(ent);
+		return ent.spigot().getCollidesWithEntities();
 	}
 
 	@Override
@@ -32,7 +29,7 @@ public class ExprFreeze extends SimplePropertyExpression<Player, Boolean> {
 		}
 		Boolean b = (Boolean) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
-            Main.freezeListener.setFreezeState(ent, b);
+            ent.spigot().setCollidesWithEntities(b);
 		}
 	}
 
@@ -55,7 +52,7 @@ public class ExprFreeze extends SimplePropertyExpression<Player, Boolean> {
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "Player Frozen State";
+		return "Collides With Entities";
 	}
 
 }

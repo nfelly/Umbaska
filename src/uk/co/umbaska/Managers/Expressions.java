@@ -219,6 +219,7 @@ public class Expressions {
                 "(location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%"});
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
+        SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
         if (Bukkit.getVersion().contains("1.8")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
