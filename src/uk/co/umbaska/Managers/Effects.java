@@ -12,6 +12,7 @@ import org.dynmap.DynmapAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
+import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
 import uk.co.umbaska.Misc.Books.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
@@ -215,7 +216,11 @@ public class Effects {
 
         Skript.registerEffect(EffSetHoloType.class, "set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])");
 
-
+        Skript.registerEffect(EffNewSimpleScoreboard.class, "create [a] new simple scoreboard [named] %string%");
+        Skript.registerEffect(EffSetSlot.class, "set slot %number% of simple [score][board] %string% to %string%");
+        Skript.registerEffect(EffSetTitle.class, "set title of simple [score][board] %string% to %string%");
+        Skript.registerEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
+        Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
 
         if (Bukkit.getVersion().contains("1.8")) {
             Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");

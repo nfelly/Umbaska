@@ -22,13 +22,6 @@ public class DisguiseHandler {
     @SuppressWarnings("deprecation")
 	public void setDisguise(Player p, MyDisguise dis){
         disguiseTracker.put(p, dis);
-        for (Player p1 : Bukkit.getOnlinePlayers()) {
-            try {
-                dis.sendDisguise(p1);
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
         //new DisguiseTracker(p);
     }
 
@@ -41,54 +34,6 @@ public class DisguiseHandler {
             }
         }
         disguiseTracker.remove(p);
-    }
-
-    public class DisguiseTracker{
-
-        Plugin plugin = p;
-        Player player;
-        MyDisguise currentDisguise;
-        BukkitTask runnable;
-        List<Player> canSee;
-
-        public DisguiseTracker(Player player){
-
-            this.player = player;
-            this.currentDisguise = disguiseTracker.get(player);
-            start();
-        }
-
-        private void start(){
-            runnable = Bukkit.getScheduler().runTaskTimer(p, new Runnable() {
-                @SuppressWarnings("deprecation")
-				@Override
-                public void run() {
-                    if (disguiseTracker.containsKey(player)){
-                        if (disguiseTracker.get(player) != currentDisguise){
-                            runnable.cancel();
-                        }
-                        for (Player player1 : Bukkit.getOnlinePlayers()) {
-                            if (!canSee.contains(player1) && player1.getLocation().distance(player.getLocation()) < 25){
-                                canSee.add(player1);
-                                try {
-                                    disguiseTracker.get(player).updateDisguise(player1);
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                            if (player1.getLocation().distance(player.getLocation()) > 24){
-                                canSee.remove(player1);
-                            }
-
-                        }
-                    }
-                    if (!player.isOnline()){
-                        removeDisguise(player);
-                        runnable.cancel();
-                    }
-                }
-            }, 20l, 20l);
-        }
     }
 
 }

@@ -1,6 +1,7 @@
 package uk.co.umbaska.Utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,7 +39,10 @@ public class FreezeListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent e){
         if (isFrozen(e.getPlayer())){
             if (e.getTo().getX() != e.getFrom().getX() || e.getTo().getZ() != e.getFrom().getZ()){
-                e.setCancelled(true);
+                Location loc = e.getFrom();
+                loc.setPitch(e.getTo().getPitch());
+                loc.setYaw(e.getTo().getYaw());
+                e.getPlayer().teleport(loc);
             }
         }
     }

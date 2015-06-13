@@ -27,9 +27,6 @@ public class ExprFreeze extends SimplePropertyExpression<Player, Boolean> {
 		Player ent = getExpr().getSingle(e); //Called to get the Target which is Player in this case.
 		if(ent == null)
 			return;
-		if(ent.getType() != EntityType.ARMOR_STAND){
-			return;
-		}
 		Boolean b = (Boolean) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             Main.freezeListener.setFreezeState(ent, b);
@@ -42,8 +39,6 @@ public class ExprFreeze extends SimplePropertyExpression<Player, Boolean> {
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
 		if (mode == Changer.ChangeMode.SET) //SET can be replaced with REMOVE ADD or similiar stuff.
 			return CollectionUtils.array(Boolean.class); //The Class should be the TypeToGet and in this case Number.
-		if (mode == Changer.ChangeMode.REMOVE)
-			return CollectionUtils.array(Boolean.class);
 		return null;
 	}
 
