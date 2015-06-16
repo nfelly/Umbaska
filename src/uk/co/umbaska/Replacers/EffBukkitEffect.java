@@ -5,11 +5,12 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
 import uk.co.umbaska.Enums.BukkitEffectEnum;
-import uk.co.umbaska.Enums.ParticleEnum;
 
 /**
  * Created by Zachary on 5/17/2015.
@@ -21,7 +22,8 @@ public class EffBukkitEffect extends Effect{
     private Expression<Location> locations;
     private Expression<Player> players;
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     protected void execute(Event event){
         BukkitEffectEnum particlename = particleName.getSingle(event);
         Location[] loc = this.locations.getAll(event);

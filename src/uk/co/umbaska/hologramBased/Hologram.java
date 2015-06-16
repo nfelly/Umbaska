@@ -6,6 +6,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -124,6 +125,7 @@ public class Hologram {
 		return moveVector;
 	}
 
+	@SuppressWarnings("deprecation")
 	private ArrayList<Player> getPlayers() {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -422,6 +424,7 @@ public class Hologram {
 		return this;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Hologram setLines(String... lines) {
 		if (!this.lines.equals(lines)) {
 			String[] oldLines = this.lines.clone();
@@ -580,6 +583,7 @@ public class Hologram {
 		return this;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Hologram start() {
 		if (!isInUse()) {
 			for (int i = entityIds.size(); i < lines.length; i++) {

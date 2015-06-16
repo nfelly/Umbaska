@@ -3,10 +3,7 @@ package uk.co.umbaska.GattSk.Effects.SimpleScoreboards;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.util.Kleenean;
-import com.avaje.ebean.Expr;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 /**

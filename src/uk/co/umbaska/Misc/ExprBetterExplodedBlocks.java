@@ -15,7 +15,6 @@ import org.bukkit.block.Block;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import uk.co.umbaska.GattSk.Extras.Collect;
-import uk.co.umbaska.Managers.YAMLManager;
 
 
 public class ExprBetterExplodedBlocks extends SimpleExpression<Block>{
@@ -30,7 +29,6 @@ public class ExprBetterExplodedBlocks extends SimpleExpression<Block>{
         return false;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, ParseResult arg3) {
         return true;

@@ -2,6 +2,7 @@ package uk.co.umbaska.hologramBased;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -41,6 +42,7 @@ public class HologramCentral implements Listener {
 		plugin = Bukkit.getPluginManager().getPlugins()[0];
 		Bukkit.getPluginManager().registerEvents(new HologramCentral(), plugin);
 		BukkitRunnable runnable = new BukkitRunnable() {
+			@SuppressWarnings("unused")
 			public void run() {
 				for (Hologram hologram : new ArrayList<Hologram>(holograms)) {
 					if (hologram.getEntityFollowed() != null) {
@@ -83,6 +85,7 @@ public class HologramCentral implements Listener {
 		};
 		runnable.runTaskTimer(plugin, 0, 0);
 	}
+	@SuppressWarnings("deprecation")
 	static void addHologram(Hologram hologram) {
 		if (!holograms.contains(hologram)) {
 			holograms.add(hologram);

@@ -3,10 +3,8 @@ package uk.co.umbaska.Misc;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import uk.co.umbaska.Main;
 
 /**
  * Created by Zachary on 12/2/2014.

@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import uk.co.umbaska.Enums.InventoryTypes;
 
 /**
  * Created by Zachary on 3/30/2015.

@@ -7,16 +7,13 @@
 
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.util.StringUtil;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 public class EffCentredText extends SimpleExpression<String> {

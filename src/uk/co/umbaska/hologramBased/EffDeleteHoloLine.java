@@ -4,6 +4,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+
 import org.bukkit.event.Event;
 
 /**
@@ -28,6 +29,7 @@ public class EffDeleteHoloLine extends Effect {
 		return "remove holo line";
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected void execute(Event event) {
 

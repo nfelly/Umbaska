@@ -5,7 +5,6 @@ import java.util.UUID;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Objective;
