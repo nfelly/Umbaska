@@ -175,6 +175,8 @@ public class Effects {
         Skript.registerEffect(EffSetObjectiveName.class, "set objective display name for [objective] %string% in [score][board] %string% to %string%");
         Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
 
+        Skript.registerEffect(EffDeleteScoreboard.class, "delete score[ ]board %string%");
+
         Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
         Skript.registerEffect(EffTeamPlayer.class, "(remove|add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
         Skript.registerEffect(EffSetTeamPrefix.class, "set (suffix|prefix) for team %string% in [score][board] %string% to %string%");
@@ -221,6 +223,8 @@ public class Effects {
         Skript.registerEffect(EffSetTitle.class, "set title of simple [score][board] %string% to %string%");
         Skript.registerEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
         Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
+        Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ " +
+                "][board] %string%");
 
         if (Bukkit.getVersion().contains("1.8")) {
             Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");

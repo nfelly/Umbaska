@@ -67,6 +67,15 @@ public class SimpleScoreboard {
 		targetBoard.getObjective("SimpleScoreboard").setDisplayName(title);
 	}
 
+    public static void deleteScoreboard(String scoreboardName){
+        if (ScoreboardManagers.boardList.containsKey(scoreboardName)) {
+            ScoreboardManagers.boardList.remove(scoreboardName);
+        }
+        if (SimpleScoreboards.containsKey(scoreboardName)) {
+            SimpleScoreboards.remove(scoreboardName);
+        }
+    }
+
 	public static void clearScore(String scoreboardName, Integer slot){
 		Scoreboard targetBoard = SimpleScoreboards.get(scoreboardName);
 		if (slot <= 15){

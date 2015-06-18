@@ -29,6 +29,12 @@ public class ScoreboardManagers {
 	}
 	//Possible syntax: scoreboard [from] %string(s)%
 
+    public static void deleteBoard(String name){
+        if (boardList.containsKey(name)){
+            boardList.remove(name);
+        }
+    }
+
 	public static Scoreboard getBoard(String name){
 		if (boardList.containsKey(name)){
 			return boardList.get(name);
