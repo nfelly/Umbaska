@@ -136,6 +136,7 @@ public class Expressions {
         Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
         Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
         Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
+        Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %integer%, %integer%, %integer% in world %string%");
 
 
 

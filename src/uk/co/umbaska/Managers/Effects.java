@@ -225,7 +225,7 @@ public class Effects {
         Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ " +
                 "][board] %string%");
 
-        if (Bukkit.getVersion().contains("1.8")) {
+        if (Bukkit.getVersion().contains("1.8.1")) {
             Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
             Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
 
