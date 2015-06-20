@@ -226,9 +226,10 @@ public class Effects {
                 "][board] %string%");
 
         if (Bukkit.getVersion().contains("1.8.1")) {
-            Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
-            Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
-
+			Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
+			Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
+		}
+		if (Bukkit.getVersion().contains("1.8")) {
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
@@ -241,9 +242,9 @@ public class Effects {
             Skript.registerEffect(EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
         }
         
-        if (use_bungee == true) {
+        if (use_bungee) {
             messenger = new Messenger(Main.getInstance());
-            Skript.registerEffect(EffChangeServer.class, new String[] { "send %player% to %string%" });
+            Skript.registerEffect(EffChangeServer.class, "send %player% to %string%");
         }
 	}
 }
