@@ -3,25 +3,20 @@ package uk.co.umbaska.Misc;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.Trigger;
 import ch.njol.util.Kleenean;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
 import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.GattSk.Extras.Collect;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Replacers.ParticleFunction;
-import uk.co.umbaska.Utils.TitleManager.TitleManager;
-
-import javax.servlet.http.Part;
-import java.lang.reflect.Array;
 
 
 /**
@@ -57,9 +52,10 @@ public class EffTrailEntity extends Effect implements Listener {
         }
 	}
 
+    @SuppressWarnings("unused")
     private class TrailEntity{
         BukkitTask runnable;
-        Entity ent;
+		Entity ent;
         ParticleEnum part;
         private TrailEntity(final Entity ent, final ParticleEnum part){
             this.ent = ent;

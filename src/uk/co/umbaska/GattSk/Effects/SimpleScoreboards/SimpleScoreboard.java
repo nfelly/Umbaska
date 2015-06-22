@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
@@ -143,7 +144,7 @@ public class SimpleScoreboard {
 
                 HashMap<Integer, String> hashMap;
                 hashMap = ScoreboardTracker.get(targetBoard);
-                if (!hashMap.get(slot).equals(value)){
+				if (!hashMap.get(slot).equals(value)){
                     String score2reset = hashMap.get(slot);
                     targetBoard.resetScores(score2reset);
                     hashMap.remove(slot);

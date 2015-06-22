@@ -1,7 +1,12 @@
 package uk.co.umbaska.Utils.Disguise;
 
 
+import com.comphenix.protocol.PacketType;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,7 +22,7 @@ public class MyDisguise {
 			.getPackage().getName().substring(23);
 	private String customName;
 	private EntityDisguise type;
-	private Player disguised;
+	private Entity disguised;
 	private ItemStack hand, helm, chst, leg, boot;
 
 	/**
@@ -26,7 +31,7 @@ public class MyDisguise {
 	 * @param type
 	 *            Entity type of disguise
 	 */
-	public MyDisguise(Player p, EntityDisguise type) {
+	public MyDisguise(Entity p, EntityDisguise type) {
 		this(p, type, null);
 	}
 
@@ -39,7 +44,7 @@ public class MyDisguise {
 	 *            the display name of the disguised player (chat color is
 	 *            supported)
 	 */
-	public MyDisguise(Player p, EntityDisguise type, String name) {
+	public MyDisguise(Entity p, EntityDisguise type, String name) {
 		this(p, type, name, null, null, null, null, null);
 	}
 
@@ -63,7 +68,7 @@ public class MyDisguise {
 	 *            boots armor item <b>If You dont want a armor item like boots
 	 *            or something, provide 'null'</b>
 	 */
-	public MyDisguise(Player p, EntityDisguise type, String name,
+	public MyDisguise(Entity p, EntityDisguise type, String name,
 					  ItemStack inhand, ItemStack helmet, ItemStack chestplate,
 					  ItemStack leggings, ItemStack boots) {
 		this.customName = name;
@@ -169,11 +174,40 @@ public class MyDisguise {
 		Object ppones = ReflectionUtils.instantiateObject(
 				"PacketPlayOutNamedEntitySpawn", ReflectionUtils.PackageType.MINECRAFT_SERVER,
 				ReflectionUtils.invokeMethod(disguised, "getHandle", null));
+        ItemStack hand = null;
+        ItemStack helm = null;
+        ItemStack chst = null;
+        ItemStack leg =  null;
+        ItemStack boot = null;
+        //if (disguised.getType() != EntityType.PLAYER) {
+            hand = ((LivingEntity) disguised).getEquipment().getItemInHand();
+            helm = ((LivingEntity) disguised).getEquipment().getHelmet();
+            chst = ((LivingEntity) disguised).getEquipment().getChestplate();
+            leg = ((LivingEntity) disguised).getEquipment().getLeggings();
+            boot = ((LivingEntity) disguised).getEquipment().getBoots();
+        //}
+       // else {
+       //     hand = ((Player) disguised).getInventory().getItemInHand();
+       //     helm = ((Player) disguised).getInventory().getHelmet();
+       //     chst = ((Player) disguised).getInventory().getChestplate();
+       //     leg = ((Player) disguised).getInventory().getLeggings();
+       //     boot = ((Player) disguised).getInventory().getBoots();
+       // }
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if(p.equals(disguised)) continue;
 			try {
 				sendPacket(p, ppoed);
 				sendPacket(p, ppones);
+                if (hand != null)
+                    sendArmorContentPackets(p, disguised.getEntityId(), 0, hand);
+                if (helm != null)
+                    sendArmorContentPackets(p, disguised.getEntityId(), 1, helm);
+                if (chst != null)
+                    sendArmorContentPackets(p, disguised.getEntityId(), 2, chst);
+                if (leg != null)
+                    sendArmorContentPackets(p, disguised.getEntityId(), 3, leg);
+                if (boot != null)
+                    sendArmorContentPackets(p, disguised.getEntityId(), 4, boot);
 			}catch (Exception e){
 				e.printStackTrace();
 			}
@@ -300,7 +334,7 @@ public class MyDisguise {
 		this.type = type;
 	}
 
-	public Player getDisguised() {
+	public Entity getDisguised() {
 		return disguised;
 	}
 }

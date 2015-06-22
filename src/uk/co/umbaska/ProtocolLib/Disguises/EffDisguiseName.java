@@ -7,6 +7,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -42,7 +43,7 @@ public class EffDisguiseName extends Effect {
             Skript.error(e + " isn't a valid disguise type!");
             return;
         }
-        for (Player pl : p) {
+        for (Entity pl : p) {
             MyDisguise myDisguise = new MyDisguise(pl, disguise);
             myDisguise.setCustomName(name.getSingle(event));
             Main.disguiseHandler.setDisguise(pl, myDisguise);

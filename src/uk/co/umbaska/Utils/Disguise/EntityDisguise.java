@@ -17,7 +17,7 @@ public enum EntityDisguise {
             "EntitySquid"), WOLF("EntityWolf"), OCELOT("EntityOcelot"), HORSE(
             "EntityHorse"), VILLAGER("EntityVillager"), IRON_GOLEM(
             "EntityIronGolem"), SNOWMAN("EntitySnowman"), ENDER_DRAGON(
-            "EntityEnderDragon"), MOOSHROOM("EntityMushroomCow"), UNKNOWN("UNKOWN");
+            "EntityEnderDragon"), MOOSHROOM("EntityMushroomCow"), UNKNOWN(""), PLAYER("EntityHuman"), ARMOR_STAND("EntityArmorStand");
     private final String cls;
 
     EntityDisguise(String cls) {

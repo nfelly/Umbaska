@@ -5,6 +5,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -24,7 +25,7 @@ public class EffUndisguise extends Effect {
             return;
         }
 
-        for (Player pl : p) {
+        for (Entity pl : p) {
             Main.disguiseHandler.removeDisguise(pl);
         }
     }

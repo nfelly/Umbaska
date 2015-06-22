@@ -8,7 +8,6 @@ import ch.njol.util.Kleenean;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
-import uk.co.umbaska.Enums.ParticleEnum;
 
 /**
  * Created by Zachary on 5/17/2015.

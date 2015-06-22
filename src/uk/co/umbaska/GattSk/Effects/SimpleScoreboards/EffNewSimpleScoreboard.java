@@ -5,7 +5,6 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
 /**
  * Created by Zachary on 6/13/2015.

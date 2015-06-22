@@ -5,7 +5,6 @@ import java.util.UUID;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Objective;
@@ -137,6 +136,7 @@ public class Expressions {
         Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
         Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
         Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
+        Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %integer%, %integer%, %integer% in world %string%");
 
 
 

@@ -10,6 +10,7 @@ import java.util.HashMap;
 /**
  * Created by Zachary on 11/3/2014.
  */
+@SuppressWarnings({"unused", "unchecked", "rawtypes"})
 public class Holograms{
 	public static HashMap<String, Hologram> holograms = new HashMap();
 	private static final double distance = 0.23D;
