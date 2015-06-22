@@ -22,7 +22,7 @@ public class Enums {
         EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register();
         Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
         EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register();
-		Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "jsonmessage").parser(new Parser<JSONMessage>() {
+		Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "18jsonmessage").parser(new Parser<JSONMessage>() {
 			public JSONMessage parse(String s, ParseContext parseContext) {
 				return null;
 			}

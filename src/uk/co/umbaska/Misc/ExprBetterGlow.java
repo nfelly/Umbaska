@@ -2,8 +2,7 @@ package uk.co.umbaska.Misc;
 
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import uk.co.umbaska.Utils.EnchantGlow;
+import uk.co.umbaska.Utils.ItemManager;
 
 /**
  * Created by Zachary on 6/13/2015.
@@ -15,7 +14,7 @@ public String getPropertyName(){
 
 public ItemStack convert(ItemStack itemStack){
 
-        return EnchantGlow.addGlowReturn(itemStack);
+        return ItemManager.addGlow(itemStack);
         }
 
 public Class<? extends ItemStack> getReturnType(){

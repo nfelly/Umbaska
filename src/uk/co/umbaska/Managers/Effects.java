@@ -41,6 +41,7 @@ public class Effects {
     public static EntityHider enthider;
     public static Boolean enable_tag_features = Main.getInstance().getConfig().getBoolean("enable_tag_features");
     public static Boolean use_bungee = Main.getInstance().getConfig().getBoolean("use_bungee");
+    public static Boolean forceGenTitleFeatures = Main.getInstance().getConfig().getBoolean("force-generate-title-features");
     public static Plugin dynmap;
     public static DynmapAPI api;
     public final Logger logger = Logger.getLogger("Minecraft");
@@ -224,8 +225,11 @@ public class Effects {
         Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
         Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ " +
                 "][board] %string%");
-
-        if (Bukkit.getVersion().contains("1.8.1")) {
+        if (!Main.getInstance().getConfig().contains("force-generate-title-features")){
+            Main.getInstance().getConfig().set("force-generate-title-features", false);
+            forceGenTitleFeatures = false;
+        }
+        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGenTitleFeatures) {
 			Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
 			Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
 		}

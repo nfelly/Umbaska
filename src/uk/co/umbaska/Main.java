@@ -30,6 +30,7 @@ import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.Utils.Disguise.DisguiseHandler;
 import uk.co.umbaska.Utils.FreezeListener;
+import uk.co.umbaska.Utils.ItemManager;
 import uk.co.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class Main extends JavaPlugin implements Listener {
     public static Messenger messenger;
     private static WildSkriptTimer timer;
     public static FreezeListener freezeListener;
+    public static ItemManager itemManager;
     @Override
     public void onEnable() {
         plugin = this;
@@ -68,6 +70,8 @@ public class Main extends JavaPlugin implements Listener {
         saveDefaultConfig();
         Register.registerAll();
         freezeListener = new FreezeListener(this);
+        itemManager = new ItemManager();
+
 
     }
     
