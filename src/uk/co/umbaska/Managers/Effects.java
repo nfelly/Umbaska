@@ -12,7 +12,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
-import uk.co.umbaska.Misc.Books.EffSendTitle;
+import uk.co.umbaska.Misc.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
@@ -232,6 +232,7 @@ public class Effects {
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGenTitleFeatures) {
 			Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
 			Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
+            Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
 		}
 		if (Bukkit.getVersion().contains("1.8")) {
 

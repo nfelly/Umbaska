@@ -10,6 +10,8 @@ public class TitleManager implements Listener {
 
 	public static Class<?>	nmsChatSerializer	= Reflection.getNMSClass("ChatSerializer");
 	public static int VERSION= 47;
+    public static IChatBaseComponent newfooter;
+    public static IChatBaseComponent newheader;
 
 	public static void sendTitle(Player p, String title) {
 		try {

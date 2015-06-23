@@ -1,4 +1,4 @@
-package uk.co.umbaska.Misc.Books;
+package uk.co.umbaska.Misc;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
