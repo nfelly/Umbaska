@@ -221,7 +221,7 @@ public class Expressions {
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
         Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
-        if (Bukkit.getVersion().contains("1.8")) {
+        if (Bukkit.getVersion().contains("1.8.1")) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
