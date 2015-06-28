@@ -67,6 +67,9 @@ public class Main extends JavaPlugin implements Listener {
             enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
         }
         disguiseHandler = new DisguiseHandler(this);
+        if (!getConfig().contains("force-generate-18-features")){
+            getConfig().set("force-generate-18-features", true);
+        }
         saveDefaultConfig();
         Register.registerAll();
         freezeListener = new FreezeListener(this);

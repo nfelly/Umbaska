@@ -42,6 +42,7 @@ public class Effects {
     public static Boolean enable_tag_features = Main.getInstance().getConfig().getBoolean("enable_tag_features");
     public static Boolean use_bungee = Main.getInstance().getConfig().getBoolean("use_bungee");
     public static Boolean forceGenTitleFeatures = Main.getInstance().getConfig().getBoolean("force-generate-title-features");
+    public static Boolean forceGen18Features = Main.getInstance().getConfig().getBoolean("force-generate-18-features");
     public static Plugin dynmap;
     public static DynmapAPI api;
     public final Logger logger = Logger.getLogger("Minecraft");
@@ -234,15 +235,15 @@ public class Effects {
 			Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
             Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
 		}
-		if (Bukkit.getVersion().contains("1.8.1")) {
+		if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
-            Skript.registerEffect(EffTrailEntity.class, "[umbaska] trail %entities% with [particle] %particleenum%");
+            Skript.registerEffect(EffTrailEntity.class, "[umbaska] trail %entities% with %particleenum%");
 
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
-            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]");
-            Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %integer% [of] [particle] %particleenum%[:%number%] [offset (at|by|from) %number%, %number% (,|and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]");
+            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]");
+            Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]");
             Skript.registerEffect(EffBukkitEffect.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
             Skript.registerEffect(EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
         }

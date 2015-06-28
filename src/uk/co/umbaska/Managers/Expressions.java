@@ -136,7 +136,7 @@ public class Expressions {
         Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
         Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
         Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
-        Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %integer%, %integer%, %integer% in world %string%");
+        Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
 
 
 
@@ -221,7 +221,7 @@ public class Expressions {
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
         Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
-        if (Bukkit.getVersion().contains("1.8.1")) {
+        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");

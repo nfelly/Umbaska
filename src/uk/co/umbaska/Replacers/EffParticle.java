@@ -18,8 +18,7 @@ import uk.co.umbaska.Enums.ParticleEnum;
 public class EffParticle extends Effect{
 
     private Expression<ParticleEnum> particleName;
-    private Expression<Number> offx, offy, offz, speed, data, secondaryData;
-    private Expression<Integer> count;
+    private Expression<Number> offx, offy, offz, speed, data, secondaryData, count;
     private Expression<Location> locations;
     private Expression<Player> players;
 
@@ -31,17 +30,14 @@ public class EffParticle extends Effect{
         Number offz = this.offz.getSingle(event);
         Number speed = this.speed.getSingle(event);
         Location[] loc = this.locations.getAll(event);
-        Integer count = this.count.getSingle(event);
+        Integer count = this.count.getSingle(event).intValue();
         Player[] players = this.players.getAll(event);
         Integer data = this.data.getSingle(event).intValue();
         Integer secondaryData = this.secondaryData.getSingle(event).intValue();
         if (particlename == null) {
             return;
         }
-        if (ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc, data, players, secondaryData) == false){
-            Skript.error("Unknown Effect! " + particlename + " isn't a valid effect! \nSee https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Effect.html for valid particle effects!");
-        }
-        return;
+        ParticleFunction.spawnParticle(count, particlename, speed, offx, offy, offz, loc, data, players, secondaryData);
     }
 
 
@@ -53,7 +49,7 @@ public class EffParticle extends Effect{
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-        count = (Expression<Integer>) expressions[0];
+        count = (Expression<Number>) expressions[0];
         particleName = (Expression<ParticleEnum>) expressions[1];
         speed = (Expression<Number>) expressions[2];
         offx =(Expression<Number>) expressions[3];
