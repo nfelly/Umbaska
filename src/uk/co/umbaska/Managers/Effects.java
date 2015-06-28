@@ -48,6 +48,7 @@ public class Effects {
     public final Logger logger = Logger.getLogger("Minecraft");
     public static Messenger messenger;
     
+	@SuppressWarnings("deprecation")
 	public static void runRegister(){
 	
 		// PLOTME
