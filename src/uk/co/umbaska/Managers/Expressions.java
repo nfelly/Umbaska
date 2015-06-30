@@ -15,6 +15,8 @@ import uk.co.umbaska.ArmorStands.*;
 import uk.co.umbaska.ArmorStands.Direction.*;
 import uk.co.umbaska.ArmorStands.Direction.Arms.*;
 import uk.co.umbaska.ArmorStands.Direction.Legs.*;
+import uk.co.umbaska.Attributes.ExprGetAttribute;
+import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.SimpleScoreboard;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -251,6 +253,9 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionX.class, Number.class, "body (x angle|angle x)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
+
+            SimplePropertyExpression.register(ExprGetAttribute.class, Number.class, "[entity] attribute %entityattributes%", "entity");
+
             Skript.registerExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] [umbaska] glow[ing] %itemstacks%"});
         } else {
         	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");

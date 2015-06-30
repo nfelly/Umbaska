@@ -17,23 +17,25 @@ import uk.co.umbaska.Main;
  */
 public class EffShowEntity extends Effect {
 
-	private Expression<Entity[]> entity;
+	private Expression<Entity> entity;
 	private Expression<Player> player;
 
 	@Override
 	protected void execute(Event event){
-		Player p = player.getSingle(event);
-		Entity[] e = entity.getSingle(event);
+		Player[] p = player.getAll(event);
+		Entity[] e = entity.getAll(event);
 		if (p == null) {
 			return;
 		}
-		for (Entity ent : e){
-			if (ent.getType() != EntityType.PLAYER) {
-				if (!Main.enthider.canSee(p, ent)) {
-					Main.enthider.toggleEntity(p, ent);
-				}
-			}
-		}
+        for (Player p1 : p) {
+            for (Entity ent : e) {
+                if (ent.getType() != EntityType.PLAYER) {
+                    if (!Main.enthider.canSee(p1, ent)) {
+                        Main.enthider.toggleEntity(p1, ent);
+                    }
+                }
+            }
+        }
 
 	}
 
@@ -46,7 +48,7 @@ public class EffShowEntity extends Effect {
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
-		entity = (Expression<Entity[]>) expressions[0];
+		entity = (Expression<Entity>) expressions[0];
 		player = (Expression<Player>) expressions[1];
 		return true;
 	}

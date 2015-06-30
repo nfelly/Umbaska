@@ -32,6 +32,14 @@ public class ExprsHeadDirectionY extends SimplePropertyExpression<Entity, Number
             ArmorStand as = (ArmorStand) ent;
             ((ArmorStand)ent).setHeadPose(as.getHeadPose().setY(b.doubleValue()));
 		}
+        if (mode == Changer.ChangeMode.ADD){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setBodyPose(as.getHeadPose().setY(as.getBodyPose().getY() + b.doubleValue()));
+        }
+        if (mode == Changer.ChangeMode.REMOVE){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setBodyPose(as.getHeadPose().setY(as.getBodyPose().getY() - b.doubleValue()));
+        }
 	}
 
 
@@ -40,6 +48,8 @@ public class ExprsHeadDirectionY extends SimplePropertyExpression<Entity, Number
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
 		if (mode == Changer.ChangeMode.SET) //SET can be replaced with REMOVE ADD or similiar stuff.
 			return CollectionUtils.array(Number.class); //The Class should be the TypeToGet and in this case Number.
+        if (mode == Changer.ChangeMode.ADD)
+            return CollectionUtils.array(Number.class);
 		if (mode == Changer.ChangeMode.REMOVE)
 			return CollectionUtils.array(Number.class);
 		return null;

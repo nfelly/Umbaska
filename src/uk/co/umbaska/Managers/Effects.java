@@ -108,9 +108,9 @@ public class Effects {
         if (pl != null) {
         	enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
         	
-            Skript.registerEffect(EffHideEntity.class, new String[] {"hide %entity% from %player%"});
-            Skript.registerEffect(EffShowEntity.class, new String[] {"show %entity% to %player%"});
-            Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %player%"});
+            Skript.registerEffect(EffHideEntity.class, new String[] {"protocol hide %entity% from %players%"});
+            Skript.registerEffect(EffShowEntity.class, new String[] {"protocol show %entity% to %players%"});
+            Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %players%"});
             Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
 
             // Disguises
@@ -225,8 +225,10 @@ public class Effects {
         Skript.registerEffect(EffSetTitle.class, "set title of simple [score][board] %string% to %string%");
         Skript.registerEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
         Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
-        Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ " +
-                "][board] %string%");
+        Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ ][board] %string%");
+
+        Skript.registerEffect(EffScatter.class, "scatter %entities% around %integer%(,| and) %integer% [in] [world] %world% (with|for) rad[ius] of %integer% [ignoring %-itemstacks%] [with delay of %-integer% [between teleports]]");
+
         if (!Main.getInstance().getConfig().contains("force-generate-title-features")){
             Main.getInstance().getConfig().set("force-generate-title-features", false);
             forceGenTitleFeatures = false;

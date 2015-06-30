@@ -5,6 +5,7 @@ import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import uk.co.umbaska.Enums.Attributes;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 import uk.co.umbaska.Enums.InventoryTypes;
 import uk.co.umbaska.Enums.ParticleEnum;
@@ -18,6 +19,7 @@ import uk.co.umbaska.Utils.JSONMessage;
 public class Enums {
 
     public static void runRegister(){
+        EnumClassInfo.create(Attributes.class, "entityattributes").register();
         EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
         EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register();
         Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");

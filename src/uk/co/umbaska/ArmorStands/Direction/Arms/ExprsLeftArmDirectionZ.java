@@ -32,6 +32,14 @@ public class ExprsLeftArmDirectionZ extends SimplePropertyExpression<Entity, Num
             ArmorStand as = (ArmorStand) ent;
             ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(b.doubleValue()));
 		}
+        if (mode == Changer.ChangeMode.ADD){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(as.getLeftArmPose().getZ() + b.doubleValue()));
+        }
+        if (mode == Changer.ChangeMode.REMOVE){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(as.getLeftArmPose().getZ() - b.doubleValue()));
+        }
 	}
 
 
@@ -42,6 +50,8 @@ public class ExprsLeftArmDirectionZ extends SimplePropertyExpression<Entity, Num
 			return CollectionUtils.array(Number.class); //The Class should be the TypeToGet and in this case Number.
 		if (mode == Changer.ChangeMode.REMOVE)
 			return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.ADD)
+            return CollectionUtils.array(Number.class);
 		return null;
 	}
 

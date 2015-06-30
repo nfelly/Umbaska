@@ -30,8 +30,16 @@ public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Nu
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightLegPose(as.getLeftLegPose().setZ(b.doubleValue()));
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(b.doubleValue()));
 		}
+        if (mode == Changer.ChangeMode.ADD){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() + b.doubleValue()));
+        }
+        if (mode == Changer.ChangeMode.REMOVE){
+            ArmorStand as = (ArmorStand) ent;
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() - b.doubleValue()));
+        }
 	}
 
 
@@ -40,6 +48,8 @@ public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Nu
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
 		if (mode == Changer.ChangeMode.SET) //SET can be replaced with REMOVE ADD or similiar stuff.
 			return CollectionUtils.array(Number.class); //The Class should be the TypeToGet and in this case Number.
+        if (mode == Changer.ChangeMode.ADD)
+            return CollectionUtils.array(Number.class);
 		if (mode == Changer.ChangeMode.REMOVE)
 			return CollectionUtils.array(Number.class);
 		return null;
