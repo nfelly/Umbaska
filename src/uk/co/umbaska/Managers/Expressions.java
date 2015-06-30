@@ -3,6 +3,7 @@ package uk.co.umbaska.Managers;
 import java.util.UUID;
 
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -30,9 +31,9 @@ import uk.co.umbaska.PlaceHolderAPI.EffParse;
 import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.ExprCanSee;
 import uk.co.umbaska.Spawner.*;
+import uk.co.umbaska.System.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.*;
-import uk.co.umbaska.WildSkript.system.*;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 
@@ -140,6 +141,10 @@ public class Expressions {
         Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
         Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
         Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
+        
+        Skript.registerExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"existance of %string%"});
+        Skript.registerExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, new String[] {"lines of %string%"});
+        Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "file line %integer% of %string%");
 
 
 

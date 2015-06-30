@@ -1,4 +1,4 @@
-package uk.co.umbaska.WildSkript.system;
+package uk.co.umbaska.System;
 
 import org.bukkit.event.Event;
 
@@ -7,10 +7,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
-public class ExprFreeMemory extends SimpleExpression<Integer>{
+public class ExprMaxMemory extends SimpleExpression<Integer>{
 
     protected Integer[] get(Event event) {
-        long l = Runtime.getRuntime().freeMemory();
+        long l = Runtime.getRuntime().maxMemory();
         int i = 0;
         if (!(l < Integer.MIN_VALUE || l > Integer.MAX_VALUE)) i = (int)l;
         return new Integer[] { i };

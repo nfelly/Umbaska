@@ -1,4 +1,4 @@
-package uk.co.umbaska.WildSkript.system;
+package uk.co.umbaska.System;
 
 import java.util.LinkedList;
 

@@ -35,6 +35,7 @@ import uk.co.umbaska.Replacers.EffParticle;
 import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
+import uk.co.umbaska.System.*;
 import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.hologramBased.*;
 
@@ -99,8 +100,11 @@ public class Effects {
 		
         Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
 
-        Skript.registerEffect(EffNewFile.class, new String[] { "create [new] file %string%" });
-        Skript.registerEffect(EffDelFile.class, new String[] { "delete file %string%" });
+        Skript.registerEffect(EffCreateFile.class, new String[] { "create [new] file %string%" });
+        Skript.registerEffect(EffDeleteFile.class, new String[] { "(df|delete)[ file] %string" });
+        Skript.registerEffect(EffSetLine.class, new String[] { "line %integer% of %string% to %string%" });
+        Skript.registerEffect(EffWriteToFile.class, new String[] { "(write|wf) %string% to %string%)" });
+        
         Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
         Skript.registerEffect(EffCopy.class, new String[] { "copy file %string% to %string%" });
         Skript.registerEffect(EffCopyDir.class, new String[] { "copy (d|dir|dire|directory) %string% to %string%" });

@@ -28,10 +28,10 @@ import org.mcstats.Metrics;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.*;
+import uk.co.umbaska.System.*;
 import uk.co.umbaska.Utils.Disguise.DisguiseHandler;
 import uk.co.umbaska.Utils.FreezeListener;
 import uk.co.umbaska.Utils.ItemManager;
-import uk.co.umbaska.WildSkript.system.*;
 
 import java.io.IOException;
 import java.util.logging.Logger;
