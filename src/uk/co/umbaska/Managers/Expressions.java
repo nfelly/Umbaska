@@ -5,6 +5,7 @@ import java.util.UUID;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Objective;
@@ -222,6 +223,9 @@ public class Expressions {
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
+
+        Skript.registerExpression(ExprEntityFromVariable.class, Entity.class, ExpressionType.SIMPLE, "entity from [variable] %entity%");
+
         Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
