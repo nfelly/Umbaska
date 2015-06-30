@@ -9,8 +9,11 @@ import net.minecraft.server.v1_8_R1.IAttribute;
 public enum Attributes {
     ATTACK_DAMAGE(GenericAttributes.e), KNOCKBACK_RESISTANCE(GenericAttributes.c), MOVEMENT_SPEED(GenericAttributes.d), FOLLOW_RANGE(GenericAttributes.b);
 
-    public IAttribute attibValue;
-    Attributes(IAttribute value){
+    private final IAttribute attibValue;
+    private Attributes(IAttribute value){
         this.attibValue = value;
+    }
+    public IAttribute getAttribute(){
+        return this.attibValue;
     }
 }

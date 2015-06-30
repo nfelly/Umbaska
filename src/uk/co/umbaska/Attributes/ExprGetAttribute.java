@@ -46,15 +46,15 @@ public class ExprGetAttribute extends SimplePropertyExpression<Entity, Number> {
         EntityInsentient nmsEntity = (EntityInsentient) ((CraftLivingEntity) ent).getHandle();
         Number b = (Number) (delta[0]);
         if (mode == Changer.ChangeMode.SET) {
-            IAttribute ab = attribute.getSingle(e).attibValue;
+            IAttribute ab = attribute.getSingle(e).getAttribute();
             nmsEntity.getAttributeInstance(ab).setValue(b.doubleValue());
         }
         if (mode == Changer.ChangeMode.ADD) {
-            IAttribute ab = attribute.getSingle(e).attibValue;
+            IAttribute ab = attribute.getSingle(e).getAttribute();
             nmsEntity.getAttributeInstance(ab).setValue(nmsEntity.getAttributeInstance(ab).getValue() + b.doubleValue());
         }
         if (mode == Changer.ChangeMode.REMOVE) {
-            IAttribute ab = attribute.getSingle(e).attibValue;
+            IAttribute ab = attribute.getSingle(e).getAttribute();
             nmsEntity.getAttributeInstance(ab).setValue(nmsEntity.getAttributeInstance(ab).getValue() - b.doubleValue());
         }
     }

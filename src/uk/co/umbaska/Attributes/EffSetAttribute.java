@@ -1,15 +1,11 @@
 package uk.co.umbaska.Attributes;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.PlotManager;
 import net.minecraft.server.v1_8_R1.EntityInsentient;
 import net.minecraft.server.v1_8_R1.IAttribute;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
@@ -28,7 +24,7 @@ public class EffSetAttribute extends Effect {
     protected void execute(Event event){
         Entity[] ents = entities.getAll(event);
         Number b = this.value.getSingle(event);
-        IAttribute ab = attribute.getSingle(event).attibValue;
+        IAttribute ab = attribute.getSingle(event).getAttribute();
         for (Entity e : ents) {
             EntityInsentient nmsEntity = (EntityInsentient) ((CraftLivingEntity) e).getHandle();
             nmsEntity.getAttributeInstance(ab).setValue(b.doubleValue());
@@ -38,7 +34,7 @@ public class EffSetAttribute extends Effect {
 
     @Override
     public String toString(Event event, boolean b){
-        return "Clear a plot";
+        return "Set Entity Attribute";
     }
 
     @Override

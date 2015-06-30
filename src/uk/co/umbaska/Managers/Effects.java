@@ -243,7 +243,7 @@ public class Effects {
 		}
 		if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
 
-            Skript.registerEffect(EffSetAttribute.class,  "set [entity] attribute %entityattributes% of %entities% to %number%");
+            Skript.registerEffect(EffSetAttribute.class,  "set [entity] attribute %entityattributes% of %entity% to %number%");
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
