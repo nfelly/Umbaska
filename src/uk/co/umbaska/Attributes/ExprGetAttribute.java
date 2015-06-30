@@ -3,26 +3,13 @@ package uk.co.umbaska.Attributes;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.sun.org.apache.bcel.internal.generic.IADD;
-import com.worldcretornica.plotme.Plot;
-import com.worldcretornica.plotme.PlotManager;
 import net.minecraft.server.v1_8_R1.EntityInsentient;
-import net.minecraft.server.v1_8_R1.GenericAttributes;
 import net.minecraft.server.v1_8_R1.IAttribute;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftLivingEntity;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.Attributes;
-
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Created by Zachary on 6/30/2015.
