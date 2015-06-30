@@ -254,8 +254,6 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
 
-            SimplePropertyExpression.register(ExprGetAttribute.class, Number.class, "[entity] attribute %entityattributes%", "entity");
-
             Skript.registerExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] [umbaska] glow[ing] %itemstacks%"});
         } else {
         	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");

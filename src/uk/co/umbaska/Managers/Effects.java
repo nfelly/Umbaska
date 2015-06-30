@@ -2,6 +2,7 @@ package uk.co.umbaska.Managers;
 
 import java.util.logging.Logger;
 
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
@@ -11,6 +12,8 @@ import org.dynmap.DynmapAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
+import uk.co.umbaska.Attributes.EffSetAttribute;
+import uk.co.umbaska.Attributes.ExprGetAttribute;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
 import uk.co.umbaska.Misc.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
@@ -239,6 +242,8 @@ public class Effects {
             Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
 		}
 		if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
+
+            Skript.registerEffect(EffSetAttribute.class,  "set [entity] attribute %entityattributes% of %entities% to %number%");
 
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
