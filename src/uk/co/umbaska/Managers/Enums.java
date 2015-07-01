@@ -17,11 +17,11 @@ import uk.co.umbaska.Utils.JSONMessage;
 public class Enums {
 
     public static void runRegister(){
-        EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
-        EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register();
-        Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
-        EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register();
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
+            EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
+            EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register();
+            Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
+            EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register();
             EnumClassInfo.create(Attributes.class, "entityattribute").register();
             Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "18jsonmessage").parser(new Parser<JSONMessage>() {
                 public JSONMessage parse(String s, ParseContext parseContext) {
