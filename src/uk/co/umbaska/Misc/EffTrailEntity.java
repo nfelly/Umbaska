@@ -27,6 +27,7 @@ public class EffTrailEntity extends Effect implements Listener {
 
 	private Expression<Entity> entity;
 	private Expression<ParticleEnum> particle;
+    private Expression<Number> d, d1, secd;
 
 
 
@@ -35,11 +36,15 @@ public class EffTrailEntity extends Effect implements Listener {
 						SkriptParser.ParseResult parse) {
 		this.entity = (Expression<Entity>) exprs[0];
 		this.particle = (Expression<ParticleEnum>) exprs[1];
+        this.d = (Expression<Number>) exprs[2];
+        this.d1 = (Expression<Number>) exprs[3];
+        this.secd = (Expression<Number>) exprs[4];
+
 		return true;
 	}
 
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "titles";
+		return "trail";
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class EffTrailEntity extends Effect implements Listener {
 		Entity[] entities = this.entity.getAll(event);
 		ParticleEnum part = particle.getSingle(event);
         for (Entity e : entities){
-            new TrailEntity(e, part);
+            new TrailEntity(e, part, this.d.getSingle(event).intValue(), this.d1.getSingle(event).intValue(), this.secd.getSingle(event).intValue());
         }
 	}
 
@@ -57,9 +62,21 @@ public class EffTrailEntity extends Effect implements Listener {
         BukkitTask runnable;
 		Entity ent;
         ParticleEnum part;
-        private TrailEntity(final Entity ent, final ParticleEnum part){
+        Integer dRun = 0;
+        Integer dataRun = 0;
+        Integer sdataRun = 0;
+        private TrailEntity(final Entity ent, final ParticleEnum part, Integer speed, Integer data, final Integer secData){
             this.ent = ent;
             this.part = part;
+            if (speed > -1){
+                dRun = speed;
+            }
+            if (dataRun > -1){
+                dataRun = data;
+            }
+            if (secData > -1){
+                sdataRun = secData;
+            }
             runnable = Bukkit.getScheduler().runTaskTimer(Main.plugin, new Runnable() {
                 @Override
                 public void run() {
@@ -70,7 +87,7 @@ public class EffTrailEntity extends Effect implements Listener {
                         runnable.cancel();
                     }
                     else{
-                        ParticleFunction.spawnParticle(1, part, 0, 0, 0, 0, Collect.asArray(ent.getLocation()), 0, 0);
+                        ParticleFunction.spawnParticle(1, part, dRun, 0, 0, 0, Collect.asArray(ent.getLocation()), dataRun, sdataRun);
                     }
                 }
             }, 1, 1);
