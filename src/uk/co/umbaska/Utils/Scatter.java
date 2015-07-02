@@ -5,8 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -89,7 +87,6 @@ public class Scatter {
         final World worlds = this.world;
         Bukkit.getScheduler().runTaskLater(this.p, new Runnable() {
             Location finalTeleport2 = loc;
-            Plugin plugin = plug;
             @Override
             public void run() {
                 worlds.getChunkAt(finalTeleport2).load(true);
@@ -112,7 +109,6 @@ public class Scatter {
                         return;
                     }
                 }
-                final Location tp = finalTeleport2;
                 Bukkit.getScheduler().runTaskLater(plug, new Runnable() {
                     @Override
                     public void run() {

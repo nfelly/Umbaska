@@ -17,8 +17,6 @@ import uk.co.umbaska.ArmorStands.*;
 import uk.co.umbaska.ArmorStands.Direction.*;
 import uk.co.umbaska.ArmorStands.Direction.Arms.*;
 import uk.co.umbaska.ArmorStands.Direction.Legs.*;
-import uk.co.umbaska.Attributes.ExprGetAttribute;
-import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.SimpleScoreboard;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -144,7 +142,7 @@ public class Expressions {
         
         Skript.registerExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"existance of %string%"});
         Skript.registerExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, new String[] {"lines of %string%"});
-        Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "file line %integer% of %string%");
+        Skript.registerExpression(ExprGetLine.class, String.class, ExpressionType.SIMPLE, "line %integer% in file %string%");
 
 
 

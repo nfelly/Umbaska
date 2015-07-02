@@ -23,7 +23,7 @@ public class EffWriteToFile extends Effect {
         String f = file.getSingle(event);
         String s = string.getSingle(event);
         FileManager fm = new FileManager();
-        fm.writeToFile(f, s);
+        fm.writeToFile(f, s, true);
     }
 
 

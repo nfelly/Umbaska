@@ -1,11 +1,8 @@
 package uk.co.umbaska.Utils.Disguise;
 
 
-import com.comphenix.protocol.PacketType;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -268,6 +265,7 @@ public class MyDisguise {
 	}
 
 	//Forget this as well :3
+	@SuppressWarnings("incomplete-switch")
 	private Object handleSpecialTypes(EntityDisguise type, Object entity)
 			throws Exception {
 		switch (type) {

@@ -1,6 +1,5 @@
 package uk.co.umbaska.Utils.Disguise;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 
@@ -17,7 +16,6 @@ public class DisguiseHandler {
         this.p = p;
     }
 
-    @SuppressWarnings("deprecation")
 	public void setDisguise(Entity p, MyDisguise dis){
         disguiseTracker.put(p, dis);
         //new DisguiseTracker(p);

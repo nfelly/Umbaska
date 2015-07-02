@@ -2,7 +2,6 @@ package uk.co.umbaska.Managers;
 
 import java.util.logging.Logger;
 
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
@@ -13,7 +12,6 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.Attributes.EffSetAttribute;
-import uk.co.umbaska.Attributes.ExprGetAttribute;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
 import uk.co.umbaska.Misc.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
@@ -101,8 +99,8 @@ public class Effects {
         Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
 
         Skript.registerEffect(EffCreateFile.class, new String[] { "create [new] file %string%" });
-        Skript.registerEffect(EffDeleteFile.class, new String[] { "(df|delete)[ file] %string" });
-        Skript.registerEffect(EffSetLine.class, new String[] { "line %integer% of %string% to %string%" });
+        Skript.registerEffect(EffDeleteFile.class, new String[] { "(df|delete) [file] %string%" });
+        Skript.registerEffect(EffSetLine.class, new String[] { "set line %integer% in [file] %string% to %string%" });
         Skript.registerEffect(EffWriteToFile.class, new String[] { "(write|wf) %string% to %string%)" });
         
         Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
