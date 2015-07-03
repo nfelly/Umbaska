@@ -27,18 +27,19 @@ public class EffTrailEntity extends Effect implements Listener {
 
 	private Expression<Entity> entity;
 	private Expression<ParticleEnum> particle;
-    private Expression<Number> d, d1, secd;
+    private Expression<Number> d, d1, secd, count;
 
 
 
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean,
 						SkriptParser.ParseResult parse) {
+        this.count = (Expression<Number>) exprs[1];
 		this.entity = (Expression<Entity>) exprs[0];
-		this.particle = (Expression<ParticleEnum>) exprs[1];
-        this.d = (Expression<Number>) exprs[2];
-        this.d1 = (Expression<Number>) exprs[3];
-        this.secd = (Expression<Number>) exprs[4];
+		this.particle = (Expression<ParticleEnum>) exprs[2];
+        this.d = (Expression<Number>) exprs[3];
+        this.d1 = (Expression<Number>) exprs[4];
+        this.secd = (Expression<Number>) exprs[5];
 
 		return true;
 	}
@@ -53,7 +54,9 @@ public class EffTrailEntity extends Effect implements Listener {
 		Entity[] entities = this.entity.getAll(event);
 		ParticleEnum part = particle.getSingle(event);
         for (Entity e : entities){
-            new TrailEntity(e, part, this.d.getSingle(event).intValue(), this.d1.getSingle(event).intValue(), this.secd.getSingle(event).intValue());
+           // Bukkit.broadcastMessage(e.getType().toString());
+            new TrailEntity(count.getSingle(event), e, part, this.d.getSingle(event), this.d1.getSingle(event).intValue(), this.secd.getSingle(event).intValue());
+          //  Bukkit.broadcastMessage("Go");
         }
 	}
 
@@ -62,21 +65,16 @@ public class EffTrailEntity extends Effect implements Listener {
         BukkitTask runnable;
 		Entity ent;
         ParticleEnum part;
-        Integer dRun = 0;
+        Number dRun = 0;
         Integer dataRun = 0;
         Integer sdataRun = 0;
-        private TrailEntity(final Entity ent, final ParticleEnum part, Integer speed, Integer data, final Integer secData){
+        private TrailEntity(final Number count, final Entity ent, final ParticleEnum part, Number speed, Integer data, final Integer secData){
             this.ent = ent;
             this.part = part;
-            if (speed > -1){
-                dRun = speed;
-            }
-            if (dataRun > -1){
-                dataRun = data;
-            }
-            if (secData > -1){
-                sdataRun = secData;
-            }
+            dRun = speed;
+            dataRun = data;
+            sdataRun = secData;
+           // Bukkit.broadcastMessage(ent.getType().toString() + " " + part.getEffect().getName() + " " + speed + " " + data + " " + secData);
             runnable = Bukkit.getScheduler().runTaskTimer(Main.plugin, new Runnable() {
                 @Override
                 public void run() {
@@ -87,7 +85,7 @@ public class EffTrailEntity extends Effect implements Listener {
                         runnable.cancel();
                     }
                     else{
-                        ParticleFunction.spawnParticle(1, part, dRun, 0, 0, 0, Collect.asArray(ent.getLocation()), dataRun, sdataRun);
+                        ParticleFunction.spawnParticle(count.intValue(), part, dRun, 0, 0, 0, Collect.asArray(ent.getLocation()), dataRun, sdataRun);
                     }
                 }
             }, 1, 1);

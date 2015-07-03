@@ -6,8 +6,10 @@ import org.bukkit.Effect;
  * Created by Zachary on 5/17/2015.
  */
 public enum ParticleEnum {
-    PARTICLE_TILE_DUST("particle tile dust", Effect.TILE_DUST),
+    PARTICLE_TILE_DUST("tile dust", Effect.TILE_DUST),
     PARTICLE_TILE_BREAK("tile break", Effect.TILE_BREAK),
+    PARTICLE_BLOCK_DUST("tile dust", Effect.TILE_DUST),
+    PARTICLE_BLOCK_BREAK("tile break", Effect.TILE_BREAK),
     PARTICLE_ITEM_BREAK("item break", Effect.ITEM_BREAK),
     PARTICLE_HUGE_EXPLOSION("hugeexplosion", Effect.EXPLOSION_HUGE),
     PARTICLE_LARGE_EXPLODE("largeexplode", Effect.EXPLOSION_LARGE),
