@@ -239,14 +239,13 @@ public class Effects {
             forceGenTitleFeatures = false;
         }
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGenTitleFeatures) {
-			Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
-			Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
+            Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
+            Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
             Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
-		}
-		if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
 
-            Skript.registerEffect(EffSetAttribute.class,  "set [entity] attribute %entityattributes% of %entity% to %number%");
-
+            Skript.registerEffect(EffSetAttribute.class, "set [entity] attribute %entityattributes% of %entity% to %number%");
+        }
+        if (Bukkit.getVersion().contains("1.8")){ // Particle related effects doesn't require specific version of 1.8
         	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
             Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
             Skript.registerEffect(EffTrailEntity.class, "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]");

@@ -18,9 +18,11 @@ public class Enums {
 
     public static void runRegister(){
         EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register(); // This isn't a 1.8 only thing.
-        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
+        if (Bukkit.getVersion().contains("1.8")){
             EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
-            EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register();
+            EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register(); // These work with any 1.8 build :)
+        }
+        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
             EnumClassInfo.create(Attributes.class, "entityattribute").register();
             Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "18jsonmessage").parser(new Parser<JSONMessage>() {

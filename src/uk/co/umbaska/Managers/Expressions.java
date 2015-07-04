@@ -230,7 +230,7 @@ public class Expressions {
         Skript.registerExpression(ExprEntityFromVariable.class, Entity.class, ExpressionType.SIMPLE, "entity from [variable] %entity%");
 
         Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
-        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
+        if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
             SimplePropertyExpression.register(ExprsBasePlate.class, Boolean.class, "[show] base plate", "entity");
@@ -260,7 +260,8 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionX.class, Number.class, "body (x angle|angle x)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
-
+        }
+        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Skript.registerExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] [umbaska] glow[ing] %itemstacks%"});
         } else {
         	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");
