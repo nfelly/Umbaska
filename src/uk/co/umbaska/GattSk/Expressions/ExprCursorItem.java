@@ -20,9 +20,9 @@ import org.bukkit.inventory.ItemStack;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 public class ExprCursorItem extends SimpleExpression<ItemStack>{
-	
+
 	public Class<? extends ItemStack> getReturnType() {
-		
+
 		return ItemStack.class;
 	}
 
@@ -38,7 +38,7 @@ public class ExprCursorItem extends SimpleExpression<ItemStack>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "entity spawn reason";
+		return "cursor item";
 	}
 
 	@Override

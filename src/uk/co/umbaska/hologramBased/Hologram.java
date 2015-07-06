@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 public class Hologram {
@@ -62,6 +63,7 @@ public class Hologram {
 	private boolean setRelativePitch;
 	private boolean setRelativeYaw;
 	private int viewDistance = 100;
+	private List<Entity> holoItems = new ArrayList<>();
 
 	public Hologram(Location location, String... lines) {
 		assert lines.length != 0 : "You need more lines than nothing!";
@@ -490,8 +492,7 @@ public class Hologram {
 							Entry<Integer, Integer> entry = new HashMap.SimpleEntry(getId(), getId());
 							entityIds.add(entry);
 							// Make create packets
-							PacketContainer[] packets1_7 = this
-									.makeSpawnPackets1_7(i, entry.getKey(), entry.getValue(), lines[i]);
+							PacketContainer[] packets1_7 = this.makeSpawnPackets1_7(i, entry.getKey(), entry.getValue(), lines[i]);
 							PacketContainer[] packet1_8 = this.makeSpawnPacket1_8(i, entry.getKey(), lines[i]);
 							for (Player p : players) {
 								try {

@@ -37,7 +37,7 @@ public class ExprClickType extends SimpleExpression<String>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "entity spawn reason";
+		return "click type";
 	}
 
 	@Override

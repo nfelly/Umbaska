@@ -12,6 +12,8 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.Attributes.EffSetAttribute;
+import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
+import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
 import uk.co.umbaska.Misc.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
@@ -231,6 +233,9 @@ public class Effects {
         Skript.registerEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
         Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
         Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ ][board] %string%");
+
+		Skript.registerEffect(EffSetCursorItem.class, "set cursor item to %itemstack%");
+		Skript.registerEffect(EffSetClickedItem.class, "set clicked item to %itemstack%");
 
         Skript.registerEffect(EffScatter.class, "scatter %entities% around %integer%(,| and) %integer% [in] [world] %world% (with|for) rad[ius] of %integer% [ignoring %-itemstacks%] [with delay of %-integer% [between teleports]]");
 

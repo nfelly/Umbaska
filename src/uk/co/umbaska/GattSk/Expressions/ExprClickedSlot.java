@@ -37,7 +37,7 @@ public class ExprClickedSlot extends SimpleExpression<Integer>{
 
 	@Override
 	public String toString(@javax.annotation.Nullable Event arg0, boolean arg1) {
-		return "entity spawn reason";
+		return "clicked slot";
 	}
 
 	@Override
