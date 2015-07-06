@@ -243,7 +243,7 @@ public class Effects {
             Main.getInstance().getConfig().set("force-generate-title-features", false);
             forceGenTitleFeatures = false;
         }
-        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGenTitleFeatures) {
+        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
             Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
             Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
             Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
