@@ -315,7 +315,7 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
         }
-        registerNewExpression("Glow", "Misc.ExprBetterGlow", ItemStack.class, ExpressionType.PROPERTY, "[a[n]] [umbaska] glow[ing] %itemstacks%", true);
+        registerNewExpression("Glow", "Misc.ExprBetterGlow", ItemStack.class, ExpressionType.SIMPLE, "[a[n]] [umbaska] glow[ing] %itemstacks%", true);
 	             /* Books! */
         registerNewExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, "[book] title of %itemstack%");
         registerNewExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, "book with title %string%");
