@@ -1,7 +1,5 @@
 package uk.co.umbaska.Managers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -12,7 +10,6 @@ import org.dynmap.DynmapAPI;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
-import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
@@ -30,10 +27,6 @@ import uk.co.umbaska.PlaceHolderAPI.EffPlaceholderRegister;
 import uk.co.umbaska.PlotMe.*;
 import uk.co.umbaska.ProtocolLib.*;
 import uk.co.umbaska.ProtocolLib.Disguises.*;
-import uk.co.umbaska.Replacers.EffBukkitEffect;
-import uk.co.umbaska.Replacers.EffBukkitEffectAll;
-import uk.co.umbaska.Replacers.EffParticle;
-import uk.co.umbaska.Replacers.EffParticleAll;
 import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.System.*;
@@ -50,43 +43,58 @@ public class Effects {
     public static Boolean forceGen18Features = Main.getInstance().getConfig().getBoolean("force-generate-18-features");
     public static Plugin dynmap;
     public static DynmapAPI api;
-    public final Logger logger = Logger.getLogger("Minecraft");
     public static Messenger messenger;
     public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
-    private static String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-    private static String[] versions = { "V1_8_0", "V1_7", "V1_8_7", "V1_8_4" };
+    private static String version = Register.getVersion();
 
     private static void registerNewEffect(String name, String cls, String syntax, Boolean multiversion){
-        if (multiversion){
-            Class newCls = Register.getClass(cls);
-            if (newCls == null) {
-                Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
+        if (Skript.isAcceptRegistrations()){
+            if (multiversion){
+                Class newCls = Register.getClass(cls);
+                if (newCls == null) {
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Can't find Class!");
+                    return;
+                }
+                if (debugInfo) {
+                    Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax\n " + syntax + " for Version " + version);
+                    return;
+                }
+                registerNewEffect(name, newCls, syntax);
             }
-            if (debugInfo) {
-                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax " + syntax + " for Version " + version);
+            else{
+                try {
+                    registerNewEffect(name, Class.forName(cls), syntax);
+                }catch (ClassNotFoundException e){
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
+                }
             }
-            registerNewEffect(name, newCls, syntax);
         }
         else{
-            try {
-                registerNewEffect(name, Class.forName(cls), syntax);
-            }catch (ClassNotFoundException e){
-                Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
-            }
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
         }
     }
 
     private static void registerNewEffect(String name, Class cls, String syntax){
-        registerNewEffect(cls, syntax);
-        if (debugInfo) {
-            Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax " + syntax);
+        if (Skript.isAcceptRegistrations()){
+            registerNewEffect(cls, syntax);
+            if (debugInfo) {
+                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax \n" + syntax);
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
         }
     }
 
     private static void registerNewEffect(Class cls, String syntax){
-        Skript.registerEffect(cls, syntax);
-        if (debugInfo) {
-            Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + " with syntax " + syntax);
+        if (Skript.isAcceptRegistrations()){
+            Skript.registerEffect(cls, syntax);
+            if (debugInfo) {
+                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + "with syntax\n " + syntax);
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + cls.getName() + " due to Skript Not Accepting Registrations");
         }
     }
 
@@ -281,24 +289,23 @@ public class Effects {
             Main.getInstance().getConfig().set("force-generate-title-features", false);
             forceGenTitleFeatures = false;
         }
+        registerNewEffect("Set Attribute", "Attributes.EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
             registerNewEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
             registerNewEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
             registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
 
-            registerNewEffect("Set Attribute", "EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
-        }
-        if (Bukkit.getVersion().contains("1.8")){ // Particle related effects doesn't require specific version of 1.8
-            Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-            registerNewEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
-            registerNewEffect(EffTrailEntity.class, "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]");
 
-            Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
-            registerNewEffect("Better Particle", EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]");
-            registerNewEffect("Better Particle All", EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]");
-            registerNewEffect("Better Effect", EffBukkitEffect.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
-            registerNewEffect("Better Effect All", EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
         }
+        Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+        registerNewEffect("Spawn Armor Stand", "ArmorStands.EffSpawnArmorStand", "[umbaska] spawn [an] (armour|armor) stand at %locations%", true);
+        registerNewEffect("Trail Entity", "Misc.EffTrailEntity", "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]", true);
+
+        Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
+        registerNewEffect("Better Particle", "Replacers.EffParticle", "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]", true);
+        registerNewEffect("Better Particle All", "Replacers.EffParticleAll", "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]", true);
+        registerNewEffect("Better Effect", "Replacers.EffBukkitEffect", "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]", true);
+        registerNewEffect("Better Effect All", "Replacers.EffBukkitEffectAll", "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]", true);
 
         if (use_bungee) {
             messenger = new Messenger(Main.getInstance());

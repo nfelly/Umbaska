@@ -13,7 +13,7 @@ import uk.co.umbaska.Enums.ParticleEnum;
 /**
  * Created by Zachary on 5/17/2015.
  */
-public class EffParticleAll extends Effect{
+public class EffParticleAll_V1_8_R3 extends Effect{
 
     private Expression<ParticleEnum> particleName;
     private Expression<Number> offx, offy, offz, speed, data, secondaryData, count;

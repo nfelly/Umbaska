@@ -70,6 +70,24 @@ public class Main extends JavaPlugin implements Listener {
         if (!getConfig().contains("force-generate-18-features")){
             getConfig().set("force-generate-18-features", true);
         }
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
+        Bukkit.getLogger().info(Register.getVersion());
         saveDefaultConfig();
         Register.registerAll();
         freezeListener = new FreezeListener(this);

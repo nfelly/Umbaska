@@ -39,58 +39,110 @@ public class Expressions {
 
     public static Boolean use_bungee = Main.getInstance().getConfig().getBoolean("use_bungee");
     public static Messenger messenger;
+    public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
 
+    private static void registerNewExpression(String name, Class returnType, ExpressionType expressionType, String cls, String syntax, Boolean multiversion){
+        if (Skript.isAcceptRegistrations()){
+            if (multiversion){
+                Class newCls = Register.getClass(cls);
+                if (newCls == null) {
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Can't find Class!");
+                    return;
+                }
+                if (debugInfo) {
+                    Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n " + syntax + " for Version " + Register.getVersion());
+                    return;
+                }
+                registerNewExpression(name, newCls, returnType, expressionType, syntax);
+            }
+            else{
+                try {
+                    registerNewExpression(name, Class.forName(cls), returnType, expressionType, syntax);
+                }catch (ClassNotFoundException e){
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
+                }
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+        }
+    }
+
+    private static void registerNewExpression(String name, Class cls, Class returnType, ExpressionType expressionType, String syntax){
+        if (Skript.isAcceptRegistrations()){
+            registerNewExpression(cls, returnType, expressionType, syntax);
+            if (debugInfo) {
+                Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax \n" + syntax);
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+        }
+    }
+
+    private static void registerNewExpression(Class cls, Class returnType, ExpressionType expressionType, String syntax){
+        if (Skript.isAcceptRegistrations()){
+            Skript.registerExpression(cls, returnType, expressionType, syntax);
+            if (debugInfo) {
+                Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + cls.getName() + " with syntax\n " + syntax);
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + cls.getName() + " due to Skript Not Accepting Registrations");
+        }
+    }
+    
     public static void runRegister(){
 
         // PLOTME
 
         Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
         if (pl != null) {
-            Skript.registerExpression(ExprPlotAtPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"plot at %player%"});
-            Skript.registerExpression(ExprPlotAtLoc.class, String.class, ExpressionType.PROPERTY, new String[] {"plot at location %location%"});
-            Skript.registerExpression(ExprGetOwner.class, String.class, ExpressionType.PROPERTY, new String[] {"get owner of %string%"});
-            Skript.registerExpression(ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] {"plots of %player%"});
-            Skript.registerExpression(ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(top|upper) corner of %string% in %world%"});
-            Skript.registerExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] {"(bottom|lower) corner of %string% in %world%"});
+            registerNewExpression(ExprPlotAtPlayer.class, String.class, ExpressionType.PROPERTY, "plot at %player%");
+            registerNewExpression(ExprPlotAtLoc.class, String.class, ExpressionType.PROPERTY, "plot at location %location%");
+            registerNewExpression(ExprGetOwner.class, String.class, ExpressionType.PROPERTY, "get owner of %string%");
+            registerNewExpression(ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, "plots of %player%");
+            registerNewExpression(ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, "(top|upper) corner of %string% in %world%");
+            registerNewExpression(ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, "(bottom|lower) corner of %string% in %world%");
         }
 
         // SPAWNER
 
-        Skript.registerExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] {"delay time of %location%"});
-        Skript.registerExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] {"entity type of %location%"});
-        Skript.registerExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
+        registerNewExpression(ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, "delay time of %location%");
+        registerNewExpression(ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, "entity type of %location%");
+        registerNewExpression(ExprItemName.class, String.class, ExpressionType.SIMPLE, "item name");
 
         pl = Bukkit.getServer().getPluginManager().getPlugin("Towny");
         if (pl != null) {
 
-            Skript.registerExpression(ExprTownAtPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"town at %player%"});
-            Skript.registerExpression(ExprTownOfPlayer.class, Town.class, ExpressionType.PROPERTY, new String[] {"town of %player%"});
-            Skript.registerExpression(ExprTDBank.class, Double.class, ExpressionType.PROPERTY, new String[] {"town balance of %string%"});
-            Skript.registerExpression(ExprTDPlayerCount.class, Integer.class, ExpressionType.PROPERTY, new String[] {"player[ ]count of %string%"});
-            Skript.registerExpression(ExprTDPlayers.class, String.class, ExpressionType.PROPERTY, new String[] {"players of %string%"});
-            Skript.registerExpression(ExprTDTaxes.class, Double.class, ExpressionType.PROPERTY, new String[] {"town taxes of %string%"});
-            Skript.registerExpression(ExprPlotOwner.class, String.class, ExpressionType.PROPERTY, new String[] {"owner of plot at %location%"});
-            Skript.registerExpression(ExprPlotPrice.class, Double.class, ExpressionType.PROPERTY, new String[] {"price of plot at %location%"});
-            Skript.registerExpression(ExprRDLastOnline.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data last online of %player%"});
-            Skript.registerExpression(ExprRDLastOnlineDate.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data last online date of %player%"});
-            Skript.registerExpression(ExprRDChatName.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data chat name of %player%"});
-            Skript.registerExpression(ExprRDFriends.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data friends of %player%"});
-            Skript.registerExpression(ExprRDNationRanks.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data nation ranks of %player%"});
-            Skript.registerExpression(ExprRDRegistered.class, Long.class, ExpressionType.PROPERTY, new String[] {"resident data registered of %player%"});
-            Skript.registerExpression(ExprRDSurname.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data surname of %player%"});
-            Skript.registerExpression(ExprRDTitle.class, String.class, ExpressionType.PROPERTY, new String[] {"resident data title of %player%"});
+            registerNewExpression(ExprTownAtPlayer.class, String.class, ExpressionType.PROPERTY, "town at %player%");
+            registerNewExpression(ExprTownOfPlayer.class, Town.class, ExpressionType.PROPERTY, "town of %player%");
+            registerNewExpression(ExprTDBank.class, Double.class, ExpressionType.PROPERTY, "town balance of %string%");
+            registerNewExpression(ExprTDPlayerCount.class, Integer.class, ExpressionType.PROPERTY, "player[ ]count of %string%");
+            registerNewExpression(ExprTDPlayers.class, String.class, ExpressionType.PROPERTY, "players of %string%");
+            registerNewExpression(ExprTDTaxes.class, Double.class, ExpressionType.PROPERTY, "town taxes of %string%");
+            registerNewExpression(ExprPlotOwner.class, String.class, ExpressionType.PROPERTY, "owner of plot at %location%");
+            registerNewExpression(ExprPlotPrice.class, Double.class, ExpressionType.PROPERTY, "price of plot at %location%");
+            registerNewExpression(ExprRDLastOnline.class, String.class, ExpressionType.PROPERTY, "resident data last online of %player%");
+            registerNewExpression(ExprRDLastOnlineDate.class, String.class, ExpressionType.PROPERTY, "resident data last online date of %player%");
+            registerNewExpression(ExprRDChatName.class, String.class, ExpressionType.PROPERTY, "resident data chat name of %player%");
+            registerNewExpression(ExprRDFriends.class, String.class, ExpressionType.PROPERTY, "resident data friends of %player%");
+            registerNewExpression(ExprRDNationRanks.class, String.class, ExpressionType.PROPERTY, "resident data nation ranks of %player%");
+            registerNewExpression(ExprRDRegistered.class, Long.class, ExpressionType.PROPERTY, "resident data registered of %player%");
+            registerNewExpression(ExprRDSurname.class, String.class, ExpressionType.PROPERTY, "resident data surname of %player%");
+            registerNewExpression(ExprRDTitle.class, String.class, ExpressionType.PROPERTY, "resident data title of %player%");
 
         }
 
         // UUID
 
-        Skript.registerExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.COMBINED, "names of %string%");
-        Skript.registerExpression(ExprUUIDOfEntity.class, String.class, ExpressionType.SIMPLE, "uuid of %entity%");
-		Skript.registerExpression(EffCentredText.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string%");
-		Skript.registerExpression(EffCentredTextSize.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string% [with] [max] [length] [of] %-integer%");
+        registerNewExpression(ExprNamesOfPlayer.class, String.class, ExpressionType.COMBINED, "names of %string%");
+        registerNewExpression(ExprUUIDOfEntity.class, String.class, ExpressionType.SIMPLE, "uuid of %entity%");
+		registerNewExpression(EffCentredText.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string%");
+		registerNewExpression(EffCentredTextSize.class, String.class, ExpressionType.SIMPLE, "cent(er|re)d %string% [with] [max] [length] [of] %-integer%");
         if (use_bungee == true) {
             messenger = new Messenger(Main.getInstance());
-            Skript.registerExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, new String[] {"bungee uuid of %player%"});
+            registerNewExpression(ExprBungeeUUID.class, UUID.class, ExpressionType.PROPERTY, "bungee uuid of %player%");
         }
 
 
@@ -101,23 +153,23 @@ public class Expressions {
 			  *  Holograms - Effects
 			  
 
-	        Skript.registerEffect(EffCreateHologram.class, new String[] { "create [new] hologram at %location% with %string% in %string% [for %long%]" });
-	        Skript.registerEffect(EffAddLineBelow.class, new String[] { "add %string% below hologram at %location% in %string%" });
-	        Skript.registerEffect(EffAddLineAbove.class, new String[] { "add %string% above hologram at %location% in %string%" });
-	        Skript.registerEffect(EffDeleteHologram.class, new String[] { "delete hologram at %location% in %string%" });
-	        Skript.registerEffect(EffMoveHologram.class, new String[] { "move hologram from %location% to %location% in %string%" });
-	        Skript.registerEffect(EffSetText.class, new String[] { "set text of hologram at %location% to %string% in %string%" });
-	        Skript.registerEffect(EffSetTextAbove.class, new String[] { "set text of line above hologram at %location% to %string% in %string%" });
-	        Skript.registerEffect(EffSetTextBelow.class, new String[] { "set text of line below hologram at %location% to %string% in %string%" });
+	        Skript.registerEffect(EffCreateHologram.class,  "create [new] hologram at %location% with %string% in %string% [for %long%]");
+	        Skript.registerEffect(EffAddLineBelow.class,  "add %string% below hologram at %location% in %string%");
+	        Skript.registerEffect(EffAddLineAbove.class,  "add %string% above hologram at %location% in %string%");
+	        Skript.registerEffect(EffDeleteHologram.class,  "delete hologram at %location% in %string%");
+	        Skript.registerEffect(EffMoveHologram.class,  "move hologram from %location% to %location% in %string%");
+	        Skript.registerEffect(EffSetText.class,  "set text of hologram at %location% to %string% in %string%");
+	        Skript.registerEffect(EffSetTextAbove.class,  "set text of line above hologram at %location% to %string% in %string%");
+	        Skript.registerEffect(EffSetTextBelow.class,  "set text of line below hologram at %location% to %string% in %string%");
 	        Bukkit.getLogger().info("Information Gathered: Funnygatt really hates this hologram api -.-");
 
 			 /*
 			  *  Holograms - Expressions
 			  
 
-	        Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line above hologram at %location% in %string%");
-	        Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line below hologram at %location% in %string%");
-	        Skript.registerExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of hologram at %location% in %string%");
+	        registerNewExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line above hologram at %location% in %string%");
+	        registerNewExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of line below hologram at %location% in %string%");
+	        registerNewExpression(ExprGetLineAbove.class, String.class, ExpressionType.SIMPLE, "text of hologram at %location% in %string%");
 			  */
 
         // UMBASKAAPI
@@ -125,33 +177,33 @@ public class Expressions {
         pl = Bukkit.getServer().getPluginManager().getPlugin("UmbaskaAPI");
         if (pl != null) {
 
-            Skript.registerExpression(ExprFactionOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] {"faction of %player%"});
+            registerNewExpression(ExprFactionOfPlayer.class, String.class, ExpressionType.PROPERTY, "faction of %player%");
 
         }
 
         // MISC
 
-        Skript.registerExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, new String[] {"(armour|armor) points of %player%"});
-        Skript.registerExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"items in %number% of %player%"});
-        Skript.registerExpression(ExprGetJSONString.class, String.class, ExpressionType.SIMPLE, "json string %string% from %string%");
-        Skript.registerExpression(ExprGetDigits.class, String.class, ExpressionType.SIMPLE, "get (digits|numbers|nums|num) of %string%");
-        Skript.registerExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
-        Skript.registerExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
-        Skript.registerExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
-        Skript.registerExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
+        registerNewExpression(ExprArmourPoints.class, Double.class, ExpressionType.PROPERTY, "(armour|armor) points of %player%");
+        registerNewExpression(ExprItemCountInSlot.class, ItemStack.class, ExpressionType.PROPERTY, "items in %number% of %player%");
+        registerNewExpression(ExprGetJSONString.class, String.class, ExpressionType.SIMPLE, "json string %string% from %string%");
+        registerNewExpression(ExprGetDigits.class, String.class, ExpressionType.SIMPLE, "get (digits|numbers|nums|num) of %string%");
+        registerNewExpression(ExprYAMLString.class, String.class, ExpressionType.SIMPLE, "get string %string% from %string%");
+        registerNewExpression(ExprYAMLInteger.class, Integer.class, ExpressionType.SIMPLE, "get integer %string% from %string%");
+        registerNewExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
+        registerNewExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
         
-        Skript.registerExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"existance of %string%"});
-        Skript.registerExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, new String[] {"lines of %string%"});
-        Skript.registerExpression(ExprGetLine.class, String.class, ExpressionType.SIMPLE, "line %integer% in file %string%");
+        registerNewExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, "existance of %string%");
+        registerNewExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, "lines of %string%");
+        registerNewExpression(ExprGetLine.class, String.class, ExpressionType.SIMPLE, "line %integer% in file %string%");
 
 
 
         pl = Bukkit.getServer().getPluginManager().getPlugin("NametagEdit");
         if (pl != null) {
 
-            Skript.registerExpression(ExprGetPrefix.class, String.class, ExpressionType.PROPERTY, new String[] {"prefix of %player%"});
-            Skript.registerExpression(ExprGetSuffix.class, String.class, ExpressionType.PROPERTY, new String[] {"suffix of %player%"});
-            Skript.registerExpression(ExprGetNametag.class, String.class, ExpressionType.PROPERTY, new String[] {"name tag of %player%"});
+            registerNewExpression(ExprGetPrefix.class, String.class, ExpressionType.PROPERTY, "prefix of %player%");
+            registerNewExpression(ExprGetSuffix.class, String.class, ExpressionType.PROPERTY, "suffix of %player%");
+            registerNewExpression(ExprGetNametag.class, String.class, ExpressionType.PROPERTY, "name tag of %player%");
 
         }
 
@@ -161,24 +213,25 @@ public class Expressions {
 
         pl = Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI");
         if (pl != null) {
-            Skript.registerExpression(EffParse.class, String.class, ExpressionType.PROPERTY, new String[] {"placeholder parse %string% as %player%"});
+            registerNewExpression(EffParse.class, String.class, ExpressionType.PROPERTY, "placeholder parse %string% as %player%");
         }
 
         // DYNMAP
 
         pl = Bukkit.getServer().getPluginManager().getPlugin("Dynmap");
         if (pl != null) {
-            Skript.registerExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"dynmap visibility of %player%"});
+            registerNewExpression(ExprVisOfPlayer.class, Boolean.class, ExpressionType.PROPERTY, "dynmap visibility of %player%");
         }
 
         // WILDSKRIPT EXPRESSIONS
 
-        Skript.registerExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"free memory"});
-        Skript.registerExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, new String[] {"java version"});
-        Skript.registerExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"max memory"});
-        Skript.registerExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, new String[] {"total memory"});
-        Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, new String[] {"tps"});
-        Skript.registerExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, new String[] {"%player%[[']s] ping", "ping of %player%"});
+        registerNewExpression(ExprFreeMemory.class, Integer.class, ExpressionType.PROPERTY, "free memory");
+        registerNewExpression(ExprJavaVersion.class, String.class, ExpressionType.PROPERTY, "java version");
+        registerNewExpression(ExprMaxMemory.class, Integer.class, ExpressionType.PROPERTY, "max memory");
+        registerNewExpression(ExprTotalMemory.class, Integer.class, ExpressionType.PROPERTY, "total memory");
+        registerNewExpression(ExprTPS.class, Double.class, ExpressionType.PROPERTY, "tps");
+        registerNewExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, "%player%[[']s] ping");
+        registerNewExpression(ExprPing.class, Integer.class, ExpressionType.PROPERTY, "ping of %player%");
 
         // GATTSK STUFF
 
@@ -186,14 +239,14 @@ public class Expressions {
 
         pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
         if (pl != null) {
-            Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[] {"visibility of %entities% for %player%"});
+            registerNewExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, "visibility of %entities% for %player%");
         }
 
         //General
 
 
 
-        //Skript.registerExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
+        //registerNewExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.SIMPLE, "clicked item");
 
         //Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
 
@@ -201,35 +254,35 @@ public class Expressions {
         //EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
         //EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
 
-        Skript.registerExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"clicked item"});
-        Skript.registerExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.SIMPLE, new String[]{"cursor item"});
-        Skript.registerExpression(ExprClickedSlot.class, Integer.class, ExpressionType.SIMPLE, new String[]{"clicked slot"});
-        Skript.registerExpression(ExprClickType.class, String.class, ExpressionType.SIMPLE, new String[]{"click type"});
-        Skript.registerExpression(ExprClickedItemName.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item name"});
-        Skript.registerExpression(ExprClickedItemLore.class, String.class, ExpressionType.SIMPLE, new String[]{"clicked item lore"});
+        registerNewExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.SIMPLE, "clicked item");
+        registerNewExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.SIMPLE, "cursor item");
+        registerNewExpression(ExprClickedSlot.class, Integer.class, ExpressionType.SIMPLE, "clicked slot");
+        registerNewExpression(ExprClickType.class, String.class, ExpressionType.SIMPLE, "click type");
+        registerNewExpression(ExprClickedItemName.class, String.class, ExpressionType.SIMPLE, "clicked item name");
+        registerNewExpression(ExprClickedItemLore.class, String.class, ExpressionType.SIMPLE, "clicked item lore");
 
         //Bukkit Server Properties
-        Skript.registerExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, new String[]{"max players"});
+        registerNewExpression(ExprMaxPlayers.class, Integer.class, ExpressionType.SIMPLE, "max players");
 
         //Misc1
-        Skript.registerExpression(ExprSpawnReason.class, String.class, ExpressionType.SIMPLE, new String[]{"spawn reason (of|for) %entity%"});
+        registerNewExpression(ExprSpawnReason.class, String.class, ExpressionType.SIMPLE, "spawn reason (of|for) %entity%");
 
-        Skript.registerExpression(ExprGetScore.class, Integer.class, ExpressionType.PROPERTY, new String[] {"value [of] %string% objective %string% for [score] %string%"});
-        //Skript.registerExpression(ExprGetPlayerScoreboard.class, Scoreboard.class, ExpressionType.PROPERTY, new String[] {"scoreboard of %player%"});
-        Skript.registerExpression(ExprGetObjectiveType.class, String.class, ExpressionType.PROPERTY, new String[] {"objective type of %string% (from|in) [score][board] %scoreboard%"});
-        Skript.registerExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, new String[] {"objective in [[display]slot] %displayslot% from [score][board] %string%"});
-        Skript.registerExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, new String[] {"objective %string% from [score][board] %string%"});
+        registerNewExpression(ExprGetScore.class, Integer.class, ExpressionType.PROPERTY, "value [of] %string% objective %string% for [score] %string%");
+        //registerNewExpression(ExprGetPlayerScoreboard.class, Scoreboard.class, ExpressionType.PROPERTY, "scoreboard of %player%");
+        registerNewExpression(ExprGetObjectiveType.class, String.class, ExpressionType.PROPERTY, "objective type of %string% (from|in) [score][board] %scoreboard%");
+        registerNewExpression(ExprGetObjectiveDisplay.class, Objective.class, ExpressionType.PROPERTY, "objective in [[display]slot] %displayslot% from [score][board] %string%");
+        registerNewExpression(ExprGetObjective.class, String.class, ExpressionType.PROPERTY, "objective %string% from [score][board] %string%");
 				 /* 1.8 Things */
-        //Skript.registerExpression(ExprBetterExplodedBlocks.class, Block.class, ExpressionType.COMBINED, new String[]{"[better] exploded blocks"});
-        Skript.registerExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, new String[] {"[the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%",
-                "(location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%"});
+        //registerNewExpression(ExprBetterExplodedBlocks.class, Block.class, ExpressionType.COMBINED, "[better] exploded blocks");
+        registerNewExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, "[the] (location|position) %number% (block|meter)[s] in [the] direction %direction% of %location%");
+        registerNewExpression(ExprDirectionLocation.class, Location.class, ExpressionType.COMBINED, "(location|position) [of] direction %direction% (*|times|multiplied by length) %number% (from|with) [origin] %location%");
         Main.getInstance().getLogger().info("When Funnygatt and BaeFell work together, amazing things happen! \nGO! SUPER GATTFELL REGISTER SEQUENCE!\nAchievement Get! Used the new Umbaska Version");
         SimplePropertyExpression.register(ExprFreeze.class, Boolean.class, "freeze state", "player");
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
 
-        Skript.registerExpression(ExprEntityFromVariable.class, Entity.class, ExpressionType.SIMPLE, "entity from [variable] %entity%");
+        registerNewExpression(ExprEntityFromVariable.class, Entity.class, ExpressionType.SIMPLE, "entity from [variable] %entity%");
 
-        Skript.registerExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] unbreakable %itemstacks%"});
+        registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
@@ -262,16 +315,14 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
         }
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
-            Skript.registerExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, new String[] {"[a[n]] [umbaska] glow[ing] %itemstacks%"});
-        } else {
-        	Bukkit.getLogger().warning("[Umbaska] Failed to load 1.8 syntax");
+            registerNewExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] [umbaska] glow[ing] %itemstacks%");
         }
 	             /* Books! */
-        Skript.registerExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, new String[]{"[book] title of %itemstack%"});
-        Skript.registerExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book with title %string%"});
-        Skript.registerExpression(ExprPages.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"pages of [book] %itemstack% [to %-string%]"});
-        Skript.registerExpression(ExprAuthor.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"author of [book] %itemstack% [to %-string%]"});
-        Skript.registerExpression(ExprAllinOne.class, ItemStack.class, ExpressionType.PROPERTY, new String[]{"book (with|from|by) author %string% [with] title %string% [and] pages %strings%"});
+        registerNewExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, "[book] title of %itemstack%");
+        registerNewExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, "book with title %string%");
+        registerNewExpression(ExprPages.class, ItemStack.class, ExpressionType.PROPERTY, "pages of [book] %itemstack% [to %-string%]");
+        registerNewExpression(ExprAuthor.class, ItemStack.class, ExpressionType.PROPERTY, "author of [book] %itemstack% [to %-string%]");
+        registerNewExpression(ExprAllinOne.class, ItemStack.class, ExpressionType.PROPERTY, "book (with|from|by) author %string% [with] title %string% [and] pages %strings%");
 
         // 1.8
     }

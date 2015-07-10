@@ -1,6 +1,6 @@
 package uk.co.umbaska.Managers;
 
-//import uk.co.umbaska.Enums.InventoryTypes;
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
@@ -15,19 +15,49 @@ import uk.co.umbaska.Utils.JSONMessage;
  * Created by Zachary on 5/25/2015.
  */
 public class Enums {
+    public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
+    private static String version = Register.getVersion();
 
-    private static void registerEnum()
+    private static void registerEnum(String cls, String name, Boolean multiversion) {
+        if (Skript.isAcceptRegistrations()) {
+            if (multiversion) {
+                Class newCls = Register.getClass(cls);
+                if (newCls == null) {
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
+                }
+                if (debugInfo) {
+                    Bukkit.getLogger().info("Umbaska »»» Registered Enum for " + name + " for Version " + version);
+                }
+                registerEnum(newCls, name);
+            } else {
+                try {
+                    registerEnum(Class.forName(cls), name);
+                } catch (ClassNotFoundException e) {
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
+                }
+            }
+        }else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
+        }
+    }
+    private static void registerEnum(Class cls, String name) {
+        if (Skript.isAcceptRegistrations()) {
+            EnumClassInfo.create(cls, name).register();
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
+        }
+    }
 
     public static void runRegister(){
-
-        EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register(); // This isn't a 1.8 only thing.
+        registerEnum(InventoryTypes.class, "umbaskainv");
         if (Bukkit.getVersion().contains("1.8")){
-            EnumClassInfo.create(ParticleEnum.class, "particleenum").register();
-            EnumClassInfo.create(BukkitEffectEnum.class, "bukkiteffect").register(); // These work with any 1.8 build :)
+            registerEnum(ParticleEnum.class, "particleenum");
+            registerEnum(BukkitEffectEnum.class, "bukkiteffect");
         }
+        registerEnum("Enums.Attributes", "entityattribute", true);
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
-            EnumClassInfo.create(Attributes.class, "entityattribute").register();
             Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "18jsonmessage").parser(new Parser<JSONMessage>() {
                 public JSONMessage parse(String s, ParseContext parseContext) {
                     return null;

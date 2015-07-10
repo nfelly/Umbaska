@@ -5,29 +5,23 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 
 /**
  * Created by Zachary on 5/17/2015.
  */
-public class EffBukkitEffect extends Effect{
+public class EffBukkitEffectAll_V1_8_R1 extends Effect{
 
     private Expression<BukkitEffectEnum> particleName;
-    private Expression<Number> data, secondaryData;
+    private Expression<Number>  data, secondaryData;
     private Expression<Location> locations;
-    private Expression<Player> players;
 
-    @SuppressWarnings("unused")
-	@Override
+    @Override
     protected void execute(Event event){
         BukkitEffectEnum particlename = particleName.getSingle(event);
         Location[] loc = this.locations.getAll(event);
-        Player[] players = this.players.getAll(event);
         Integer data = this.data.getSingle(event).intValue();
         Integer secondaryData = this.secondaryData.getSingle(event).intValue();
         if (particlename == null) {
@@ -50,9 +44,8 @@ public class EffBukkitEffect extends Effect{
     public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult){
         particleName = (Expression<BukkitEffectEnum>) expressions[0];
         locations = (Expression<Location>) expressions[1];
-        players =(Expression<Player>) expressions[2];
-        data =(Expression<Number>) expressions[3];
-        secondaryData =(Expression<Number>) expressions[4];
+        data =(Expression<Number>) expressions[2];
+        secondaryData =(Expression<Number>) expressions[3];
         return true;
     }
 }
