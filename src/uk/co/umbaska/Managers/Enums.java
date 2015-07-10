@@ -16,7 +16,10 @@ import uk.co.umbaska.Utils.JSONMessage;
  */
 public class Enums {
 
+    private static void registerEnum()
+
     public static void runRegister(){
+
         EnumClassInfo.create(InventoryTypes.class, "umbaskainv").register(); // This isn't a 1.8 only thing.
         if (Bukkit.getVersion().contains("1.8")){
             EnumClassInfo.create(ParticleEnum.class, "particleenum").register();

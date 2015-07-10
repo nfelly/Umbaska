@@ -1,7 +1,8 @@
 enable_tag_features: false
 use_bungee: false
+debug_info: false
 force-generate-title-features: false
-force-generate-18-features: true
+force-generate-18-features: false
 
 
 #testing pushing.

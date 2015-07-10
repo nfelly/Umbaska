@@ -1,5 +1,7 @@
 package uk.co.umbaska.Managers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -11,7 +13,6 @@ import org.dynmap.DynmapAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
-import uk.co.umbaska.Attributes.EffSetAttribute;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
@@ -41,7 +42,7 @@ import uk.co.umbaska.hologramBased.*;
 
 
 public class Effects {
-	
+
     public static EntityHider enthider;
     public static Boolean enable_tag_features = Main.getInstance().getConfig().getBoolean("enable_tag_features");
     public static Boolean use_bungee = Main.getInstance().getConfig().getBoolean("use_bungee");
@@ -51,106 +52,143 @@ public class Effects {
     public static DynmapAPI api;
     public final Logger logger = Logger.getLogger("Minecraft");
     public static Messenger messenger;
-    
-	@SuppressWarnings("deprecation")
-	public static void runRegister(){
-	
-		// PLOTME
-		Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
-		if (pl != null) {
-            Skript.registerEffect(EffPlotTeleport.class, new String[] { "teleport %player% to %string%[ in %world%]" });
-            Skript.registerEffect(EffClearPlot.class, new String[] { "clear plot %string% in %world%" });
-            Skript.registerEffect(EffMovePlot.class, new String[] { "move %string% to %string% in %world%" });
-            Skript.registerEffect(EffDenyPlayer.class, new String[] { "deny %player% from %string%" });
-            Skript.registerEffect(EffUnDeny.class, new String[] { "allow %player% to %string%" });
-		}
-		
-        // NOTEBLOCKAPI (NEEDS FIXING)
-        
-        pl = Bukkit.getServer().getPluginManager().getPlugin("NoteBlockAPI");
+    public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
+    private static String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    private static String[] versions = { "V1_8_0", "V1_7", "V1_8_7", "V1_8_4" };
+
+    private static void registerNewEffect(String name, String cls, String syntax, Boolean multiversion){
+        if (multiversion){
+            Class newCls = Register.getClass(cls);
+            if (newCls == null) {
+                Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
+            }
+            if (debugInfo) {
+                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax " + syntax + " for Version " + version);
+            }
+            registerNewEffect(name, newCls, syntax);
+        }
+        else{
+            try {
+                registerNewEffect(name, Class.forName(cls), syntax);
+            }catch (ClassNotFoundException e){
+                Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
+            }
+        }
+    }
+
+    private static void registerNewEffect(String name, Class cls, String syntax){
+        registerNewEffect(cls, syntax);
+        if (debugInfo) {
+            Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax " + syntax);
+        }
+    }
+
+    private static void registerNewEffect(Class cls, String syntax){
+        Skript.registerEffect(cls, syntax);
+        if (debugInfo) {
+            Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + " with syntax " + syntax);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void runRegister(){
+
+        // PLOTME
+        Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
         if (pl != null) {
-	        Skript.registerEffect(EffPlayTrack.class, new String[] { "play (track|song|midi) %string% to %player%" });
+            registerNewEffect(EffPlotTeleport.class, "teleport %player% to %string%[ in %world%]");
+            registerNewEffect(EffClearPlot.class, "clear plot %string% in %world%");
+            registerNewEffect(EffMovePlot.class, "move %string% to %string% in %world%" );
+            registerNewEffect(EffDenyPlayer.class, "deny %player% from %string%" );
+            registerNewEffect(EffUnDeny.class,"allow %player% to %string%" );
         }
 
-		// SPAWNER
-		
-        Skript.registerEffect(EffSetSpawner.class, new String[] { "set spawner %location% to %string%" });
-        Skript.registerEffect(EffSetDelay.class, new String[] { "set delay of %location% to %integer%" });
-        Skript.registerEffect(EffMFG_Drop.class, new String[] { "drop a spawner at %location% based on %block%" });
-        Skript.registerEffect(EffMFG_GiveSpawner.class, new String[] { "give a spawner to %player% based on %block%" });
-        Skript.registerEffect(EffMFG_SetSpawner.class, new String[] { "set spawner at %location% to its type" });
-		
-		// TOWNY
-		pl = Bukkit.getServer().getPluginManager().getPlugin("Towny");
-		if (pl != null) {
-		
-            Skript.registerEffect(EffSetPlotOwner.class, new String[] { "set owner of plot at %location% to %player%" });
-            Skript.registerEffect(EffSetPlotPrice.class, new String[] { "set price of plot at %location% to %double%" });
-			
-		}
-		
-		// PLACEHOLDERAPI
-		
-		pl = Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI");
-		if (pl != null) {
-            Skript.registerEffect(EffPlaceholderRegister.class, new String[] { "register %string% (as|for) %string%" });			
-		}
-		
-		// MISC/OTHER
-		
-        Skript.registerEffect(EffDropAll.class, new String[] { "force drop inventory of %player% at %location%" });
+        // NOTEBLOCKAPI (NEEDS FIXING)
 
-        Skript.registerEffect(EffCreateFile.class, new String[] { "create [new] file %string%" });
-        Skript.registerEffect(EffDeleteFile.class, new String[] { "(df|delete) [file] %string%" });
-        Skript.registerEffect(EffSetLine.class, new String[] { "set line %integer% in [file] %string% to %string%" });
-        Skript.registerEffect(EffWriteToFile.class, new String[] { "(write|wf) %string% to %string%)" });
-        
-        Skript.registerEffect(EffWriteYAML.class, new String[] { "write %string% with [value] %string% to %string%" });
-        Skript.registerEffect(EffCopy.class, new String[] { "copy file %string% to %string%" });
-        Skript.registerEffect(EffCopyDir.class, new String[] { "copy (d|dir|dire|directory) %string% to %string%" });
-		
-		// PROTCOLLIB
-		
+        pl = Bukkit.getServer().getPluginManager().getPlugin("NoteBlockAPI");
+        if (pl != null) {
+            registerNewEffect(EffPlayTrack.class, "play (track|song|midi) %string% to %player%");
+        }
+
+        // SPAWNER
+
+        registerNewEffect(EffSetSpawner.class, "set spawner %location% to %string%");
+        registerNewEffect(EffSetDelay.class, "set delay of %location% to %integer%");
+        registerNewEffect(EffMFG_Drop.class, "drop a spawner at %location% based on %block%");
+        registerNewEffect(EffMFG_GiveSpawner.class, "give a spawner to %player% based on %block%");
+        registerNewEffect(EffMFG_SetSpawner.class, "set spawner at %location% to its type");
+
+        // TOWNY
+        pl = Bukkit.getServer().getPluginManager().getPlugin("Towny");
+        if (pl != null) {
+
+            registerNewEffect(EffSetPlotOwner.class, "set owner of plot at %location% to %player%");
+            registerNewEffect(EffSetPlotPrice.class, "set price of plot at %location% to %double%");
+
+        }
+
+        // PLACEHOLDERAPI
+
+        pl = Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI");
+        if (pl != null) {
+            registerNewEffect(EffPlaceholderRegister.class, "register %string% (as|for) %string%");
+        }
+
+        // MISC/OTHER
+
+        registerNewEffect(EffDropAll.class, "force drop inventory of %player% at %location%");
+
+        registerNewEffect(EffCreateFile.class, "create [new] file %string%");
+        registerNewEffect(EffDeleteFile.class, "(df|delete) [file] %string%");
+        registerNewEffect(EffSetLine.class, "set line %integer% in [file] %string% to %string%");
+        registerNewEffect(EffWriteToFile.class, "(write|wf) %string% to %string%)");
+
+        registerNewEffect(EffWriteYAML.class, "write %string% with [value] %string% to %string%");
+        registerNewEffect(EffCopy.class, "copy file %string% to %string%");
+        registerNewEffect(EffCopyDir.class, "copy (d|dir|dire|directory) %string% to %string%");
+
+        // PROTCOLLIB
+
         pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
         if (pl != null) {
-        	enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
-        	
-            Skript.registerEffect(EffHideEntity.class, new String[] {"protocol hide %entity% from %players%"});
-            Skript.registerEffect(EffShowEntity.class, new String[] {"protocol show %entity% to %players%"});
-            Skript.registerEffect(EffToggleVisibility.class, new String[] {"toggle visibility of %entity% for %players%"});
-            Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, new String[]{"visibility of %entity% for %player%"});
+            enthider = new EntityHider(Main.getInstance(), EntityHider.Policy.BLACKLIST);
+
+            registerNewEffect(EffHideEntity.class, "protocol hide %entity% from %players%");
+            registerNewEffect(EffShowEntity.class, "protocol show %entity% to %players%");
+            registerNewEffect(EffToggleVisibility.class, "toggle visibility of %entity% for %players%");
+            Skript.registerExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, "visibility of %entity% for %player%");
 
             // Disguises
 
-            Skript.registerEffect(EffDisguise.class, new String[] {"disguise %entity% as %string%"});
-            Skript.registerEffect(EffDisguiseName.class, new String[] {"disguise %entity% as %string% with custom name %string%"});
-            Skript.registerEffect(EffUndisguise.class, new String[] {"undisguise %entity%"});
-        	
+            registerNewEffect(EffDisguise.class, "disguise %entity% as %string%");
+            registerNewEffect(EffDisguiseName.class, "disguise %entity% as %string% with custom name %string%");
+            registerNewEffect(EffUndisguise.class, "undisguise %entity%");
+
         }
-		
+
         // UMBASKAAPI
-        
+
         pl = Bukkit.getServer().getPluginManager().getPlugin("UmbaskaAPI");
         if (pl != null) {
-        	
-            Skript.registerEffect(EffImgInChat.class, new String[] { "show %player% image %string% with %string%, %string%, %string%" });
-            Skript.registerEffect(EffImgFromURL.class, new String[] { "show %player% image from %string% with %string%, %string%, %string%" });
-		
+
+            registerNewEffect(EffImgInChat.class,  "show %player% image %string% with %string%, %string%, %string%");
+            registerNewEffect(EffImgFromURL.class,  "show %player% image from %string% with %string%, %string%, %string%");
+
         }
-        
+
         // NAMETAGEDIT
-        
+
         pl = Bukkit.getServer().getPluginManager().getPlugin("NametagEdit");
 
         if (pl != null) {
             if (enable_tag_features == true) {
-                Skript.registerEffect(EffSetPrefix.class, new String[] { "set prefix of %player% to %string%" });
-                Skript.registerEffect(EffSetSuffix.class, new String[] { "set suffix of %player% to %string%" });
-                Skript.registerEffect(EffSetNametag.class, new String[] { "set name tag of %player% to %string%, %string%, %string%" });   
+                registerNewEffect(EffSetPrefix.class,  "set prefix of %player% to %string%");
+                registerNewEffect(EffSetSuffix.class,  "set suffix of %player% to %string%");
+                registerNewEffect(EffSetNametag.class,  "set name tag of %player% to %string%, %string%, %string%");
             }
         }
 
-        
+
         pl = Bukkit.getServer().getPluginManager().getPlugin("dynmap");
         if (pl != null) {
 		 /*
@@ -164,107 +202,107 @@ public class Effects {
             }
             else {
 
-                Skript.registerEffect(EffSetVisOfPlayer.class, new String[]{"set dynmap visibility of %player% to %boolean%"});
+                registerNewEffect(EffSetVisOfPlayer.class, "set dynmap visibility of %player% to %boolean%" );
             }
 
         }
         // GATTSK
-        
-        Skript.registerEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
-        Skript.registerEffect(EffClearExplodedBlocks.class, "(remove|delete|clear) all [better] exploded blocks");
+
+        registerNewEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
+        registerNewEffect(EffClearExplodedBlocks.class, "(remove|delete|clear) all [better] exploded blocks");
 
         //Scoreboards
 
-        Skript.registerEffect(EffNewScoreboard.class, "create [a] new scoreboard [named] %string%");
-        Skript.registerEffect(EffSetPlayerScoreboard.class, "set scoreboard of %players% to %string%");
-        Skript.registerEffect(EffSetScore.class, "set value of score %string% (for|in) [score][board] %string% objective %string% to %number%");
-        Skript.registerEffect(EffResetScore.class, "reset [value] [of] score %string% (for|in) [score][board] %string%");
-        Skript.registerEffect(EffNewObjective.class, "create [a] [new] %string% objective for [score][board] %string% (called|named) %string%");
-        Skript.registerEffect(EffSetObjectiveDisplay.class, "set objective display slot for [objective] %string% in [score][board] %string% to %string%");
-        Skript.registerEffect(EffSetObjectiveName.class, "set objective display name for [objective] %string% in [score][board] %string% to %string%");
-        Skript.registerEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
+        registerNewEffect(EffNewScoreboard.class, "create [a] new scoreboard [named] %string%");
+        registerNewEffect(EffSetPlayerScoreboard.class, "set scoreboard of %players% to %string%");
+        registerNewEffect(EffSetScore.class, "set value of score %string% (for|in) [score][board] %string% objective %string% to %number%");
+        registerNewEffect(EffResetScore.class, "reset [value] [of] score %string% (for|in) [score][board] %string%");
+        registerNewEffect(EffNewObjective.class, "create [a] [new] %string% objective for [score][board] %string% (called|named) %string%");
+        registerNewEffect(EffSetObjectiveDisplay.class, "set objective display slot for [objective] %string% in [score][board] %string% to %string%");
+        registerNewEffect(EffSetObjectiveName.class, "set objective display name for [objective] %string% in [score][board] %string% to %string%");
+        registerNewEffect(EffUnregisterObjective.class, "unregister objective %string% in [score][board] %string%");
 
-        Skript.registerEffect(EffDeleteScoreboard.class, "delete score[ ]board %string%");
+        registerNewEffect(EffDeleteScoreboard.class, "delete score[ ]board %string%");
 
-        Skript.registerEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
-        Skript.registerEffect(EffTeamPlayer.class, "(remove|add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
-        Skript.registerEffect(EffSetTeamPrefix.class, "set (suffix|prefix) for team %string% in [score][board] %string% to %string%");
-        Skript.registerEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
-        Skript.registerEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
+        registerNewEffect(EffCreateTeam.class, "create team %string% in [score][board] %string%");
+        registerNewEffect(EffTeamPlayer.class, "(remove|add) [player] %offlineplayer% (from|to) team %string% in [score][board] %string%");
+        registerNewEffect(EffSetTeamPrefix.class, "set (suffix|prefix) for team %string% in [score][board] %string% to %string%");
+        registerNewEffect(EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
+        registerNewEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
 
-        Skript.registerEffect(EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
-        Skript.registerEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
+        registerNewEffect(EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
+        registerNewEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
 
 
         //World Manager
 
-        Skript.registerEffect(EffCreateWorld.class, "create [a] new world [name[d]] %string%");
-        Skript.registerEffect(EffDeleteWorld.class, "delete world %string%");
-        Skript.registerEffect(EffUnloadWorld.class, "unload world %string%");
-        Skript.registerEffect(EffLoadWorld.class, "load world %string%");
-        Skript.registerEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
-        
-        //Misc1
-        Skript.registerEffect(EffUpdateInventory.class, "update inventory of %player%");
-        Skript.registerEffect(EffResetRecipes.class, "reset all [server] recipes");
+        registerNewEffect(EffCreateWorld.class, "create [a] new world [name[d]] %string%");
+        registerNewEffect(EffDeleteWorld.class, "delete world %string%");
+        registerNewEffect(EffUnloadWorld.class, "unload world %string%");
+        registerNewEffect(EffLoadWorld.class, "load world %string%");
+        registerNewEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
 
-        Skript.registerEffect(EffNothing_MFG.class, "do nothing");
+        //Misc1
+        registerNewEffect(EffUpdateInventory.class, "update inventory of %player%");
+        registerNewEffect(EffResetRecipes.class, "reset all [server] recipes");
+
+        registerNewEffect(EffNothing_MFG.class, "do nothing");
 
         // Temporary Hologram System
-        Skript.registerEffect(EffCreateHologram.class, "create [a ]new holo[gram] named %string%");
-        Skript.registerEffect(EffSetHoloLine.class, "set holo[gram] line %integer% of holo[gram] %string% to %string%");
+        registerNewEffect(EffCreateHologram.class, "create [a ]new holo[gram] named %string%");
+        registerNewEffect(EffSetHoloLine.class, "set holo[gram] line %integer% of holo[gram] %string% to %string%");
 
-        Skript.registerEffect(EffAddHoloLine.class, "set lines of holo[gram] %string% to %strings%");
-        Skript.registerEffect(EffDeleteHoloLine.class, "(remove|clear|delete) lines of holo[gram] %string%");
-        Skript.registerEffect(EffMoveHolo.class, "move holo[gram] %string% to %location%");
-        Skript.registerEffect(EffHoloFollow.class, "make holo[gram] %string% follow %entity%");
-        Skript.registerEffect(EffHoloStart.class, "start holo[gram] %string%");
-        Skript.registerEffect(EffHoloStop.class, "stop holo[gram] %string%");
-        Skript.registerEffect(EffDeleteHolo.class, "delete holo[gram] %string%");
+        registerNewEffect(EffAddHoloLine.class, "set lines of holo[gram] %string% to %strings%");
+        registerNewEffect(EffDeleteHoloLine.class, "(remove|clear|delete) lines of holo[gram] %string%");
+        registerNewEffect(EffMoveHolo.class, "move holo[gram] %string% to %location%");
+        registerNewEffect(EffHoloFollow.class, "make holo[gram] %string% follow %entity%");
+        registerNewEffect(EffHoloStart.class, "start holo[gram] %string%");
+        registerNewEffect(EffHoloStop.class, "stop holo[gram] %string%");
+        registerNewEffect(EffDeleteHolo.class, "delete holo[gram] %string%");
 
-        Skript.registerEffect(EffCreateFollowGram.class, "create [a ]new following holo[gram] (to|that) follow[s] %entity% with [text] %strings%");
+        registerNewEffect(EffCreateFollowGram.class, "create [a ]new following holo[gram] (to|that) follow[s] %entity% with [text] %strings%");
 
-        Skript.registerEffect(EffSetHoloType.class, "set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])");
+        registerNewEffect(EffSetHoloType.class, "set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])");
 
-        Skript.registerEffect(EffNewSimpleScoreboard.class, "create [a] new simple scoreboard [named] %string%");
-        Skript.registerEffect(EffSetSlot.class, "set slot %number% of simple [score][board] %string% to %string%");
-        Skript.registerEffect(EffSetTitle.class, "set title of simple [score][board] %string% to %string%");
-        Skript.registerEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
-        Skript.registerEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
-        Skript.registerEffect(EffDeleteBoard.class, "delete simple [score][ ][board] %string%");
+        registerNewEffect(EffNewSimpleScoreboard.class, "create [a] new simple scoreboard [named] %string%");
+        registerNewEffect(EffSetSlot.class, "set slot %number% of simple [score][board] %string% to %string%");
+        registerNewEffect(EffSetTitle.class, "set title of simple [score][board] %string% to %string%");
+        registerNewEffect(EffShowBoard.class, "set simple [score][board] of %players% to %string%");
+        registerNewEffect(EffClearSlot.class, "clear slot %number% of simple [score][board] %string%");
+        registerNewEffect(EffDeleteBoard.class, "delete simple [score][ ][board] %string%");
 
-		Skript.registerEffect(EffSetCursorItem.class, "set cursor item to %itemstack%");
-		Skript.registerEffect(EffSetClickedItem.class, "set clicked item to %itemstack%");
+        registerNewEffect(EffSetCursorItem.class, "set cursor item to %itemstack%");
+        registerNewEffect(EffSetClickedItem.class, "set clicked item to %itemstack%");
 
-        Skript.registerEffect(EffScatter.class, "scatter %entities% around %integer%(,| and) %integer% [in] [world] %world% (with|for) rad[ius] of %integer% [ignoring %-itemstacks%] [with delay of %-integer% [between teleports]]");
+        registerNewEffect(EffScatter.class, "scatter %entities% around %integer%(,| and) %integer% [in] [world] %world% (with|for) rad[ius] of %integer% [ignoring %-itemstacks%] [with delay of %-integer% [between teleports]]");
 
         if (!Main.getInstance().getConfig().contains("force-generate-title-features")){
             Main.getInstance().getConfig().set("force-generate-title-features", false);
             forceGenTitleFeatures = false;
         }
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
-            Skript.registerEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
-            Skript.registerEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
-            Skript.registerEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
+            registerNewEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
+            registerNewEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
+            registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
 
-            Skript.registerEffect(EffSetAttribute.class, "set [entity] attribute %entityattributes% of %entity% to %number%");
+            registerNewEffect("Set Attribute", "EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
         }
         if (Bukkit.getVersion().contains("1.8")){ // Particle related effects doesn't require specific version of 1.8
-        	Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-            Skript.registerEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
-            Skript.registerEffect(EffTrailEntity.class, "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]");
+            Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
+            registerNewEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
+            registerNewEffect(EffTrailEntity.class, "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]");
 
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");
-            Skript.registerEffect(EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]");
-            Skript.registerEffect(EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]");
-            Skript.registerEffect(EffBukkitEffect.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
-            Skript.registerEffect(EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
+            registerNewEffect("Better Particle", EffParticle.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% (to|for) %players% [[ with] data %number%] [[(with|and)] secondary data %number%]");
+            registerNewEffect("Better Particle All", EffParticleAll.class, "[(1.8|Umbaska|skquery isnt updated)] (summon|play|create|activate|spawn) %number% [of] %particleenum%[:%number%] [offset (at|by|from) %number%, %number%(,| and) %number%] at %locations% [[ with] data %number%] [[(with|and)] secondary data %number%]");
+            registerNewEffect("Better Effect", EffBukkitEffect.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% to %players% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
+            registerNewEffect("Better Effect All", EffBukkitEffectAll.class, "(summon|play|create|activate|spawn) [bukkit] [effect] %bukkiteffect% at %locations% [[with] [data] %integer%] [[(with|and)] secondary data %integer%]");
         }
-        
+
         if (use_bungee) {
             messenger = new Messenger(Main.getInstance());
-            Skript.registerEffect(EffChangeServer.class, "send %player% to %string%");
+            registerNewEffect(EffChangeServer.class, "send %player% to %string%");
         }
-	}
+    }
 }

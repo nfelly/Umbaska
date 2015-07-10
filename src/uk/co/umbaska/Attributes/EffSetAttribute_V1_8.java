@@ -14,7 +14,7 @@ import uk.co.umbaska.Enums.Attributes;
 /**
  * Created by Zachary on 6/30/2015.
  */
-public class EffSetAttribute extends Effect {
+public class EffSetAttribute_V1_8 extends Effect {
 
     private Expression<Entity> entities;
     private Expression<Attributes> attribute;

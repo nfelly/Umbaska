@@ -11,8 +11,24 @@ import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import uk.co.umbaska.Main;
 
 public class Register {
+
+    private static String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
+
+    public static Class getClass(String classname){
+        try {
+            return Class.forName(classname + "_" + version.toUpperCase());
+        }catch (ClassNotFoundException e){
+            if (debugInfo){
+                Bukkit.getLogger().info("Umbaska »»» Can't Find Class for " + classname + " for version " + version);
+            }
+        }
+        return null;
+    }
+
 	public static void registerAll() {
 		Effects.runRegister();
 		Expressions.runRegister();
