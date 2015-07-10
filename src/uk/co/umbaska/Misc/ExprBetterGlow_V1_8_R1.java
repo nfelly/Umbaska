@@ -7,7 +7,7 @@ import uk.co.umbaska.Utils.ItemManager;
 /**
  * Created by Zachary on 6/13/2015.
  */
-public class ExprBetterGlow extends SimplePropertyExpression<ItemStack, ItemStack> {
+public class ExprBetterGlow_V1_8_R1 extends SimplePropertyExpression<ItemStack, ItemStack> {
 public String getPropertyName(){
         return "better glow";
         }

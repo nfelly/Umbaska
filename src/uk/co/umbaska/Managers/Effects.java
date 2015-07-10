@@ -55,10 +55,6 @@ public class Effects {
                     Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Can't find Class!");
                     return;
                 }
-                if (debugInfo) {
-                    Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax\n " + syntax + " for Version " + version);
-                    return;
-                }
                 registerNewEffect(name, newCls, syntax);
             }
             else{
@@ -90,7 +86,7 @@ public class Effects {
         if (Skript.isAcceptRegistrations()){
             Skript.registerEffect(cls, syntax);
             if (debugInfo) {
-                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + "with syntax\n " + syntax);
+                Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + " with syntax\n " + syntax);
             }
         }
         else{

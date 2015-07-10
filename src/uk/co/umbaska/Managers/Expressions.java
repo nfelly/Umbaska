@@ -41,7 +41,8 @@ public class Expressions {
     public static Messenger messenger;
     public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
 
-    private static void registerNewExpression(String name, Class returnType, ExpressionType expressionType, String cls, String syntax, Boolean multiversion){
+
+    private static void registerNewExpression(String name, String cls, Class returnType, ExpressionType expressionType, String syntax, Boolean multiversion){
         if (Skript.isAcceptRegistrations()){
             if (multiversion){
                 Class newCls = Register.getClass(cls);
@@ -314,9 +315,7 @@ public class Expressions {
             SimplePropertyExpression.register(ExprsBodyDirectionY.class, Number.class, "body (y angle|angle y)", "entity");
             SimplePropertyExpression.register(ExprsBodyDirectionZ.class, Number.class, "body (z angle|angle z)", "entity");
         }
-        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
-            registerNewExpression(ExprBetterGlow.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] [umbaska] glow[ing] %itemstacks%");
-        }
+        registerNewExpression("Glow", "Misc.ExprBetterGlow", ItemStack.class, ExpressionType.PROPERTY, "[a[n]] [umbaska] glow[ing] %itemstacks%", true);
 	             /* Books! */
         registerNewExpression(ExprBookTitle.class, String.class, ExpressionType.SIMPLE, "[book] title of %itemstack%");
         registerNewExpression(ExprBook.class, ItemStack.class, ExpressionType.PROPERTY, "book with title %string%");

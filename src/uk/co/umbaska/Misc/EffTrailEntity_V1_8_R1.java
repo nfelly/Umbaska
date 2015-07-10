@@ -22,7 +22,8 @@ import uk.co.umbaska.Replacers.ParticleFunction;
 /**
  * Created by Zachary on 10/25/2014.
  */
-public class EffTrailEntity extends Effect implements Listener {
+public class EffTrailEntity_V1_8_R1
+        extends Effect implements Listener {
 
 
 	private Expression<Entity> entity;
