@@ -54,12 +54,17 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         plugin = this;
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-            getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
-        } catch (IOException e) {
-            getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
+        if (!getConfig().contains("Metrics")){
+            getConfig().set("Metrics", true);
+        }
+        if (getConfig().getBoolean("Metrics")) {
+            try {
+                Metrics metrics = new Metrics(this);
+                metrics.start();
+                getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
+            } catch (IOException e) {
+                getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
+            }
         }
         final PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(this, this);
