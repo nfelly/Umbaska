@@ -244,20 +244,21 @@ public class Hologram {
 			packets[1].getWatchableCollectionModifier().write(0, list);
 			return packets;
 		} else {
-			PacketContainer displayPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
-			StructureModifier<Integer> ints = displayPacket.getIntegers();
-			ints.write(0, witherId);
-			ints.write(1, 30);
-			ints.write(2, (int) (getLocation().getX() * 32));
-			ints.write(3, (int) ((location.getY() + -56.7 + ((double) height * (getLineSpacing() * 0.285))) * 32));
-			ints.write(4, (int) (getLocation().getZ() * 32));
-			// Setup datawatcher for armor stand
-			WrappedDataWatcher watcher = new WrappedDataWatcher();
-			watcher.setObject(0, (byte) 32);
-			watcher.setObject(2, horseName);
-			watcher.setObject(3, (byte) 1);
-			displayPacket.getDataWatcherModifier().write(0, watcher);
-			return new PacketContainer[] { displayPacket };
+            PacketContainer displayPacket = null;
+            displayPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
+            StructureModifier<Integer> ints = displayPacket.getIntegers();
+            ints.write(0, witherId);
+            ints.write(1, 30);
+            ints.write(2, (int) (getLocation().getX() * 32));
+            ints.write(3, (int) ((location.getY() + -56.7 + ((double) height * (getLineSpacing() * 0.285))) * 32));
+            ints.write(4, (int) (getLocation().getZ() * 32));
+               // Setup datawatcher for armor stand
+            WrappedDataWatcher watcher = new WrappedDataWatcher();
+            watcher.setObject(0, (byte) 32);
+            watcher.setObject(2, horseName);
+            watcher.setObject(3, (byte) 1);
+            displayPacket.getDataWatcherModifier().write(0, watcher);
+            return new PacketContainer[]{displayPacket};
 		}
 	}
 

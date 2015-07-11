@@ -1,3 +1,4 @@
 enable_tag_features: false
 use_bungee: false
 debug_info: false
+schematic_location: PLUGINFOLDER/schematics/ #Use PLUGINFOLDER to get Umbaska's folder. Otherwise, put in your own directory.

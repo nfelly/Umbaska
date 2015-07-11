@@ -4,19 +4,18 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import net.minecraft.server.v1_8_R1.EnumTitleAction;
-import net.minecraft.server.v1_8_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_8_R1.PlayerConnection;
-import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-import uk.co.umbaska.Utils.TitleManager.TitleManager;
+import uk.co.umbaska.Utils.TitleManager.TitleManager_V1_8_R3;
 
 /**
  * Created by Zachary on 6/13/2015.
  */
-public class EffSendTitle extends Effect implements Listener {
+public class EffSendTitle_V1_8_R3 extends Effect implements Listener {
 
     private Expression<String> Title;
     private Expression<String> Subtitle;
@@ -59,13 +58,13 @@ public class EffSendTitle extends Effect implements Listener {
         for (Player p : playerlist) {
             try {
                 PlayerConnection connection = ((CraftPlayer)p).getHandle().playerConnection;
-                PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, newfadein.intValue(), newstay.intValue(), newfadeout.intValue());
+                PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, newfadein.intValue(), newstay.intValue(), newfadeout.intValue());
                 connection.sendPacket(packetPlayOutTimes);
             } catch (final Exception e) {
                 e.printStackTrace();
             }
-            TitleManager.sendSubTitle(p, newsubtitle);
-            TitleManager.sendTitle(p, newtitle);
+            TitleManager_V1_8_R3.sendSubTitle(p, newsubtitle);
+            TitleManager_V1_8_R3.sendTitle(p, newtitle);
         }
 
     }

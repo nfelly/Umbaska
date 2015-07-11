@@ -248,10 +248,10 @@ public class Messenger
     @SuppressWarnings("deprecation")
     public static void sendAnonymous(byte[] message)
     {
-        if (Bukkit.getOnlinePlayers().length < 1) {
-            return;
-        }
-        Bukkit.getOnlinePlayers()[0].sendPluginMessage(plugin, "BungeeCord", message);
+//        if (Bukkit.getOnlinePlayers().length < 1) {
+//            return;
+//        }
+//        Bukkit.getOnlinePlayers()[0].sendPluginMessage(plugin, "BungeeCord", message);
     }
 
     public static void sendTo(byte[] message, Player[] players)

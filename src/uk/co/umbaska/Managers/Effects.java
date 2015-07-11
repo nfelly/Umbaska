@@ -1,7 +1,5 @@
 package uk.co.umbaska.Managers;
 
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
@@ -13,7 +11,6 @@ import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
-import uk.co.umbaska.Misc.EffSendTitle;
 import uk.co.umbaska.Misc.EffOpenInventory;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
@@ -31,6 +28,7 @@ import uk.co.umbaska.Sound.EffPlayTrack;
 import uk.co.umbaska.Spawner.*;
 import uk.co.umbaska.System.*;
 import uk.co.umbaska.Towny.*;
+import uk.co.umbaska.WorldEdit.*;
 import uk.co.umbaska.hologramBased.*;
 
 
@@ -98,6 +96,7 @@ public class Effects {
     public static void runRegister(){
 
         // PLOTME
+
         Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
         if (pl != null) {
             registerNewEffect(EffPlotTeleport.class, "teleport %player% to %string%[ in %world%]");
@@ -210,6 +209,16 @@ public class Effects {
             }
 
         }
+
+        pl = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+        if (pl != null){
+            registerNewEffect(EffPasteSchematic.class, "paste schematic %string% at %location%");
+            registerNewEffect(EffPasteSchematicNoAir.class, "paste schematic %string% at %location% (ignoring air|with no air)");
+            registerNewEffect(EffPlaceSchematic.class, "place schematic %string% at %location%");
+            registerNewEffect(EffPlaceSchematicNoAir.class, "place schematic %string% at %location% (ignoring|with no) air");
+            registerNewEffect(EffSaveSchematic.class, "save schematic %string% based (off of|on) %player%['s selection]");
+        }
+
         // GATTSK
 
         registerNewEffect(EffRemoveExplodedBlock.class, "(remove|delete) %block% from [better][ ][new] exploded blocks");
@@ -286,13 +295,9 @@ public class Effects {
             forceGenTitleFeatures = false;
         }
         registerNewEffect("Set Attribute", "Attributes.EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
-        if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || forceGen18Features) {
-            registerNewEffect(EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
-            registerNewEffect(EffActionBar.class, "send [a ]action bar from %string% to %players%");
-            registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
-
-
-        }
+        registerNewEffect("Title", "EffSendTitle", "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%", true);
+        registerNewEffect("Action Bar", "EffActionBar", "send [a ]action bar from %string% to %players%", true);
+        registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
         Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
         registerNewEffect("Spawn Armor Stand", "ArmorStands.EffSpawnArmorStand", "[umbaska] spawn [an] (armour|armor) stand at %locations%", true);
         registerNewEffect("Trail Entity", "Misc.EffTrailEntity", "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]", true);

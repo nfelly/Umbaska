@@ -7,13 +7,13 @@ import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-import uk.co.umbaska.Utils.TitleManager.TitleManager;
+import uk.co.umbaska.Utils.TitleManager.TitleManager_V1_8_R1;
 
 
 /**
  * Created by Zachary on 10/25/2014.
  */
-public class EffActionBar extends Effect implements Listener {
+public class EffActionBar_V1_8_R1 extends Effect implements Listener {
 
 
 	private Expression<String> Actiontitle;
@@ -41,7 +41,7 @@ public class EffActionBar extends Effect implements Listener {
 
 
 		for (Player p : playerlist) {
-			TitleManager.sendActionTitle(p, newactiontitle);
+			TitleManager_V1_8_R1.sendActionTitle(p, newactiontitle);
 		}
 
 	}

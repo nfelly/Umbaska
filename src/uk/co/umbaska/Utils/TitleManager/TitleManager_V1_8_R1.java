@@ -6,7 +6,7 @@ import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public class TitleManager implements Listener {
+public class TitleManager_V1_8_R1 implements Listener {
 
 	public static Class<?>	nmsChatSerializer	= Reflection.getNMSClass("ChatSerializer");
 	public static int VERSION= 47;

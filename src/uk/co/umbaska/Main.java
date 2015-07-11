@@ -50,6 +50,7 @@ public class Main extends JavaPlugin implements Listener {
     private static WildSkriptTimer timer;
     public static FreezeListener freezeListener;
     public static ItemManager itemManager;
+    public static String schemFolder;
     @Override
     public void onEnable() {
         plugin = this;
@@ -70,24 +71,12 @@ public class Main extends JavaPlugin implements Listener {
         if (!getConfig().contains("force-generate-18-features")){
             getConfig().set("force-generate-18-features", true);
         }
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
-        Bukkit.getLogger().info(Register.getVersion());
+        if (!getConfig().contains("schematic_location")){
+            getConfig().set("schematic_location", "PLUGINFOLDER/schematics/ #Use PLUGINFOLDER to get Umbaska's folder. Otherwise, put in your own directory.");
+        }
+        timer = new WildSkriptTimer();
+        timer.run();
+        schemFolder = getConfig().getString("schematic_location").replace("PLUGINFOLDER", getDataFolder().getAbsolutePath());
         saveDefaultConfig();
         Register.registerAll();
         freezeListener = new FreezeListener(this);

@@ -34,6 +34,7 @@ import uk.co.umbaska.Towny.*;
 import uk.co.umbaska.UUID.*;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
+import uk.co.umbaska.WorldEdit.*;
 
 public class Expressions {
 
@@ -241,6 +242,11 @@ public class Expressions {
         pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
         if (pl != null) {
             registerNewExpression(ExprCanSee.class, Boolean.class, ExpressionType.PROPERTY, "visibility of %entities% for %player%");
+        }
+
+        pl = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+        if (pl != null){
+            registerNewExpression(ExprAllSchematics.class, String.class, ExpressionType.COMBINED, "all schematics");
         }
 
         //General
