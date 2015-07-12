@@ -249,17 +249,8 @@ public class Expressions {
             registerNewExpression(ExprAllSchematics.class, String.class, ExpressionType.COMBINED, "all schematics");
         }
 
-        //General
-
-
-
-        //registerNewExpression(ExprLastCreatedWorld.class, World.class, ExpressionType.SIMPLE, "clicked item");
-
-        //Bukkit.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", this);
-
-        //EnumClassInfo.create(ScoreboardTypes.class, "ScoreboardTypes").register();
-        //EnumClassInfo.create(ScoreboardDisplaySlots.class, "displayslots").register();
-        //EnumClassInfo.create(DisplaySlot.class, "displayslot").register();
+        registerNewExpression(ExprDyed.class, ItemStack.class, ExpressionType.SIMPLE, "%itemstack% (colo[u]red|dyed) %color%");
+        registerNewExpression(ExprDyedRGB.class, ItemStack.class, ExpressionType.SIMPLE, "%itemstack% (colo[u]red|dyed) %number%, %number%(,| and) %number%");
 
         registerNewExpression(ExprClickedItem.class, ItemStack.class, ExpressionType.SIMPLE, "clicked item");
         registerNewExpression(ExprCursorItem.class, ItemStack.class, ExpressionType.SIMPLE, "cursor item");

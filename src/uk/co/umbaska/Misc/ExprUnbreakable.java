@@ -8,11 +8,11 @@ import org.bukkit.inventory.meta.ItemMeta;
  * Created by Zachary on 6/13/2015.
  */
 public class ExprUnbreakable extends SimplePropertyExpression<ItemStack, ItemStack> {
-public String getPropertyName(){
+    public String getPropertyName(){
         return "unbreakable";
-        }
+    }
 
-public ItemStack convert(ItemStack itemStack){
+    public ItemStack convert(ItemStack itemStack){
 
         ItemStack item = new ItemStack(itemStack);
         ItemMeta im = item.getItemMeta();
@@ -22,9 +22,9 @@ public ItemStack convert(ItemStack itemStack){
         item.setItemMeta(im);
 
         return item;
-        }
+    }
 
-public Class<? extends ItemStack> getReturnType(){
+    public Class<? extends ItemStack> getReturnType(){
         return ItemStack.class;
-}
+    }
 }
