@@ -9,12 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import uk.co.umbaska.Enums.AnvilGUI_V1_8_R1;
 import uk.co.umbaska.Enums.InventoryTypes;
 
 /**
  * Created by Zachary on 3/30/2015.
  */
-public class EffOpenInventory extends Effect{
+public class EffOpenInventoryClose_V1_8_R1 extends Effect{
 
     private Expression<InventoryTypes> types;
     private Expression<String> name;
@@ -23,19 +24,33 @@ public class EffOpenInventory extends Effect{
     @Override
     protected void execute(Event event){
         Player[] p = player.getAll(event);
-        String n = name.getSingle(event);
+        final String n = name.getSingle(event);
         InventoryTypes t2 = types.getSingle(event);
         InventoryType t = t2.getType();
         if (p == null) {
             return;
         }
-        if (n == null){
-            n = t.getDefaultTitle();
-        }
-        for (Player pl : p){
-            Inventory inv = Bukkit.createInventory(null, t, n);
+        for (final Player pl : p){
+            if (t != InventoryType.ANVIL) {
+                Inventory inv = Bukkit.createInventory(null, t, n);
 
-            pl.openInventory(inv);
+                pl.openInventory(inv);
+            }else{
+                AnvilGUI_V1_8_R1 anv = new AnvilGUI_V1_8_R1(pl, n, new AnvilGUI_V1_8_R1.AnvilClickEventHandler() {
+                    @Override
+                    public void onAnvilClick(AnvilGUI_V1_8_R1.AnvilClickEvent event) {
+                        if(event.getSlot() == AnvilGUI_V1_8_R1.AnvilSlot.OUTPUT){
+                            event.setWillClose(true);
+                            event.setWillDestroy(true);
+
+                        } else {
+                            event.setWillClose(false);
+                            event.setWillDestroy(false);
+                        }
+                    }
+                });
+                anv.open();
+            }
         }
     }
 

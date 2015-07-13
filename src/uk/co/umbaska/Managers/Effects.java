@@ -11,7 +11,7 @@ import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
-import uk.co.umbaska.Misc.EffOpenInventory;
+import uk.co.umbaska.Misc.EffOpenInventory_V1_8_R1;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.EffChangeServer;
@@ -244,7 +244,8 @@ public class Effects {
         registerNewEffect(EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
 
 
-        registerNewEffect(EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
+        registerNewEffect("Open Inventory", "Misc.EffOpenInventory", "open %umbaskainv% [named %-string%] to %player%", true);
+        registerNewEffect("Open Inventory", "Misc.EffOpenInventoryClose", "open %umbaskainv% [named %-string%] to %player% (that closes|to close)", true);
         registerNewEffect(EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
 
 
@@ -295,8 +296,8 @@ public class Effects {
             forceGenTitleFeatures = false;
         }
         registerNewEffect("Set Attribute", "Attributes.EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
-        registerNewEffect("Title", "EffSendTitle", "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%", true);
-        registerNewEffect("Action Bar", "EffActionBar", "send [a ]action bar from %string% to %players%", true);
+        registerNewEffect("Title", "Misc.EffSendTitle", "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%", true);
+        registerNewEffect("Action Bar", "Misc.EffActionBar", "send [a ]action bar from %string% to %players%", true);
         registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
         Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
         registerNewEffect("Spawn Armor Stand", "ArmorStands.EffSpawnArmorStand", "[umbaska] spawn [an] (armour|armor) stand at %locations%", true);
