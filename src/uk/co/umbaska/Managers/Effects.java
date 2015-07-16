@@ -12,7 +12,6 @@ import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
-import uk.co.umbaska.Misc.EffOpenInventory_V1_8_R1;
 import uk.co.umbaska.Misc.EffOpenInventoryRows;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.EffChangeServer;
