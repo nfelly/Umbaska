@@ -10,6 +10,7 @@ package uk.co.umbaska;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -66,6 +67,10 @@ public class Main extends JavaPlugin implements Listener {
                 getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
             }
         }
+        if (Register.getVersion().contains("1_7")){
+            meNoLikey1_7();
+            return;
+        }
         final PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(this, this);
         Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("ProtocolLib");
@@ -88,6 +93,17 @@ public class Main extends JavaPlugin implements Listener {
         itemManager = new ItemManager();
 
 
+    }
+
+    public void meNoLikey1_7(){
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()){
+                    p.sendMessage("[Umbaska] Hey, you're running 1.7! Umbaska doesn't like 1.7! Meany ;w;");
+                }
+            }
+        }, 60 * 20, 60 * 20);
     }
     
     public void onDisable() {

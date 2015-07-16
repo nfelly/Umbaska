@@ -8,6 +8,7 @@ import org.dynmap.DynmapAPI;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
+import uk.co.umbaska.ArmorStands.EffSpawnArmorStand;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetClickedItem;
 import uk.co.umbaska.GattSk.Effects.InventoryClick.EffSetCursorItem;
 import uk.co.umbaska.GattSk.Effects.SimpleScoreboards.*;
@@ -258,6 +259,11 @@ public class Effects {
         registerNewEffect(EffCreateWorldFrom.class, "create world named %string% from [folder] %string%");
 
         //Misc1
+
+        registerNewEffect(EffLoadChunk.class, "load chunk at (%location%|%chunk%)");
+        registerNewEffect(EffUnloadChunk.class, "unload chunk at (%location%|%chunk%)");
+        registerNewEffect(EffGenerateChunk.class, "generate chunk at (%location%|%chunk%)");
+
         registerNewEffect(EffUpdateInventory.class, "update inventory of %player%");
         registerNewEffect(EffResetRecipes.class, "reset all [server] recipes");
 
@@ -300,7 +306,7 @@ public class Effects {
         registerNewEffect("Action Bar", "Misc.EffActionBar", "send [a ]action bar from %string% to %players%", true);
         registerNewEffect(EffTabList.class, "(send|set) [advanced ](0¦footer|1¦header) to %string% (to|for) %players%");
         Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
-        registerNewEffect("Spawn Armor Stand", "ArmorStands.EffSpawnArmorStand", "[umbaska] spawn [an] (armour|armor) stand at %locations%", true);
+        registerNewEffect(EffSpawnArmorStand.class, "[umbaska] spawn [an] (armour|armor) stand at %locations%");
         registerNewEffect("Trail Entity", "Misc.EffTrailEntity", "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]", true);
 
         Main.getInstance().getLogger().info("[Umbaska > SkQuery] Attempting to register new Spawn Particle Effect.");

@@ -200,7 +200,7 @@ public class AnvilGUI_V1_8_R3 {
 
         //Send the packet
         IChatBaseComponent iChatBaseComponent = IChatBaseComponent.ChatSerializer.a(this.anvTitle);
-        
+
         p.playerConnection.sendPacket(new PacketPlayOutOpenWindow(c, "minecraft:anvil", iChatBaseComponent));
 
         //Set their active container to the container

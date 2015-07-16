@@ -1,6 +1,5 @@
 name: Umbaska
 main: uk.co.umbaska.Main
-version: BETA_1.5.05
-authors: [nfell2009, Funnygatt]
+version: 1.5.1.4
 depend: [Skript]
-softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib]
+softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit]

@@ -194,7 +194,7 @@ public class Expressions {
         registerNewExpression(ExprYAMLBoolean.class, Boolean.class, ExpressionType.SIMPLE, "get boolean %string% from %string%");
         registerNewExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
         
-        registerNewExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, "existance of %string%");
+        registerNewExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, "exist(e|a)nce of %string%");
         registerNewExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, "lines of %string%");
         registerNewExpression(ExprGetLine.class, String.class, ExpressionType.SIMPLE, "line %integer% in file %string%");
 
