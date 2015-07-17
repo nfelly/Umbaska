@@ -8,8 +8,12 @@ import ch.njol.skript.registrations.Classes;
 import org.bukkit.Bukkit;
 import uk.co.umbaska.Enums.*;
 import uk.co.umbaska.Main;
+import uk.co.umbaska.Misc.Date.DayOfWeek;
 import uk.co.umbaska.Utils.EnumClassInfo;
 import uk.co.umbaska.Utils.JSONMessage;
+
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Zachary on 5/25/2015.
@@ -56,6 +60,9 @@ public class Enums {
             registerEnum(BukkitEffectEnum.class, "bukkiteffect");
         }
         registerEnum("Enums.Attributes", "entityattribute", true);
+		registerEnum(Locale.class, "locale");
+		registerEnum(Date.class, "date");
+		registerEnum(DayOfWeek.class, "dayofweek");
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
             Classes.registerClass(new ClassInfo<JSONMessage>(JSONMessage.class, "18jsonmessage").parser(new Parser<JSONMessage>() {

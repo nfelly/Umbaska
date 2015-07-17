@@ -1,5 +1,6 @@
 package uk.co.umbaska.Managers;
 
+import java.util.Date;
 import java.util.UUID;
 
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -24,6 +25,7 @@ import uk.co.umbaska.Factions.*;
 import uk.co.umbaska.GattSk.Expressions.*;
 import uk.co.umbaska.Misc.*;
 import uk.co.umbaska.Misc.Books.*;
+import uk.co.umbaska.Misc.Date.*;
 import uk.co.umbaska.NametagEdit.*;
 import uk.co.umbaska.PlaceHolderAPI.EffParse;
 import uk.co.umbaska.PlotMe.*;
@@ -195,7 +197,8 @@ public class Expressions {
         registerNewExpression(ExprNewLocation.class, Location.class, ExpressionType.SIMPLE, "new location %number%, %number%, %number% in world %string%");
         
         registerNewExpression(ExprFileExists.class, Boolean.class, ExpressionType.PROPERTY, "exist(e|a)nce of %string%");
-        registerNewExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, "lines of %string%");
+        registerNewExpression(ExprGetFile.class, String.class, ExpressionType.PROPERTY, "file from %string%");
+		registerNewExpression(ExprContent.class, String.class, ExpressionType.SIMPLE, "content (from|of) file %string%");
         registerNewExpression(ExprGetLine.class, String.class, ExpressionType.SIMPLE, "line %integer% in file %string%");
 
 
@@ -279,6 +282,19 @@ public class Expressions {
         SimplePropertyExpression.register(ExprCanMoveEntities.class, Boolean.class, "[can] collide [with entities]", "player");
 
         registerNewExpression(ExprEntityFromVariable.class, Entity.class, ExpressionType.SIMPLE, "entity from [variable] %entity%");
+
+		// Date
+
+		registerNewExpression(ExprGetDate.class, Date.class, ExpressionType.SIMPLE, "date from %string% using format %string%");
+		registerNewExpression(ExprGetDateWithLocale.class, Date.class, ExpressionType.SIMPLE, "date from %string% using format %string% and locale %locale%");
+
+		registerNewExpression(ExprGetDay.class, DayOfWeek.class, ExpressionType.SIMPLE, "day[ of week] from %date%");
+		registerNewExpression(ExprGetHour.class, Integer.class, ExpressionType.SIMPLE, "hour from %date%");
+		registerNewExpression(ExprGetMinute.class, Integer.class, ExpressionType.SIMPLE, "minute from %date%");
+		registerNewExpression(ExprGetSecond.class, Integer.class, ExpressionType.SIMPLE, "second from %date%");
+		registerNewExpression(ExprGetMillisecond.class, Integer.class, ExpressionType.SIMPLE, "millisecond from %date%");
+		registerNewExpression(ExprGetYear.class, Integer.class, ExpressionType.SIMPLE, "year from %date%");
+
 
         registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
