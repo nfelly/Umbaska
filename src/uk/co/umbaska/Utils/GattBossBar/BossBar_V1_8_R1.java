@@ -236,6 +236,7 @@ public class BossBar_V1_8_R1 {
 			}
 			sendPacket(player, mobPacket);
 			hasHealthBar.put(player.getName(), true);
+            final String text1 = this.text;
 
 			taskTracker.put(p.getName(), new BukkitRunnable() {
 
@@ -243,7 +244,7 @@ public class BossBar_V1_8_R1 {
 					PacketPlayOutEntityDestroy destroyEntityPacket = getDestroyEntityPacket();
 
 					sendPacket(player, destroyEntityPacket);
-					if (!healthBarText.get(player.getName()).equals(text)){
+					if (!healthBarText.get(player.getName()).equals(text1)){
 						destroyEntityPacket = getDestroyEntityPacket();
 						sendPacket(player, destroyEntityPacket);
 						task.cancel();

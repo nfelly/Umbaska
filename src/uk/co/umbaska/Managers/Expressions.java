@@ -295,6 +295,8 @@ public class Expressions {
 		registerNewExpression(ExprGetMillisecond.class, Integer.class, ExpressionType.SIMPLE, "millisecond from %date%");
 		registerNewExpression(ExprGetYear.class, Integer.class, ExpressionType.SIMPLE, "year from %date%");
 
+        registerNewExpression(ExprFallDistance.class, Number.class, ExpressionType.SIMPLE, "fall distance of %entity%");
+
 
         registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
