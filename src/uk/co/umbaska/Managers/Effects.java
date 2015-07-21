@@ -300,6 +300,9 @@ public class Effects {
             Main.getInstance().getConfig().set("force-generate-title-features", false);
             forceGenTitleFeatures = false;
         }
+
+        registerNewEffect("Clear Bounding Box", "ArmorStands.Direction.EffClearHitbox", "clear hitbox of %entity%", true);
+
         registerNewEffect("Set Attribute", "Attributes.EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
         registerNewEffect("Title", "Misc.EffSendTitle", "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%", true);
         registerNewEffect("Action Bar", "Misc.EffActionBar", "send [a ]action bar from %string% to %players%", true);

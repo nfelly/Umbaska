@@ -1,5 +1,5 @@
 name: Umbaska
 main: uk.co.umbaska.Main
-version: 1.5.1.6_FL
+version: 1.5.1.7_Sugoi
 depend: [Skript]
 softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit]
