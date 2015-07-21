@@ -15,9 +15,8 @@ import org.bukkit.scoreboard.Objective;
 import com.palmergames.bukkit.towny.object.Town;
 
 import uk.co.umbaska.ArmorStands.*;
-import uk.co.umbaska.ArmorStands.Direction.*;
-import uk.co.umbaska.ArmorStands.Direction.Arms.*;
-import uk.co.umbaska.ArmorStands.Direction.Legs.*;
+import uk.co.umbaska.ArmorStands.Arms.*;
+import uk.co.umbaska.ArmorStands.Legs.*;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Bungee.*;
 import uk.co.umbaska.Dynmap.*;
@@ -53,18 +52,12 @@ public class Expressions {
                     return;
                 }
                 if (debugInfo) {
-                    Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n " + syntax1 + syntax2 + " for Version " + Register.getVersion());
-                    return;
+                    Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
                 }
                 SimplePropertyExpression.register(newCls, returnType, syntax1, syntax2);
-
             }
             else{
-                try {
-                    SimplePropertyExpression.register(Class.forName(cls), returnType, syntax1, syntax2);
-                }catch (ClassNotFoundException e){
-                    Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
-                }
+                Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
             }
         }
         else{
@@ -82,7 +75,6 @@ public class Expressions {
                 }
                 if (debugInfo) {
                     Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n " + syntax + " for Version " + Register.getVersion());
-                    return;
                 }
                 registerNewExpression(name, newCls, returnType, expressionType, syntax);
             }
@@ -328,7 +320,7 @@ public class Expressions {
 
         registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
 
-        registerNewSimpleExpression("Armor Stand Marker", "ArmorStands.Direction.ExprMarker", Boolean.class, "[has] marker", "entity", true);
+        registerNewSimpleExpression("Armor Stand Marker", "ArmorStands.ExprMarker", Boolean.class, "[has] marker", "entity", true);
 
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");

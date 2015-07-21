@@ -1,4 +1,4 @@
-package uk.co.umbaska.ArmorStands.Direction.Legs;
+package uk.co.umbaska.ArmorStands.Legs;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsLeftLegDirectionY extends SimplePropertyExpression<Entity, Number> {
+public class ExprsLeftLegDirectionX extends SimplePropertyExpression<Entity, Number> {
 	@Override
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getLeftLegPose().getY();
+		return ((ArmorStand)ent).getLeftLegPose().getX();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsLeftLegDirectionY extends SimplePropertyExpression<Entity, Num
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setY(b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setX(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setY(as.getLeftLegPose().getY() + b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setX(as.getLeftLegPose().getX() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setY(as.getLeftLegPose().getY() - b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setX(as.getLeftLegPose().getX() - b.doubleValue()));
         }
 	}
 
@@ -63,7 +63,7 @@ public class ExprsLeftLegDirectionY extends SimplePropertyExpression<Entity, Num
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "left leg angle Y";
+		return "left leg angle X";
 	}
 
 }

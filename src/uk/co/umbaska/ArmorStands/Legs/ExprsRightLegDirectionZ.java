@@ -1,4 +1,4 @@
-package uk.co.umbaska.ArmorStands.Direction;
+package uk.co.umbaska.ArmorStands.Legs;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number> {
+public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Number> {
 	@Override
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getBodyPose().getX();
+		return ((ArmorStand)ent).getRightLegPose().getZ();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(b.doubleValue()));
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(as.getBodyPose().getX() + b.doubleValue()));
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(as.getBodyPose().getX() - b.doubleValue()));
+            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() - b.doubleValue()));
         }
 	}
 
@@ -63,7 +63,7 @@ public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "Body Angle X";
+		return "right leg angle Z";
 	}
 
 }

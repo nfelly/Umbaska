@@ -1,4 +1,4 @@
-package uk.co.umbaska.ArmorStands.Direction;
+package uk.co.umbaska.ArmorStands.Arms;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsBodyDirectionY extends SimplePropertyExpression<Entity, Number> {
+public class ExprsLeftArmDirectionZ extends SimplePropertyExpression<Entity, Number> {
 	@Override
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getBodyPose().getY();
+		return ((ArmorStand)ent).getLeftArmPose().getZ();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsBodyDirectionY extends SimplePropertyExpression<Entity, Number
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setY(b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setY(as.getBodyPose().getY() + b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(as.getLeftArmPose().getZ() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setY(as.getBodyPose().getY() - b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setZ(as.getLeftArmPose().getZ() - b.doubleValue()));
         }
 	}
 
@@ -48,10 +48,10 @@ public class ExprsBodyDirectionY extends SimplePropertyExpression<Entity, Number
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
 		if (mode == Changer.ChangeMode.SET) //SET can be replaced with REMOVE ADD or similiar stuff.
 			return CollectionUtils.array(Number.class); //The Class should be the TypeToGet and in this case Number.
-        if (mode == Changer.ChangeMode.ADD)
-            return CollectionUtils.array(Number.class);
 		if (mode == Changer.ChangeMode.REMOVE)
 			return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.ADD)
+            return CollectionUtils.array(Number.class);
 		return null;
 	}
 
@@ -63,7 +63,7 @@ public class ExprsBodyDirectionY extends SimplePropertyExpression<Entity, Number
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "Body Angle Y";
+		return "left arm angle Z";
 	}
 
 }

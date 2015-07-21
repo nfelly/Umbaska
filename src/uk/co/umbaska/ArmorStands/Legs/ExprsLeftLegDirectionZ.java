@@ -1,4 +1,4 @@
-package uk.co.umbaska.ArmorStands.Direction.Legs;
+package uk.co.umbaska.ArmorStands.Legs;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Number> {
+public class ExprsLeftLegDirectionZ extends SimplePropertyExpression<Entity, Number> {
 	@Override
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getRightLegPose().getZ();
+		return ((ArmorStand)ent).getLeftLegPose().getZ();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Nu
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setZ(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() + b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setZ(as.getLeftLegPose().getZ() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightLegPose(as.getRightLegPose().setZ(as.getRightLegPose().getZ() - b.doubleValue()));
+            ((ArmorStand)ent).setLeftLegPose(as.getLeftLegPose().setZ(as.getLeftLegPose().getZ() - b.doubleValue()));
         }
 	}
 
@@ -63,7 +63,7 @@ public class ExprsRightLegDirectionZ extends SimplePropertyExpression<Entity, Nu
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "right leg angle Z";
+		return "left leg angle Z";
 	}
 
 }

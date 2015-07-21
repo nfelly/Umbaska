@@ -301,7 +301,7 @@ public class Effects {
             forceGenTitleFeatures = false;
         }
 
-        registerNewEffect("Clear Bounding Box", "ArmorStands.Direction.EffClearHitbox", "clear hitbox of %entity%", true);
+        registerNewEffect("Clear Bounding Box", "ArmorStands.EffClearHitbox", "clear hitbox of %entity%", true);
 
         registerNewEffect("Set Attribute", "Attributes.EffSetAttribute", "set [entity] attribute %entityattributes% of %entity% to %number%", true);
         registerNewEffect("Title", "Misc.EffSendTitle", "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%", true);

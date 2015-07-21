@@ -5,6 +5,7 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 import net.minecraft.server.v1_8_R1.EntityArmorStand;
 import net.minecraft.server.v1_8_R1.NBTTagCompound;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -40,12 +41,20 @@ public class ExprMarker_V1_8_R1 extends SimplePropertyExpression<Entity, Boolean
 		}
 		Boolean b = (Boolean) (delta[0]);
         if (ent.getType() == EntityType.ARMOR_STAND) {
+            Location l = ent.getLocation();
             EntityArmorStand nmsarmorstand = ((CraftArmorStand) ent).getHandle();
-            NBTTagCompound compoundTag = nmsarmorstand.getNBTTag();
-            if (mode == Changer.ChangeMode.SET) {
+            NBTTagCompound compoundTag = new NBTTagCompound();
+            nmsarmorstand.c(compoundTag);
+            if (mode == Changer.ChangeMode.SET){
                 compoundTag.setBoolean("Marker", b);
+                compoundTag.setString("CustomName", ent.getCustomName());
+                compoundTag.setBoolean("CustomNameVisible", ent.isCustomNameVisible());
+                compoundTag.setBoolean("Invisible", ((CraftArmorStand) ent).isVisible());
+                compoundTag.setBoolean("NoBasePlate",((CraftArmorStand) ent).hasBasePlate());
+                compoundTag.setBoolean("NoGravity",((CraftArmorStand) ent).hasGravity());
             }
             nmsarmorstand.f(compoundTag);
+            nmsarmorstand.teleportTo(l, false);
         }
         else{
             return;

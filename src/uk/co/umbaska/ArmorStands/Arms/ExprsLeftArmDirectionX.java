@@ -1,4 +1,4 @@
-package uk.co.umbaska.ArmorStands.Direction.Arms;
+package uk.co.umbaska.ArmorStands.Arms;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
@@ -11,12 +11,12 @@ import org.bukkit.event.Event;
 /**
  * Created by Zachary on 12/2/2014.
  */
-public class ExprsRightArmDirectionY extends SimplePropertyExpression<Entity, Number> {
+public class ExprsLeftArmDirectionX extends SimplePropertyExpression<Entity, Number> {
 	@Override
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getRightArmPose().getY();
+		return ((ArmorStand)ent).getLeftArmPose().getX();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsRightArmDirectionY extends SimplePropertyExpression<Entity, Nu
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightArmPose(as.getRightArmPose().setY(b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setX(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightArmPose(as.getRightArmPose().setY(as.getRightArmPose().getY() + b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setX(as.getLeftArmPose().getX() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setRightArmPose(as.getRightArmPose().setY(as.getRightArmPose().getY() - b.doubleValue()));
+            ((ArmorStand)ent).setLeftArmPose(as.getLeftArmPose().setX(as.getLeftArmPose().getX() - b.doubleValue()));
         }
 	}
 
@@ -63,7 +63,7 @@ public class ExprsRightArmDirectionY extends SimplePropertyExpression<Entity, Nu
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "right arm angle Y";
+		return "left arm angle X";
 	}
 
 }
