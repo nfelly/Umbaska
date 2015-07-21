@@ -297,6 +297,8 @@ public class Expressions {
 
         registerNewExpression(ExprFallDistance.class, Number.class, ExpressionType.SIMPLE, "fall distance of %entity%");
 
+        SimplePropertyExpression.register(ExprForceFly.class, Boolean.class, "(is flying|force fly)", "player");
+
 
         registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
