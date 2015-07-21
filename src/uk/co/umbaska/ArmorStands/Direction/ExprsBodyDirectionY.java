@@ -34,11 +34,11 @@ public class ExprsBodyDirectionY extends SimplePropertyExpression<Entity, Number
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setHeadPose(as.getHeadPose().setY(as.getHeadPose().getY() + b.doubleValue()));
+            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setY(as.getBodyPose().getY() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setHeadPose(as.getHeadPose().setY(as.getHeadPose().getY() - b.doubleValue()));
+            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setY(as.getBodyPose().getY() - b.doubleValue()));
         }
 	}
 

@@ -16,7 +16,7 @@ public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number
 	public Number convert(Entity ent) {
 		if(ent == null)
 			return null;
-		return ((ArmorStand)ent).getHeadPose().getX();
+		return ((ArmorStand)ent).getBodyPose().getX();
 	}
 
 	@Override
@@ -30,15 +30,15 @@ public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number
 		Number b = (Number) (delta[0]);
 		if (mode == Changer.ChangeMode.SET){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setHeadPose(as.getHeadPose().setX(b.doubleValue()));
+            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(b.doubleValue()));
 		}
         if (mode == Changer.ChangeMode.ADD){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setHeadPose(as.getHeadPose().setX(as.getHeadPose().getX() + b.doubleValue()));
+            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(as.getBodyPose().getX() + b.doubleValue()));
         }
         if (mode == Changer.ChangeMode.REMOVE){
             ArmorStand as = (ArmorStand) ent;
-            ((ArmorStand)ent).setHeadPose(as.getHeadPose().setX(as.getHeadPose().getX() - b.doubleValue()));
+            ((ArmorStand)ent).setBodyPose(as.getBodyPose().setX(as.getBodyPose().getX() - b.doubleValue()));
         }
 	}
 
@@ -63,7 +63,7 @@ public class ExprsBodyDirectionX extends SimplePropertyExpression<Entity, Number
 	@Override
 	protected String getPropertyName() {
 		// TODO Auto-generated method stub
-		return "Head Angle X";
+		return "Body Angle X";
 	}
 
 }

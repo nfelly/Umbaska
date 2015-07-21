@@ -61,7 +61,6 @@ public class Enums {
         }
         registerEnum("Enums.Attributes", "entityattribute", true);
 		registerEnum(Locale.class, "locale");
-		registerEnum(Date.class, "date");
 		registerEnum(DayOfWeek.class, "dayofweek");
         if (Bukkit.getVersion().contains("1.8.1") || Bukkit.getVersion().contains("1.8-R0.1") || Effects.forceGen18Features) {
             Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");

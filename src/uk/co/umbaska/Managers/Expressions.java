@@ -44,6 +44,33 @@ public class Expressions {
     public static Messenger messenger;
     public static Boolean debugInfo = Main.getInstance().getConfig().getBoolean("debug_info");
 
+    private static void registerNewSimpleExpression(String name, String cls, Class returnType, String syntax1, String syntax2, Boolean multiversion){
+        if (Skript.isAcceptRegistrations()){
+            if (multiversion){
+                Class newCls = Register.getClass(cls);
+                if (newCls == null) {
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Can't find Class!");
+                    return;
+                }
+                if (debugInfo) {
+                    Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n " + syntax1 + syntax2 + " for Version " + Register.getVersion());
+                    return;
+                }
+                SimplePropertyExpression.register(newCls, returnType, syntax1, syntax2);
+
+            }
+            else{
+                try {
+                    SimplePropertyExpression.register(Class.forName(cls), returnType, syntax1, syntax2);
+                }catch (ClassNotFoundException e){
+                    Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
+                }
+            }
+        }
+        else{
+            Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+        }
+    }
 
     private static void registerNewExpression(String name, String cls, Class returnType, ExpressionType expressionType, String syntax, Boolean multiversion){
         if (Skript.isAcceptRegistrations()){
@@ -299,8 +326,10 @@ public class Expressions {
 
         SimplePropertyExpression.register(ExprForceFly.class, Boolean.class, "(is flying|force fly)", "player");
 
-
         registerNewExpression(ExprUnbreakable.class, ItemStack.class, ExpressionType.PROPERTY, "[a[n]] unbreakable %itemstacks%");
+
+        registerNewSimpleExpression("Armor Stand Marker", "ArmorStands.Direction.ExprMarker", Boolean.class, "[has] marker", "entity", true);
+
         if (Bukkit.getVersion().contains("1.8")) { // Doesn't require specific 1.8 version.
             Bukkit.getLogger().info("[Umbaska] Registering Armor Stand related expressions");
             SimplePropertyExpression.register(ExprsArms.class, Boolean.class, "[show] arms", "entity");
