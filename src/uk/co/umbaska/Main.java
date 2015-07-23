@@ -100,6 +100,7 @@ public class Main extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()){
+                    if (p.isOp())
                     p.sendMessage("[Umbaska] Hey, you're running 1.7! Umbaska doesn't like 1.7! Meany ;w;");
                 }
             }

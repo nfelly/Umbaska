@@ -21,7 +21,6 @@ public class ParticleFunction {
         for (Location location : locations) {
             //location.getWorld().playEffect(location, eff, integer);
             if (data == null) {
-                location.getWorld().spigot().playEffect();
                 location.getWorld().spigot().playEffect(location, eff);
             } else {
                 location.getWorld().spigot().playEffect(location, eff, data, secondaryData, 1, 1, 1, 1, 1, 500);
