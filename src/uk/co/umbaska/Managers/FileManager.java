@@ -25,7 +25,7 @@ public class FileManager {
 				f.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (SecurityException s){ //if security exception is thrown
+			} catch (SecurityException s){ //if security exception is thrown, this happens if java does not have permission to create the directory/file.
 				s.printStackTrace; //print the stack trace
 			}
 		}
