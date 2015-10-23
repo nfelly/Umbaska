@@ -3,6 +3,7 @@ package uk.co.umbaska.Managers;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.SecurityException; //import security exception
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -20,9 +21,12 @@ public class FileManager {
 			return;
 		} else {
 			try {
+				f.getParentFile().mkdirs(); //Creates the directory if the directory doesn't exist, see http://docs.oracle.com/javase/7/docs/api/java/io/File.html#mkdirs%28%29 
 				f.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (SecurityException s){ //if security exception is thrown, this happens if java does not have permission to create the directory/file.
+				s.printStackTrace; //print the stack trace
 			}
 		}
 	}
